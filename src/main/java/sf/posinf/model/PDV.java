@@ -20,7 +20,6 @@ public class PDV {
 	private Set<StopaPDV> stopePdv = new HashSet<>();
 	@OneToMany(mappedBy = "pdv", cascade = CascadeType.ALL)
     private Set<GrupaRobe> grupeRobe = new HashSet<>();
-	@NotNull
 
 
     public PDV() { }
