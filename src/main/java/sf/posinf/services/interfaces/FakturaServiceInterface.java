@@ -27,6 +27,7 @@ public interface FakturaServiceInterface {
     
     Faktura save(Faktura faktura);
     
+    //Faktura moze biti obrisana samo u fazi formiranja!!!
     Boolean delete(Long id);
     
     void update(Faktura faktura);
