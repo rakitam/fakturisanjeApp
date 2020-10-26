@@ -14,5 +14,5 @@ public interface PoslovnaGodinaServiceInterface {
     
     Boolean delete(Long id);
 
-    PoslovnaGodina FindByZakljucanaIsFalse();
+    List<PoslovnaGodina> FindByZakljucanaIsFalse();
 }

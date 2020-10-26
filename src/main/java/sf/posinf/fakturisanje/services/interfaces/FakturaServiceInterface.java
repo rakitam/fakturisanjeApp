@@ -1,6 +1,7 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 import sf.posinf.fakturisanje.model.Faktura;
 
@@ -9,7 +10,7 @@ public interface FakturaServiceInterface {
 
 	List<Faktura> findAll();
 	
-	Faktura findOne(Long id);
+	Optional<Faktura> findOne(Long id);
 	
     List<Faktura> findAllByVrstaFakture(boolean vrstaFakture);
     
