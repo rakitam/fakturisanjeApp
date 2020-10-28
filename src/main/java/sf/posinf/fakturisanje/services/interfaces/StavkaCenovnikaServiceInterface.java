@@ -11,7 +11,7 @@ public interface StavkaCenovnikaServiceInterface {
     
     StavkaCenovnika save(StavkaCenovnika stavkaCenovnika);
     
-    List<StavkaCenovnika> findAllByRoba_usluga_id(Long id);
+    //List<StavkaCenovnika> findAllByRoba_usluga_id(Long id);
     
     Boolean delete(Long id);
 }
