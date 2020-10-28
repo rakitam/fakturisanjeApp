@@ -10,6 +10,8 @@ public interface RobaUslugaServiceInterface {
 	
     RobaUsluga findOne(Long id);
     
+    Boolean delete(Long id);
+    
     RobaUsluga save(RobaUsluga robaUsluga);
     
     List<RobaUsluga> findAllByGrupaRobe_id(Long id, String naziv);
