@@ -3,10 +3,7 @@ package sf.posinf.fakturisanje.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
-import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.repository.RobaUslugaRepository;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
