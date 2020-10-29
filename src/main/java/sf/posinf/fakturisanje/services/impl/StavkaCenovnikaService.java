@@ -12,19 +12,18 @@ import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterfac
 @Service
 public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
 
-
     @Autowired
     StavkaCenovnikaRepository stavkaCenovnikaRepository;
 
-	@Override
-	public List<StavkaCenovnika> findAll() {
+    @Override
+    public List<StavkaCenovnika> findAll() {
         return stavkaCenovnikaRepository.findAll();
-	}
+    }
 
-	@Override
-	public StavkaCenovnika findOne(Long id) {
+    @Override
+    public StavkaCenovnika findOne(Long id) {
         return stavkaCenovnikaRepository.findById(id).orElse(null);
-	}
+    }
 
     @Override
     public StavkaCenovnika save(StavkaCenovnika stavkaCenovnika) {
@@ -32,12 +31,16 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
         return stavkaCenovnika;
     }
 
-	@Override
-	public Boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
-
+    @Override
+    public Boolean delete(Long id) {
+        StavkaCenovnika stavkaCenovnika = stavkaCenovnikaRepository.findById(id).orElse(null);
+        stavkaCenovnika.setObrisano(true);
+        stavkaCenovnikaRepository.saveAndFlush(stavkaCenovnika);
+        return true;
+    }
+    
+    @Override
+    public List<StavkaCenovnika> findAllByRoba_usluga_id(Long id){
+    	return stavkaCenovnikaRepository.findAllByObrisanoAndRobaUsluga_Id(false, id);
+    }
 }

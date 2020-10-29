@@ -19,6 +19,9 @@ public class StavkaCenovnika {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "roba_usluga_id")
     private RobaUsluga robaUsluga;
+	
+	@NotNull
+	private boolean obrisano;
 
     public StavkaCenovnika(){ }
     
@@ -66,6 +69,16 @@ public class StavkaCenovnika {
 	public StavkaCenovnika setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
 		return this;
+	}
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 
 

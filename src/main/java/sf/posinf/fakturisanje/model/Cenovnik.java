@@ -25,7 +25,10 @@ public class Cenovnik {
 	
     @OneToMany(mappedBy = "cenovnik", cascade = CascadeType.ALL)
 	private Set<StavkaCenovnika> stavkeCenovnika = new HashSet<>();
-
+    
+    @NotNull
+   	private boolean obrisano;
+    
 	public Cenovnik() {
 		
 	}
@@ -60,5 +63,12 @@ public class Cenovnik {
 		return this;
 	}
 
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
 
 }
