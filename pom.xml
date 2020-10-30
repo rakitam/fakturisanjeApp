@@ -66,6 +66,7 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 		</dependency>
+		
 		<!-- Dependency za mapiranje DTO u POJO -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -80,6 +81,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
 			<!-- Procesor za mapstruct -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

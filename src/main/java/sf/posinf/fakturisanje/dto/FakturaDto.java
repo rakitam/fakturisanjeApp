@@ -17,6 +17,7 @@ public class FakturaDto {
 	private double iznosZaPlacanje;
 	private boolean placeno;
 	private boolean vrstaFakture;
+	private String statusFakture;
 	@NotNull
 	private long preduzece;
 	@NotNull
@@ -29,7 +30,8 @@ public class FakturaDto {
 
 	public FakturaDto(long id, long brojFakture, Date datumFakture, Date datumValute, double iznosBezRabata,
 			double rabat, double osnovica, double ukupanPdv, double iznosZaPlacanje, boolean placeno,
-			boolean vrstaFakture, @NotNull long preduzece, @NotNull long poslovniPartner, long poslovnaGodina) {
+			boolean vrstaFakture, String statusFakture, @NotNull long preduzece, @NotNull long poslovniPartner,
+			long poslovnaGodina) {
 		super();
 		this.id = id;
 		this.brojFakture = brojFakture;
@@ -42,6 +44,7 @@ public class FakturaDto {
 		this.iznosZaPlacanje = iznosZaPlacanje;
 		this.placeno = placeno;
 		this.vrstaFakture = vrstaFakture;
+		this.statusFakture = statusFakture;
 		this.preduzece = preduzece;
 		this.poslovniPartner = poslovniPartner;
 		this.poslovnaGodina = poslovnaGodina;
@@ -133,6 +136,14 @@ public class FakturaDto {
 
 	public void setVrstaFakture(boolean vrstaFakture) {
 		this.vrstaFakture = vrstaFakture;
+	}
+
+	public String getStatusFakture() {
+		return statusFakture;
+	}
+
+	public void setStatusFakture(String statusFakture) {
+		this.statusFakture = statusFakture;
 	}
 
 	public long getPreduzece() {
