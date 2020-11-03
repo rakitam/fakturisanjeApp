@@ -11,5 +11,5 @@ public interface StopaPDVMapper {
 
 	@Mapping(source = "pdv.id", target = "pdv")
 	StopaPDV_Dto stopaPdvToDto(StopaPDV stopaPdv);
-	StopaPDV pdvDtoToEntity(StopaPDV stopaPDV);
+	StopaPDV stopaPdvDtoToEntity(StopaPDV_Dto stopaPdv_Dto);
 }
