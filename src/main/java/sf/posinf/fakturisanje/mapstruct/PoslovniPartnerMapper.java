@@ -7,7 +7,7 @@ import sf.posinf.fakturisanje.dto.PoslovniPartnerDto;
 import sf.posinf.fakturisanje.model.PoslovniPartner;
 
 @Mapper(componentModel = "spring") 
-public interface PoslovniPartnerMapping {
+public interface PoslovniPartnerMapper {
 
 	@Mapping(source = "preduzece.id", target = "preduzece")
 	@Mapping(source = "mesto.id", target = "mesto")
