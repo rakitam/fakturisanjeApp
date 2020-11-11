@@ -10,7 +10,7 @@ public interface FakturaServiceInterface {
 
 	List<Faktura> findAll();
 	
-	Optional<Faktura> findOne(Long id);
+	Faktura findOne(Long id);
 	
     List<Faktura> findAllByVrstaFakture(boolean vrstaFakture);
     

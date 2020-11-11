@@ -1,6 +1,5 @@
 package sf.posinf.fakturisanje.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,8 +12,6 @@ import sf.posinf.fakturisanje.model.Cenovnik;
 public interface CenovnikRepository extends JpaRepository<Cenovnik, Long> {
 	
 	List<Cenovnik> findAllByObrisano(boolean obrisano);
-
-	Page<Cenovnik> findAllByObrisano(boolean obrisano, Pageable pageable);
 
 	Cenovnik findByObrisanoAndId(boolean obrisano, long id);
 }

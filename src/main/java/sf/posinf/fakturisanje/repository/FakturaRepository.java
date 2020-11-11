@@ -22,6 +22,10 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 	
 	List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodina_id);
 	
+	List<Faktura> findByVrstaFaktureAndPreduzece_IdAndPlaceno(boolean vrstaFakture, long id, boolean placeno);
+	
+	List<Faktura> findByVrstaFaktureAndPreduzece_Id(boolean vrstaFakture,long id);
+	
 	//Proveriti da li sam dobro namapirala enum u bazi
 	List<Faktura> findAllByStatusFakture(String statusFakture);
 }

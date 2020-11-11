@@ -73,6 +73,13 @@
 			<artifactId>mapstruct</artifactId>
 			<version>1.3.1.Final</version>
 		</dependency>
+		
+		<!-- Dependency za kreiranje jasper izvestaja (KUF i KIF) -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

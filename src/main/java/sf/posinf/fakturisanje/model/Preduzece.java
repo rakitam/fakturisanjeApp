@@ -6,9 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
-public class Preduzece {
+public class Preduzece extends Korisnik {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +43,7 @@ public class Preduzece {
     private Set<Faktura> fakture = new HashSet<>();
     
     @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
-	private Set<PoslovniPartner> poslovniPartneri = new HashSet<>();
+	private Set<Kupac> poslovniPartneri = new HashSet<>();
     
 	@OneToMany( cascade = CascadeType.ALL)
 	private Set<Cenovnik> cenovnici = new HashSet<>();
@@ -64,7 +63,7 @@ public class Preduzece {
 	}
 	
 	public Preduzece(String naziv, String adresaPreduzeca, String pIB, String telefon, String email,
-			String tekuciRacun, String logo, Set<Faktura> fakture, Set<PoslovniPartner> poslovniPartneri, Set<Cenovnik> cenovnici,
+			String tekuciRacun, String logo, Set<Faktura> fakture, Set<Kupac> poslovniPartneri, Set<Cenovnik> cenovnici,
 			Set<GrupaRobe> grupeRobe, Mesto mesto) {
 		super();
 		this.naziv = naziv;
@@ -146,10 +145,10 @@ public class Preduzece {
 		this.fakture = fakture;
 		return this;
 	}
-	public Set<PoslovniPartner> getPoslovniPartneri() {
+	public Set<Kupac> getPoslovniPartneri() {
 		return poslovniPartneri;
 	}
-	public Preduzece setPoslovniPartneri(Set<PoslovniPartner> poslovniPartneri) {
+	public Preduzece setPoslovniPartneri(Set<Kupac> poslovniPartneri) {
 		this.poslovniPartneri = poslovniPartneri;
 		return this;
 	}

@@ -18,12 +18,12 @@ import org.springframework.validation.annotation.Validated;
 import sf.posinf.fakturisanje.dto.CenovnikDTO;
 import sf.posinf.fakturisanje.mapstruct.CenovnikMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
-import sf.posinf.fakturisanje.model.PoslovniPartner;
+import sf.posinf.fakturisanje.model.Kupac;
 import sf.posinf.fakturisanje.model.Preduzece;
-import sf.posinf.fakturisanje.repository.PoslovniPartnerRepository;
+import sf.posinf.fakturisanje.repository.KupacRepository;
 import sf.posinf.fakturisanje.repository.PreduzeceRepository;
 import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
-import sf.posinf.fakturisanje.services.interfaces.PoslovniPartnerServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.KupacServiceInterface;
 
 @RestController
 @RequestMapping("/api/cenovnik")
@@ -33,10 +33,10 @@ public class CenovnikController {
 	PreduzeceRepository preduzeceRepository;
 	
 	@Autowired
-	PoslovniPartnerRepository poslovniPartnerRepository;
+	KupacRepository poslovniPartnerRepository;
 	
 	@Autowired
-	PoslovniPartnerServiceInterface poslovniPartnerService;
+	KupacServiceInterface poslovniPartnerService;
 	
 	@Autowired
 	CenovnikServiceInterface cenovnikService;
@@ -69,7 +69,7 @@ public class CenovnikController {
   	        		preduzeceRepository.save(pred);
         	}
     	        else{
-    	        	PoslovniPartner partner = poslovniPartnerRepository.findById(id).orElse(null);
+    	        	Kupac partner = poslovniPartnerRepository.findById(id).orElse(null);
     	        	partner.getCenovnici().add(cenovnik);
     	        	poslovniPartnerRepository.save(partner);    	        
     	        }

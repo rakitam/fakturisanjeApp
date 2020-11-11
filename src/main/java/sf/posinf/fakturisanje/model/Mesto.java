@@ -27,7 +27,7 @@ public class Mesto {
 	private String drzava;
     
     @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL)
-	private Set<PoslovniPartner> poslovniPartneri = new HashSet<>();
+	private Set<Kupac> poslovniPartneri = new HashSet<>();
     
     @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL)
 	private Set<Preduzece> preduzeca = new HashSet<>();
@@ -37,7 +37,7 @@ public class Mesto {
 	
 	public Mesto() { }
 	
-	public Mesto(String naziv, int postanskiBroj, String drzava, Set<PoslovniPartner> poslovniPartneri,
+	public Mesto(String naziv, int postanskiBroj, String drzava, Set<Kupac> poslovniPartneri,
 			Set<Preduzece> preduzeca) {
 		super();
 		this.naziv = naziv;
@@ -64,7 +64,7 @@ public class Mesto {
 		return drzava;
 	}
 	
-	public Set<PoslovniPartner> getPoslovniPartneri() {
+	public Set<Kupac> getPoslovniPartneri() {
 		return poslovniPartneri;
 	}
 	
@@ -92,7 +92,7 @@ public class Mesto {
 		return this;
 	}
 	
-	public Mesto setPoslovniPartneri(Set<PoslovniPartner> poslovniPartneri) {
+	public Mesto setPoslovniPartneri(Set<Kupac> poslovniPartneri) {
 		this.poslovniPartneri = poslovniPartneri;
 		return this;
 	}

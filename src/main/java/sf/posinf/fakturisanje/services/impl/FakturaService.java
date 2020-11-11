@@ -20,9 +20,10 @@ public class FakturaService implements FakturaServiceInterface {
 		return fakturaRepository.findAll();
 	}
 
+	//TODO: ZASTO SMARA OPTIONAL
 	@Override
-	public Optional<Faktura> findOne(Long id) {
-		return fakturaRepository.findById(id);
+	public Faktura findOne(Long id) {
+		return null;
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class FakturaService implements FakturaServiceInterface {
         return faktura;
 	}
 
-	//TODO: Dodati atribut "obrisana" u entitet "faktura"
+	//TODO: Dodati atribut "obrisana" u entitet "faktura" i zavrsiti metodu
 	//Faktura moze da se brise ISKLJUCIVO ako je u fazi formiranja
 	@Override
 	public Boolean delete(Long id) {
@@ -95,5 +96,4 @@ public class FakturaService implements FakturaServiceInterface {
     	faktura.setRabat(rabat);
     	save(faktura);		
 	}
-
 }

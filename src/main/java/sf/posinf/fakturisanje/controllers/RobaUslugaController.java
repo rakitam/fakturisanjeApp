@@ -27,6 +27,7 @@ import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterfac
 
 @RestController
 @RequestMapping("/api/robausluga")
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class RobaUslugaController {
 
 	@Autowired
@@ -43,6 +44,8 @@ public class RobaUslugaController {
 	
 	@Autowired
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
+	
+	//TODO: Dodati get all metodu
 	
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
@@ -103,6 +106,8 @@ public class RobaUslugaController {
         	return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 	}
+	
+	//TODO: Dodati delete metodu ovde i u klasama unazad
 	
 	
 }

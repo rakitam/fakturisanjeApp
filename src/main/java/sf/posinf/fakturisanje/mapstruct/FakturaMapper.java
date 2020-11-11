@@ -13,6 +13,7 @@ public interface FakturaMapper {
 	@Mapping(source = "poslovniPartner.id", target = "poslovniPartner")
 	@Mapping(source = "poslovnaGodina.id", target = "poslovnaGodina")
 	FakturaDto fakturaToDto(Faktura faktura);
+	
 	@Mapping(source = "preduzece", target = "preduzece.id")
 	@Mapping(source = "poslovniPartner", target = "poslovniPartner.id")
 	@Mapping(source = "poslovnaGodina", target = "poslovnaGodina.id")

@@ -57,7 +57,7 @@ public class Faktura {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "poslovni_partner_id")
-	private PoslovniPartner poslovniPartner;
+	private Kupac poslovniPartner;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "poslovna_godina_id")
@@ -73,7 +73,7 @@ public class Faktura {
 	public Faktura(long id, long brojFakture, Date datumFakture, Date datumValute, StatusFakture statusFakture,
 			@NotNull double osnovica, @NotNull double rabat, @NotNull double ukupanPdv, @NotNull double iznosBezRabata,
 			@NotNull double iznosZaPlacanje, boolean placeno, boolean vrstaFakture, Preduzece preduzece,
-			PoslovniPartner poslovniPartner, PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture) {
+			Kupac poslovniPartner, PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture) {
 		super();
 		this.id = id;
 		this.brojFakture = brojFakture;
@@ -197,11 +197,11 @@ public class Faktura {
 		this.preduzece = preduzece;
 	}
 
-	public PoslovniPartner getPoslovniPartner() {
+	public Kupac getPoslovniPartner() {
 		return poslovniPartner;
 	}
 
-	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+	public void setPoslovniPartner(Kupac poslovniPartner) {
 		this.poslovniPartner = poslovniPartner;
 	}
 

@@ -36,7 +36,7 @@ public class PoslovnaGodinaService implements PoslovnaGodinaServiceInterface {
 	}
 
 	@Override
-	public List<PoslovnaGodina> FindByZakljucanaIsFalse() {
+	public PoslovnaGodina findByZakljucanaIsFalse() {
 		return poslovnaGodinaRepository.findByZakljucanaIsFalse();
 	}
 

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class PoslovniPartner {
+public class Kupac {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,10 @@ public class PoslovniPartner {
     @Size(max = 50)
     private String adresa;
     
+    /* Da li je potrebno ukoliko mi ne kupujemo nista ni od koga, samo izdajemo fakture?
     @Min(0)
     @Max(1)
-    private int vrstaPartnera; //0 - kupac, 1 - prodavac
+    private int vrstaPartnera; //0 - kupac, 1 - prodavac*/
     
     @NotNull
     @Size(min = 18, max = 18)
@@ -49,18 +50,19 @@ public class PoslovniPartner {
     @NotNull
     private boolean obrisano;
     
+    //Da li je potrebno ukoliko mi ne kupujemo nista ni od koga, samo izdajemo fakture?
     @OneToMany(cascade = CascadeType.ALL)
 	private Set<Cenovnik> cenovnici = new HashSet<>();
     
 
-    public PoslovniPartner() { }
+    public Kupac() { }
 
-	public PoslovniPartner(String nazivPartnera, String adresa, int vrstaPartnera, String tekuciRacun,
+	public Kupac(String nazivPartnera, String adresa, int vrstaPartnera, String tekuciRacun,
 			String pIB, Preduzece preduzece, Mesto mesto, Set<Faktura> fakture, Set<Cenovnik> cenovnici) {
 		super();
 		this.nazivPartnera = nazivPartnera;
 		this.adresa = adresa;
-		this.vrstaPartnera = vrstaPartnera;
+		//this.vrstaPartnera = vrstaPartnera;
 		this.tekuciRacun = tekuciRacun;
 		this.PIB = pIB;
 		this.preduzece = preduzece;
@@ -83,7 +85,7 @@ public class PoslovniPartner {
 		return PIB;
 	}
 
-	public PoslovniPartner setPIB(String pIB) {
+	public Kupac setPIB(String pIB) {
 		PIB = pIB;
 		return this;
 	}
@@ -92,7 +94,7 @@ public class PoslovniPartner {
         return id;
     }
 
-    public PoslovniPartner setId(long id) {
+    public Kupac setId(long id) {
         this.id = id;
         return this;
     }
@@ -101,7 +103,7 @@ public class PoslovniPartner {
         return nazivPartnera;
     }
 
-    public PoslovniPartner setNazivPartnera(String nazivPartnera) {
+    public Kupac setNazivPartnera(String nazivPartnera) {
         this.nazivPartnera = nazivPartnera;
         return this;
     }
@@ -110,25 +112,25 @@ public class PoslovniPartner {
         return adresa;
     }
 
-    public PoslovniPartner setAdresa(String adresa) {
+    public Kupac setAdresa(String adresa) {
         this.adresa = adresa;
         return this;
     }
 
-    public int getVrstaPartnera() {
+    /*public int getVrstaPartnera() {
         return vrstaPartnera;
     }
 
     public PoslovniPartner setVrstaPartnera(int vrstaPartnera) {
         this.vrstaPartnera = vrstaPartnera;
         return this;
-    }
+    }*/
 
     public String getTekuciRacun() {
         return tekuciRacun;
     }
 
-    public PoslovniPartner setTekuciRacun(String tekuciRacun) {
+    public Kupac setTekuciRacun(String tekuciRacun) {
         this.tekuciRacun = tekuciRacun;
         return this;
     }
@@ -145,17 +147,17 @@ public class PoslovniPartner {
 		return fakture;
 	}
 
-	public PoslovniPartner setPreduzece(Preduzece preduzece) {
+	public Kupac setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
 		return this;
 	}
 
-	public PoslovniPartner setMesto(Mesto mesto) {
+	public Kupac setMesto(Mesto mesto) {
 		this.mesto = mesto;
 		return this;
 	}
 
-	public PoslovniPartner setFakture(Set<Faktura> fakture) {
+	public Kupac setFakture(Set<Faktura> fakture) {
 		this.fakture = fakture;
 		return this;
 	}

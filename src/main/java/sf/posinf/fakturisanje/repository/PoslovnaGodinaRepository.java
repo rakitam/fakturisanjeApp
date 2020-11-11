@@ -10,5 +10,5 @@ import sf.posinf.fakturisanje.model.PoslovnaGodina;
 @Repository
 public interface PoslovnaGodinaRepository extends JpaRepository<PoslovnaGodina, Long>{
 
-	List<PoslovnaGodina> findByZakljucanaIsFalse();
+	PoslovnaGodina findByZakljucanaIsFalse();
 }
