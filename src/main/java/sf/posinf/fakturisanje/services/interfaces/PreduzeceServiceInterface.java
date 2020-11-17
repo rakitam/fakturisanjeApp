@@ -9,13 +9,15 @@ public interface PreduzeceServiceInterface {
 
     List<Preduzece> findAll();
     
-    List<Faktura> findAllByPreduzeceAndVrstaFakture(boolean vrstaFakture,long id);
+    List<Faktura> findAllByPreduzeceAndStatusFakture(long id, String statusFakture);
     
-    List<Faktura> findAllByPreduzeceAndVrstaFaktureAndPlaceno(boolean vrstaFakture,long id, boolean placeno);
+    List<Faktura> findAllByPreduzeceAndStatusFaktureAndPlaceno(long id, String statusFakture, boolean placeno);
     
     Preduzece findOne(Long id);
     
     Preduzece save(Preduzece preduzece);
     
     Boolean delete(Long id);
+    
+    void update(Preduzece preduzece);
 }

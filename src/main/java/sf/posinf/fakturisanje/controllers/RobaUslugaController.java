@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sf.posinf.fakturisanje.dto.RobaUslugaDto;
@@ -34,7 +37,7 @@ public class RobaUslugaController {
 	private RobaUslugaServiceInterface robaUslugaService;
 	
 	@Autowired
-	private StavkaCenovnikaServiceInterface stavkaCenovnikaService;
+	private StavkaCenovnikaServiceInterface stavkaCenovnikaServiceInterface;
 	
 	@Autowired
 	private RobaUslugaMapper robaUslugaMapper;
@@ -45,7 +48,27 @@ public class RobaUslugaController {
 	@Autowired
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
 	
-	//TODO: Dodati get all metodu
+	@GetMapping
+	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa,
+								 @RequestParam(value = "page",defaultValue = "0") int page,
+								 @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
+								 @RequestParam(value = "naziv",defaultValue = "") String naziv) {
+		if (grupa == 0){
+			Page<RobaUsluga> robeUsluge = robaUslugaService.findAll(naziv, page, num);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
+			return ResponseEntity.ok()
+					.headers(headers)
+					.body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));
+		}else {
+			Page<RobaUsluga> robeUsluge = robaUslugaService.findAllByGrupaRobe_id(grupa,naziv,page,num);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
+			return ResponseEntity.ok()
+					.headers(headers)
+					.body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));
+		}
+    }
 	
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
@@ -61,7 +84,7 @@ public class RobaUslugaController {
 	public ResponseEntity getCena(@PathVariable("id") long id) {
 		RobaUsluga robaUsluga = robaUslugaService.findOne(id);
 		if (robaUsluga!=null) {
-			List<StavkaCenovnika> stavkeCenovnika = stavkaCenovnikaService.findAllByRoba_usluga_id(id);
+			List<StavkaCenovnika> stavkeCenovnika = stavkaCenovnikaServiceInterface.findAllByRobaUsluga_Id(id);
 			Collections.sort(stavkeCenovnika, (o1, o2) -> (o1.getCenovnik().getDatumVazenja().compareTo(o2.getCenovnik().getDatumVazenja())));
 			return new ResponseEntity(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavkeCenovnika.get(stavkeCenovnika.size()-1)),HttpStatus.OK);
 		}else {

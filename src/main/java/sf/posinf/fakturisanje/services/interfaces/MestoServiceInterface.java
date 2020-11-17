@@ -13,4 +13,6 @@ public interface MestoServiceInterface {
     Mesto save(Mesto mesto);
     
     Boolean delete(Long id);
+    
+    void update(Mesto mesto);
 }

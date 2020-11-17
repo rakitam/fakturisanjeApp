@@ -37,6 +37,8 @@ public class StavkaFakture {
 	@NotNull
 	private double iznosStavke;
 	
+	private boolean obrisana;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "faktura_id")
 	private Faktura faktura;
@@ -51,7 +53,7 @@ public class StavkaFakture {
 
 	public StavkaFakture(long id, @NotNull long kolicina, @NotNull float jedinicnaCena, @NotNull double rabat,
 			@NotNull double osnovicaZaPdv, @NotNull double procenatPdva, @NotNull double iznosPdva,
-			@NotNull double iznosStavke, Faktura faktura, RobaUsluga robaUsluga) {
+			@NotNull double iznosStavke, boolean obrisana, Faktura faktura, RobaUsluga robaUsluga) {
 		super();
 		this.id = id;
 		this.kolicina = kolicina;
@@ -61,6 +63,7 @@ public class StavkaFakture {
 		this.procenatPdva = procenatPdva;
 		this.iznosPdva = iznosPdva;
 		this.iznosStavke = iznosStavke;
+		this.obrisana = obrisana;
 		this.faktura = faktura;
 		this.robaUsluga = robaUsluga;
 	}
@@ -127,6 +130,14 @@ public class StavkaFakture {
 
 	public void setIznosStavke(double iznosStavke) {
 		this.iznosStavke = iznosStavke;
+	}
+
+	public boolean isObrisana() {
+		return obrisana;
+	}
+
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
 	}
 
 	public Faktura getFaktura() {

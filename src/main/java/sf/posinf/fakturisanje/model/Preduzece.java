@@ -39,11 +39,11 @@ public class Preduzece extends Korisnik {
     
 	private String logo;
 	
+	@OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
+    private Set<Korisnik> korisnici = new HashSet<>();
+	
     @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
     private Set<Faktura> fakture = new HashSet<>();
-    
-    @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
-	private Set<Kupac> poslovniPartneri = new HashSet<>();
     
 	@OneToMany( cascade = CascadeType.ALL)
 	private Set<Cenovnik> cenovnici = new HashSet<>();
@@ -61,11 +61,14 @@ public class Preduzece extends Korisnik {
 	public Preduzece() {
 		
 	}
-	
-	public Preduzece(String naziv, String adresaPreduzeca, String pIB, String telefon, String email,
-			String tekuciRacun, String logo, Set<Faktura> fakture, Set<Kupac> poslovniPartneri, Set<Cenovnik> cenovnici,
-			Set<GrupaRobe> grupeRobe, Mesto mesto) {
+
+	public Preduzece(long id, @NotNull @Size(max = 50) String naziv, @NotNull @Size(max = 100) String adresaPreduzeca,
+			@NotNull @Size(min = 8, max = 8) String pIB, @NotNull @Size(min = 10, max = 20) String telefon,
+			@NotNull @Size(max = 60) String email, @NotNull @Size(max = 18) String tekuciRacun, String logo,
+			Set<Korisnik> korisnici, Set<Faktura> fakture, Set<Cenovnik> cenovnici, Set<GrupaRobe> grupeRobe,
+			Mesto mesto, @NotNull boolean obrisano) {
 		super();
+		this.id = id;
 		this.naziv = naziv;
 		this.adresaPreduzeca = adresaPreduzeca;
 		PIB = pIB;
@@ -73,112 +76,123 @@ public class Preduzece extends Korisnik {
 		this.email = email;
 		this.tekuciRacun = tekuciRacun;
 		this.logo = logo;
+		this.korisnici = korisnici;
 		this.fakture = fakture;
-		this.poslovniPartneri = poslovniPartneri;
 		this.cenovnici = cenovnici;
 		this.grupeRobe = grupeRobe;
 		this.mesto = mesto;
-		this.obrisano = false;
-	}	
-
-	public String getTekuciRacun() {
-		return tekuciRacun;
-	}
-
-	public Preduzece setTekuciRacun(String tekuciRacun) {
-		this.tekuciRacun = tekuciRacun;
-		return this;
+		this.obrisano = obrisano;
 	}
 
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getNaziv() {
 		return naziv;
 	}
-	public Preduzece setNaziv(String naziv) {
+
+	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-		return this;
 	}
+
 	public String getAdresaPreduzeca() {
 		return adresaPreduzeca;
 	}
-	public Preduzece setAdresaPreduzeca(String adresaPreduzeca) {
+
+	public void setAdresaPreduzeca(String adresaPreduzeca) {
 		this.adresaPreduzeca = adresaPreduzeca;
-		return this;
 	}
+
 	public String getPIB() {
 		return PIB;
 	}
-	public Preduzece setPIB(String pIB) {
+
+	public void setPIB(String pIB) {
 		PIB = pIB;
-		return this;
 	}
+
 	public String getTelefon() {
 		return telefon;
 	}
-	public Preduzece setTelefon(String telefon) {
+
+	public void setTelefon(String telefon) {
 		this.telefon = telefon;
-		return this;
 	}
+
 	public String getEmail() {
 		return email;
 	}
-	public Preduzece setEmail(String email) {
+
+	public void setEmail(String email) {
 		this.email = email;
-		return this;
 	}
+
+	public String getTekuciRacun() {
+		return tekuciRacun;
+	}
+
+	public void setTekuciRacun(String tekuciRacun) {
+		this.tekuciRacun = tekuciRacun;
+	}
+
 	public String getLogo() {
 		return logo;
 	}
-	public Preduzece setLogo(String logo) {
+
+	public void setLogo(String logo) {
 		this.logo = logo;
-		return this;
 	}
+
+	public Set<Korisnik> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(Set<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
+
 	public Set<Faktura> getFakture() {
 		return fakture;
 	}
-	public Preduzece setFakture(Set<Faktura> fakture) {
+
+	public void setFakture(Set<Faktura> fakture) {
 		this.fakture = fakture;
-		return this;
 	}
-	public Set<Kupac> getPoslovniPartneri() {
-		return poslovniPartneri;
-	}
-	public Preduzece setPoslovniPartneri(Set<Kupac> poslovniPartneri) {
-		this.poslovniPartneri = poslovniPartneri;
-		return this;
-	}
+
 	public Set<Cenovnik> getCenovnici() {
 		return cenovnici;
 	}
-	public Preduzece setCenovnici(Set<Cenovnik> cenovnici) {
+
+	public void setCenovnici(Set<Cenovnik> cenovnici) {
 		this.cenovnici = cenovnici;
-		return this;
 	}
+
 	public Set<GrupaRobe> getGrupeRobe() {
 		return grupeRobe;
 	}
-	public Preduzece setGrupeRobe(Set<GrupaRobe> grupeRobe) {
+
+	public void setGrupeRobe(Set<GrupaRobe> grupeRobe) {
 		this.grupeRobe = grupeRobe;
-		return this;
 	}
+
 	public Mesto getMesto() {
 		return mesto;
 	}
-	public Preduzece setMesto(Mesto mesto) {
+
+	public void setMesto(Mesto mesto) {
 		this.mesto = mesto;
-		return this;
 	}
 
-    public boolean isObrisano() {
-        return obrisano;
-    }
+	public boolean isObrisano() {
+		return obrisano;
+	}
 
-    public void setObrisano(boolean obrisano) {
-        this.obrisano = obrisano;
-    }
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}	
 }

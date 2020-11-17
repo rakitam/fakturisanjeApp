@@ -40,7 +40,13 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
     }
     
     @Override
-    public List<StavkaCenovnika> findAllByRoba_usluga_id(Long id){
+    public List<StavkaCenovnika> findAllByRobaUsluga_Id(Long id){
     	return stavkaCenovnikaRepository.findAllByObrisanoAndRobaUsluga_Id(false, id);
     }
+
+	@Override
+	public void update(StavkaCenovnika stavkaCenovnika) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,72 +26,67 @@ import sf.posinf.fakturisanje.services.interfaces.MestoServiceInterface;
 @RequestMapping("api/mesto")
 public class MestoController {
 
-    @Autowired
-    private MestoServiceInterface mestoServiceInterface;
+	@Autowired
+	private MestoServiceInterface mestoServiceInterface;
 
-    @Autowired
-    private MestoMapper mestoMapper;
+	@Autowired
+	private MestoMapper mestoMapper;
 
+	@GetMapping
+	public ResponseEntity getAll(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "num", defaultValue = Integer.MAX_VALUE + "") int num,
+			@RequestParam(value = "naziv", defaultValue = "") String naziv) {
 
-//    @GetMapping
-//    public ResponseEntity getAll(@RequestParam(value = "page",defaultValue = "0") int page,
-//                                 @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
-//                                 @RequestParam(value = "naziv",defaultValue = "") String naziv) {
-//
-//        Page<Mesto> mesta = mestoServiceInterface.findAll(naziv,page,num);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("total",String.valueOf(mesta.getTotalPages()));
-//        return ResponseEntity.ok()
-//                .headers(headers)
-//                .body(mestoMapper.mestoDtoToEntity(mestoMapper.equals(mesta));
-//    }
+		Page<Mesto> mesta = mestoServiceInterface.findAll(naziv, page, num);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("total", String.valueOf(mesta.getTotalPages()));
+		return ResponseEntity.ok().headers(headers).body(mestoMapper.mestoToDto(mesta.getContent()));
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity getOne(@PathVariable("id") long id){
-        Mesto mesto = mestoServiceInterface.findOne(id);
-        if(mesto==null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(mestoMapper.mestoToDto(mesto));
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity getOne(@PathVariable("id") long id) {
+		Mesto mesto = mestoServiceInterface.findOne(id);
+		if (mesto == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(mestoMapper.mestoToDto(mesto));
+	}
 
-    @PostMapping
-    public ResponseEntity postMesto(@Validated @RequestBody MestoDto dto, Errors errors){
-        if(errors.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        Mesto mesto = mestoServiceInterface.save(mestoMapper.mestoDtoToEntity(dto));
-        if(mesto==null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok(mestoMapper.mestoDtoToEntity(dto));
-    }
+	@PostMapping
+	public ResponseEntity postMesto(@Validated @RequestBody MestoDto dto, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		Mesto mesto = mestoServiceInterface.save(mestoMapper.mestoDtoToEntity(dto));
+		if (mesto == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return ResponseEntity.ok(mestoMapper.mestoDtoToEntity(dto));
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity putOne(@PathVariable("id") long id,@Validated @RequestBody MestoDto dto, Errors errors){
-        if(errors.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        if(dto.getId()!=id){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        Mesto mesto = mestoServiceInterface.save(mestoMapper.mestoDtoToEntity(dto));
-        if(mesto==null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok(mestoMapper.mestoToDto(mesto));
-    }
-    
-    
-    /*
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteOne(@PathVariable("id") long id){
-        Mesto mesto = mestoServiceInterface.findOne(id);
-        if(mesto==null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        mestoServiceInterface.delete(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-    */
+	@PutMapping("/{id}")
+	public ResponseEntity putOne(@PathVariable("id") long id, @Validated @RequestBody MestoDto dto, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getId() != id) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		Mesto mesto = mestoServiceInterface.save(mestoMapper.mestoDtoToEntity(dto));
+		if (mesto == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return ResponseEntity.ok(mestoMapper.mestoToDto(mesto));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity deleteOne(@PathVariable("id") long id) {
+		Mesto mesto = mestoServiceInterface.findOne(id);
+		if (mesto == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		mestoServiceInterface.delete(id);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
+	}
+
 }

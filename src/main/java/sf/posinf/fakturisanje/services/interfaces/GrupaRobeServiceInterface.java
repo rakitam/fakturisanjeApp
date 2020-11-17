@@ -2,11 +2,13 @@ package sf.posinf.fakturisanje.services.interfaces;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import sf.posinf.fakturisanje.model.GrupaRobe;
 
 public interface GrupaRobeServiceInterface {
 	
-	List<GrupaRobe> findAll(String naziv);
+	Page<GrupaRobe> findAll(String naziv, int brojStranice, int brojPrikazanih);
 	
     GrupaRobe findOne(Long id);
     
@@ -14,7 +16,5 @@ public interface GrupaRobeServiceInterface {
     
     GrupaRobe save(GrupaRobe grupaRobe);
     
-    Boolean delete(Long id);
-	
-	
+    void update(GrupaRobe grupaRobe);    
 }

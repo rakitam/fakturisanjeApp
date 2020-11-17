@@ -9,22 +9,22 @@ import sf.posinf.fakturisanje.model.Faktura;
 
 @Repository
 public interface FakturaRepository extends JpaRepository<Faktura, Long> {
+	
+	List<Faktura> findAllByStatusFaktureAndKorisnik_Email(String statusFakture, String korisnikEmail);
+	
+	List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(String statusFakture, String korisnikEmail, long poslovna_godina_id);
+	
+	List<Faktura> findAllByStatusFaktureAndPoslovnaGodina_Id(String statusFakture, long poslovnaGodina_id);
 
-	List<Faktura> findAllByVrstaFakture(boolean vrstaFakture);
-	
-	List<Faktura> findAllByVrstaFaktureAndPoslovniPartner_NazivPartnera(boolean vrstaFakture, String nazivPartnera);
-	
-	List<Faktura> findAllByVrstaFaktureAndPoslovniPartner_NazivPartneraAndPoslovnaGodina_Id(boolean vrstaFakture, String nazivPartnera, long poslovna_godina_id);
-	
-	List<Faktura> findAllByVrstaFaktureAndPoslovnaGodina_Id(boolean vrstaFakture, long poslovnaGodina_id);
-
-	List<Faktura> findAllByPoslovniPartner_NazivPartnera(String nazivPartnera);
+	List<Faktura> findAllByKorisnik_Email(String korisnikEmail);
 	
 	List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodina_id);
 	
-	List<Faktura> findByVrstaFaktureAndPreduzece_IdAndPlaceno(boolean vrstaFakture, long id, boolean placeno);
+	List<Faktura> findAllByPreduzece(String preduzece);
 	
-	List<Faktura> findByVrstaFaktureAndPreduzece_Id(boolean vrstaFakture,long id);
+	List<Faktura> findByStatusFaktureAndPreduzece_IdAndPlaceno(String statusFakture, long id, boolean placeno);
+	
+	List<Faktura> findByStatusFaktureAndPreduzece_Id(String statusFakture,long id);
 	
 	//Proveriti da li sam dobro namapirala enum u bazi
 	List<Faktura> findAllByStatusFakture(String statusFakture);

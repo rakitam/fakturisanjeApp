@@ -49,15 +49,11 @@ public class Faktura {
     
 	private boolean placeno;
 	
-	private boolean vrstaFakture; //true = ulazne fakture, false = izlazne fakture
+	private boolean obrisana;
 	
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "poslovni_partner_id")
-	private Kupac poslovniPartner;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "poslovna_godina_id")
@@ -65,6 +61,10 @@ public class Faktura {
     
     @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL)
     private Set<StavkaFakture> stavkeFakture = new HashSet<>();
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "korisnik_id")
+	private Korisnik korisnik;
 	
 	public Faktura() {
 		
@@ -72,8 +72,8 @@ public class Faktura {
 
 	public Faktura(long id, long brojFakture, Date datumFakture, Date datumValute, StatusFakture statusFakture,
 			@NotNull double osnovica, @NotNull double rabat, @NotNull double ukupanPdv, @NotNull double iznosBezRabata,
-			@NotNull double iznosZaPlacanje, boolean placeno, boolean vrstaFakture, Preduzece preduzece,
-			Kupac poslovniPartner, PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture) {
+			@NotNull double iznosZaPlacanje, boolean placeno, boolean obrisana, Preduzece preduzece,
+			PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture, Korisnik korisnik) {
 		super();
 		this.id = id;
 		this.brojFakture = brojFakture;
@@ -86,11 +86,11 @@ public class Faktura {
 		this.iznosBezRabata = iznosBezRabata;
 		this.iznosZaPlacanje = iznosZaPlacanje;
 		this.placeno = placeno;
-		this.vrstaFakture = vrstaFakture;
+		this.obrisana = obrisana;
 		this.preduzece = preduzece;
-		this.poslovniPartner = poslovniPartner;
 		this.poslovnaGodina = poslovnaGodina;
 		this.stavkeFakture = stavkeFakture;
+		this.korisnik = korisnik;
 	}
 
 	public long getId() {
@@ -181,12 +181,12 @@ public class Faktura {
 		this.placeno = placeno;
 	}
 
-	public boolean isVrstaFakture() {
-		return vrstaFakture;
+	public boolean isObrisana() {
+		return obrisana;
 	}
 
-	public void setVrstaFakture(boolean vrstaFakture) {
-		this.vrstaFakture = vrstaFakture;
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
 	}
 
 	public Preduzece getPreduzece() {
@@ -195,14 +195,6 @@ public class Faktura {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
-	}
-
-	public Kupac getPoslovniPartner() {
-		return poslovniPartner;
-	}
-
-	public void setPoslovniPartner(Kupac poslovniPartner) {
-		this.poslovniPartner = poslovniPartner;
 	}
 
 	public PoslovnaGodina getPoslovnaGodina() {
@@ -220,4 +212,12 @@ public class Faktura {
 	public void setStavkeFakture(Set<StavkaFakture> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
 	}
+
+	public Korisnik getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+	}	
 }

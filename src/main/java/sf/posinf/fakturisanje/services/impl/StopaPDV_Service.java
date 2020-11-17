@@ -31,9 +31,8 @@ public class StopaPDV_Service implements StopaPDV_ServiceInterface {
         return stopaPDV;
     }
 
-
-
-
-	
-	
+	@Override
+	public void update(StopaPDV stopaPDV) {
+		// TODO Auto-generated method stub
+	}	
 }

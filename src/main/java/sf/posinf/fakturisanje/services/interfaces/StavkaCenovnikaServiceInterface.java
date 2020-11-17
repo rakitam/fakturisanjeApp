@@ -2,6 +2,7 @@ package sf.posinf.fakturisanje.services.interfaces;
 
 import java.util.List;
 
+import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 
 public interface StavkaCenovnikaServiceInterface {
@@ -12,7 +13,9 @@ public interface StavkaCenovnikaServiceInterface {
 
 	StavkaCenovnika save(StavkaCenovnika stavkaCenovnika);
 
-	List<StavkaCenovnika> findAllByRoba_usluga_id(Long id);
+	List<StavkaCenovnika> findAllByRobaUsluga_Id(Long id);
 
 	Boolean delete(Long id);
+	
+	void update(StavkaCenovnika stavkaCenovnika);
 }

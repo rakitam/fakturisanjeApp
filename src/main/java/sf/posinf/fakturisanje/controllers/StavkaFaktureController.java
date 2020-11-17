@@ -30,9 +30,11 @@ public class StavkaFaktureController {
 	@Autowired
 	StavkaFaktureMapper stavkaFaktureMapper;
 	
-	//TODO: Dodati getall metodu
+	@GetMapping
+	public ResponseEntity getAll() {
+		return new ResponseEntity(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFaktureService.findAll()),HttpStatus.OK);
+    }
 	
-	/* Sugavi optional SMARA
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
 		StavkaFakture stavkaFakture = stavkaFaktureService.findOne(id);
@@ -41,7 +43,7 @@ public class StavkaFaktureController {
 		}else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-    }*/
+    }
 	
 	@PostMapping
 	public ResponseEntity postOne(@Validated @RequestBody StavkaFaktureDto dto, Errors errors){

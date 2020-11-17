@@ -1,12 +1,12 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 import sf.posinf.fakturisanje.model.RobaUsluga;
 
 public interface RobaUslugaServiceInterface {
 
-	List<RobaUsluga> findAll(String naziv);
+	Page<RobaUsluga> findAll(String naziv, int brojStanice, int brojPrikazanih);
 	
     RobaUsluga findOne(Long id);
     
@@ -14,6 +14,8 @@ public interface RobaUslugaServiceInterface {
     
     RobaUsluga save(RobaUsluga robaUsluga);
     
-    List<RobaUsluga> findAllByGrupaRobe_id(Long id, String naziv);
+    void update(RobaUsluga robaUsluga);
+    
+    Page<RobaUsluga> findAllByGrupaRobe_id(Long id, String naziv, int brojStanice, int brojPrikazanih);
 	
 }

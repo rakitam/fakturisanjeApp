@@ -27,86 +27,71 @@ public class Mesto {
 	private String drzava;
     
     @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL)
-	private Set<Kupac> poslovniPartneri = new HashSet<>();
-    
-    @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL)
 	private Set<Preduzece> preduzeca = new HashSet<>();
     
 	@NotNull
 	private boolean obrisano;
 	
-	public Mesto() { }
+	public Mesto() { 
+		
+	}
 	
-	public Mesto(String naziv, int postanskiBroj, String drzava, Set<Kupac> poslovniPartneri,
-			Set<Preduzece> preduzeca) {
+	public Mesto(long id, @NotNull @Size(max = 50) String naziv, @Min(10000) int postanskiBroj,
+			@NotNull @Size(max = 40) String drzava, Set<Preduzece> preduzeca, @NotNull boolean obrisano) {
 		super();
+		this.id = id;
 		this.naziv = naziv;
 		this.postanskiBroj = postanskiBroj;
 		this.drzava = drzava;
-		this.poslovniPartneri = poslovniPartneri;
 		this.preduzeca = preduzeca;
-		this.obrisano = false;
+		this.obrisano = obrisano;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getNaziv() {
 		return naziv;
 	}
-	
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
 	public int getPostanskiBroj() {
 		return postanskiBroj;
 	}
-	
+
+	public void setPostanskiBroj(int postanskiBroj) {
+		this.postanskiBroj = postanskiBroj;
+	}
+
 	public String getDrzava() {
 		return drzava;
 	}
-	
-	public Set<Kupac> getPoslovniPartneri() {
-		return poslovniPartneri;
+
+	public void setDrzava(String drzava) {
+		this.drzava = drzava;
 	}
-	
+
 	public Set<Preduzece> getPreduzeca() {
 		return preduzeca;
 	}
-	
-	public Mesto setId(long id) {
-		this.id = id;
-		return this;
-	}
-	
-	public Mesto setNaziv(String naziv) {
-		this.naziv = naziv;
-		return this;
-	}
-	
-	public Mesto setPostanskiBroj(int postanskiBroj) {
-		this.postanskiBroj = postanskiBroj;
-		return this;
-	}
-	
-	public Mesto setDrzava(String drzava) {
-		this.drzava = drzava;
-		return this;
-	}
-	
-	public Mesto setPoslovniPartneri(Set<Kupac> poslovniPartneri) {
-		this.poslovniPartneri = poslovniPartneri;
-		return this;
-	}
-	
-	public Mesto setPreduzeca(Set<Preduzece> preduzeca) {
+
+	public void setPreduzeca(Set<Preduzece> preduzeca) {
 		this.preduzeca = preduzeca;
-		return this;
 	}
 
-    public boolean isObrisano() {
-        return obrisano;
-    }
+	public boolean isObrisano() {
+		return obrisano;
+	}
 
-    public void setObrisano(boolean obrisano) {
-        this.obrisano = obrisano;
-    }
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}	
 }

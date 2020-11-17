@@ -12,7 +12,8 @@ public interface PoslovnaGodinaServiceInterface {
     
     PoslovnaGodina save(PoslovnaGodina poslovnaGodina);
     
-    Boolean delete(Long id);
+    //Poslovna godina ne bi trebalo da se brise
+    //Boolean delete(Long id);
 
     PoslovnaGodina findByZakljucanaIsFalse();
 }

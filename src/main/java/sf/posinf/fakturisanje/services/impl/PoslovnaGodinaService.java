@@ -29,12 +29,6 @@ public class PoslovnaGodinaService implements PoslovnaGodinaServiceInterface {
         return poslovnaGodina;
 	}
 
-	//TODO: Razmisliti da li se sme brisati poslovna godina
-	@Override
-	public Boolean delete(Long id) {
-		return null;
-	}
-
 	@Override
 	public PoslovnaGodina findByZakljucanaIsFalse() {
 		return poslovnaGodinaRepository.findByZakljucanaIsFalse();

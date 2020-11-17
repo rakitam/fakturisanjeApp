@@ -15,39 +15,49 @@ import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
 
 public class CenovnikService implements CenovnikServiceInterface {
 
-    @Autowired
-    CenovnikRepository cenovnikRepository;
+	@Autowired
+	CenovnikRepository cenovnikRepository;
 
-    @Autowired
-    StavkaCenovnikaRepository stavkaCenovnikaRepository;
+	@Autowired
+	StavkaCenovnikaRepository stavkaCenovnikaRepository;
 
-    @Override
-    public List<Cenovnik> findAll(int brojStranice, int brojPrikazanih) {
-        return cenovnikRepository.findAllByObrisano(false);
-    }
+	// Smara Pageable
+	@Override
+	public Page<Cenovnik> findAll(int brojStranice, int brojPrikazanih) {
+		// return cenovnikRepository.findAllByObrisano(false, new
+		// PageRequest(brojStranice,brojPrikazanih));
+		return null;
+	}
+	
+	@Override
+	public Page<StavkaCenovnika> findAllByCenovnikId(long id, String nazivRobeUsluge, int brojStranice,
+			int brojPrikazanih) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Cenovnik findOne(Long id) {
+		return cenovnikRepository.findByObrisanoAndId(false, id);
+	}
 
-    @Override
-    public Cenovnik findOne(Long id) {
-        return cenovnikRepository.findByObrisanoAndId(false,id);
-    }
+	@Override
+	public Cenovnik save(Cenovnik cenovnik) {
+		cenovnikRepository.save(cenovnik);
+		return cenovnik;
+	}
 
-    @Override
-    public Cenovnik save(Cenovnik cenovnik) {
-        cenovnikRepository.save(cenovnik);
-        return cenovnik;
-    }
+	@Override
+	public void update(Cenovnik cenovnik) {
+		// TODO Auto-generated method stub
 
-    @Override
-    public List<StavkaCenovnika> findAllByCenovnikId(long id, String nazivRobeUsluge, int brojStranice, int brojPrikazanih) {
-        return stavkaCenovnikaRepository.findAllByObrisanoAndCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(
-                false, id, nazivRobeUsluge);
-    }
+	}
 
-    @Override
-    public Boolean delete(Long id) {
-        Cenovnik cenovnik = cenovnikRepository.findById(id).orElse(null);
-        cenovnik.setObrisano(true);        
-        cenovnikRepository.saveAndFlush(cenovnik);
-        return true;
-    }
+	@Override
+	public Boolean delete(Long id) {
+		Cenovnik cenovnik = cenovnikRepository.findById(id).orElse(null);
+		cenovnik.setObrisano(true);
+		cenovnikRepository.saveAndFlush(cenovnik);
+		return true;
+	}
 }

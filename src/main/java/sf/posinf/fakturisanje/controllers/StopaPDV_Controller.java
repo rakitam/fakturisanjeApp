@@ -28,8 +28,10 @@ public class StopaPDV_Controller {
 	@Autowired
 	private StopaPDVMapper stopaPDVMapper;
 
-	// dodati getAll
-
+	@GetMapping
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopaPdvService.findAll()));
+    }
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity getOne(@PathVariable long id) {

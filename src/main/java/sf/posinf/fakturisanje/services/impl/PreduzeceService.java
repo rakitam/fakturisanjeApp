@@ -26,22 +26,29 @@ public class PreduzeceService implements PreduzeceServiceInterface {
     public Preduzece findOne(Long id) {
         return preduzeceRepository.findById(id).orElse(null);
     }
+    
+    @Override
+	public List<Faktura> findAllByPreduzeceAndStatusFakture(long id, String statusFakture) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Faktura> findAllByPreduzeceAndStatusFaktureAndPlaceno(long id, String statusFakture, boolean placeno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Preduzece preduzece) {
+		// TODO Auto-generated method stub
+		
+	}
 
     @Override
     public Preduzece save(Preduzece preduzece) {
-        preduzeceRepository.save(preduzece);
-        return preduzece;
-    }
-
-    @Override
-    public List<Faktura> findAllByPreduzeceAndVrstaFakture(boolean vrstaFakture,long id) {
-        return fakturaRepository.findByVrstaFaktureAndPreduzece_Id(vrstaFakture,id);
-    }
-
-    @Override
-    public List<Faktura> findAllByPreduzeceAndVrstaFaktureAndPlaceno(boolean vrstaFakture,long id, boolean placeno) {
-        return fakturaRepository.findByVrstaFaktureAndPreduzece_IdAndPlaceno(vrstaFakture,id, true);
-    }
+        return preduzeceRepository.save(preduzece);
+    }    
     
     @Override
     public Boolean delete(Long id) {

@@ -11,9 +11,11 @@ public interface StavkaFaktureServiceInterface {
 	
     List<StavkaFakture> findByFaktura_id(Long id);
     
-    Optional<StavkaFakture> findOne(Long id);
+    StavkaFakture findOne(Long id);
     
     StavkaFakture save(StavkaFakture stavkaFakture);
     
     Boolean delete(Long id);
+    
+    void update(StavkaFakture stavkaFakture);
 }

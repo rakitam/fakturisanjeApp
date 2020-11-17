@@ -60,8 +60,11 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Ugaseno za sad <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-test</artifactId> <scope>test</scope> </dependency> -->
+		<dependency> 
+			<groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-test</artifactId> <scope>test</scope> 
+		</dependency>
+		
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>

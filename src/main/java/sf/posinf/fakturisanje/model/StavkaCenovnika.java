@@ -26,11 +26,12 @@ public class StavkaCenovnika {
     public StavkaCenovnika(){ }
     
 
-    public StavkaCenovnika(float cena, Cenovnik cenovnik, RobaUsluga robaUsluga) {
+    public StavkaCenovnika(float cena, Cenovnik cenovnik, RobaUsluga robaUsluga, boolean obrisano) {
 		super();
 		this.cena = cena;
 		this.cenovnik = cenovnik;
 		this.robaUsluga = robaUsluga;
+		this.obrisano = obrisano;
 	}
 
 

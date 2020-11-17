@@ -15,6 +15,7 @@ public interface StavkaCenovnikaRepository extends JpaRepository<StavkaCenovnika
     List<StavkaCenovnika> findAllByObrisano(boolean obrisano);
 
     StavkaCenovnika findByObrisanoAndId(boolean obrisano, long id);
+    
     List<StavkaCenovnika> findAllByObrisanoAndRobaUsluga_Id(boolean obrisano, Long id);
 
     List<StavkaCenovnika> findAllByObrisanoAndCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(

@@ -29,6 +29,11 @@ public class StavkaCenovnikaController {
     @Autowired
     private StavkaCenovnikaMapper stavkaCenovnikaMapper;
     
+    @GetMapping
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavkaCenovnikaService.findAll()));
+    }
+    
     @GetMapping(value = "/{id}")
     public ResponseEntity getOne(@PathVariable long id){
     	StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);

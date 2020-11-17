@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.StavkaFakture;
@@ -19,37 +20,10 @@ public class FakturaService implements FakturaServiceInterface {
 	public List<Faktura> findAll() {
 		return fakturaRepository.findAll();
 	}
-
-	//TODO: ZASTO SMARA OPTIONAL
+	
 	@Override
 	public Faktura findOne(Long id) {
-		return null;
-	}
-
-	@Override
-	public List<Faktura> findAllByVrstaFakture(boolean vrstaFakture) {
-		return fakturaRepository.findAllByVrstaFakture(vrstaFakture);
-	}
-
-	@Override
-	public List<Faktura> findAllByVrstaFaktureAndPoslovnaGodina(boolean vrstaFakture, long poslovnaGodina) {
-		return fakturaRepository.findAllByVrstaFaktureAndPoslovnaGodina_Id(vrstaFakture, poslovnaGodina);
-	}
-
-	@Override
-	public List<Faktura> findAllByPoslovniPartner(String nazivPartnera) {
-		return fakturaRepository.findAllByPoslovniPartner_NazivPartnera(nazivPartnera);
-	}
-
-	@Override
-	public List<Faktura> findAllByVrstaFaktureAndPoslovniPartner(boolean vrstaFakture, String poslovniPartner) {
-		return fakturaRepository.findAllByVrstaFaktureAndPoslovniPartner_NazivPartnera(vrstaFakture, poslovniPartner);
-	}
-
-	@Override
-	public List<Faktura> findAllByVrstaFaktureAndPoslovniPartnerAndPoslovnaGodina(boolean vrstaFakture,
-			String poslovniPartner, long poslovnaGodina) {
-		return fakturaRepository.findAllByVrstaFaktureAndPoslovniPartner_NazivPartneraAndPoslovnaGodina_Id(vrstaFakture, poslovniPartner, poslovnaGodina);
+		return fakturaRepository.getOne(id);
 	}
 
 	@Override
@@ -60,6 +34,23 @@ public class FakturaService implements FakturaServiceInterface {
 	@Override
 	public List<Faktura> findAllByStatusFakture(String statusFakture) {
 		return fakturaRepository.findAllByStatusFakture(statusFakture);
+	}
+	
+	@Override
+	public List<Faktura> findAllByPreduzece(String preduzece) {
+		return fakturaRepository.findAllByPreduzece(preduzece);
+	}
+
+	@Override
+	public List<Faktura> findAllByKorisnik_Email(String korisnikEmail) {
+		return fakturaRepository.findAllByKorisnik_Email(korisnikEmail);
+	}
+
+	@Override
+	public List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(String statusFakture,
+			String korisnikEmail, long poslovnaGodina) {
+		return fakturaRepository.findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id
+				(statusFakture, korisnikEmail, poslovnaGodina);
 	}
 
 	@Override

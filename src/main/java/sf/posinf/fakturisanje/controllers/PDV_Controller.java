@@ -38,11 +38,10 @@ public class PDV_Controller {
 	@Autowired
 	private StopaPDVMapper stopaPDVMapper;
 
-
-	
-	// dodati getAll
-	
-	
+	@GetMapping
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(pdvMapper.pdvToDto(pdvServiceInterface.findAll()));
+    }	
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity getOne(@PathVariable long id) {
