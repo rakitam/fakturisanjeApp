@@ -93,7 +93,4 @@ public class PDV_Controller {
 		}
 		return ResponseEntity.ok(pdvMapper.pdvToDto(pdv));
 	}
-
-
-
 }

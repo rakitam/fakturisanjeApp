@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sf.posinf.fakturisanje.dto.StopaPDV_Dto;
 import sf.posinf.fakturisanje.mapstruct.StopaPDVMapper;
+import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
@@ -41,7 +43,6 @@ public class StopaPDV_Controller {
 		}
 		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
 	}
-
 	
 	@PostMapping
     public ResponseEntity postStopaPDV(@Validated @RequestBody StopaPDV_Dto dto, Errors errors){
@@ -53,8 +54,7 @@ public class StopaPDV_Controller {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(stopaPDVMapper.stopaPdvToDto(stopa),HttpStatus.CREATED);
-    }
-	
+    }	
 	
     @PutMapping(value = "/{id}")
     public ResponseEntity putStopaPDV(@PathVariable long id, @Validated @RequestBody StopaPDV_Dto dto,Errors errors){
@@ -71,7 +71,14 @@ public class StopaPDV_Controller {
         return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
     }
     
-
-	
-	
+    /*TODO: Dodati atribut obrisano svuda 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteOne(@PathVariable long id){
+        StopaPDV stopaPDV = stopaPdvService.findOne(id);
+        if(stopaPDV == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        stopaPdvService.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }*/
 }

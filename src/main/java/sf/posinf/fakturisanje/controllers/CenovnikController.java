@@ -2,6 +2,7 @@ package sf.posinf.fakturisanje.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,9 +50,8 @@ public class CenovnikController {
 	PreduzeceMapper preduzeceMapper;
 	
 	@GetMapping
-	public ResponseEntity getAll(@RequestParam(value = "page",defaultValue = "0") int page,
-								 @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num) {
-		Page<Cenovnik> cenovnici = cenovnikServiceInterface.findAll(page,num);
+	public ResponseEntity getAll(Pageable pageable) {
+		Page<Cenovnik> cenovnici = cenovnikServiceInterface.findAll(pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total",String.valueOf(cenovnici.getTotalPages()));
 		return ResponseEntity.ok()
@@ -69,14 +69,11 @@ public class CenovnikController {
 		}
     }
 	
-	@GetMapping("/{id}/stavke_cenovnika")
-	public ResponseEntity getStavkeCenovnika(@PathVariable("id") long id,
-								@RequestParam(value = "page",defaultValue = "0") int page,
-								@RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
-								@RequestParam(value = "naziv",defaultValue = "") String naziv) {
+	@GetMapping("/{id}/stavke-cenovnika")
+	public ResponseEntity getStavkeCenovnika(@PathVariable("id") long id, @RequestParam(value = "naziv", defaultValue = "") String naziv, Pageable pageable) {
 		Cenovnik cenovnik = cenovnikServiceInterface.findOne(id);
 		if (cenovnik!=null) {
-			Page<StavkaCenovnika> stavkeCenovnika = cenovnikServiceInterface.findAllByCenovnikId(cenovnik.getId(),naziv,page,num);
+			Page<StavkaCenovnika> stavkeCenovnika = cenovnikServiceInterface.findAllByCenovnikId(cenovnik.getId(),naziv, pageable);
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("total",String.valueOf(stavkeCenovnika.getTotalPages()));
 			return ResponseEntity.ok()

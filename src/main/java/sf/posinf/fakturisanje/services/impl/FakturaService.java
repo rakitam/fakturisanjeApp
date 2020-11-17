@@ -5,14 +5,18 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import sf.posinf.fakturisanje.model.Faktura;
+import sf.posinf.fakturisanje.model.StatusFakture;
 import sf.posinf.fakturisanje.model.StavkaFakture;
 import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 
+@Service
 public class FakturaService implements FakturaServiceInterface {
-	
+
 	@Autowired
 	FakturaRepository fakturaRepository;
 
@@ -20,7 +24,7 @@ public class FakturaService implements FakturaServiceInterface {
 	public List<Faktura> findAll() {
 		return fakturaRepository.findAll();
 	}
-	
+
 	@Override
 	public Faktura findOne(Long id) {
 		return fakturaRepository.getOne(id);
@@ -35,56 +39,63 @@ public class FakturaService implements FakturaServiceInterface {
 	public List<Faktura> findAllByStatusFakture(String statusFakture) {
 		return fakturaRepository.findAllByStatusFakture(statusFakture);
 	}
-	
+
 	@Override
 	public List<Faktura> findAllByPreduzece(String preduzece) {
 		return fakturaRepository.findAllByPreduzece(preduzece);
 	}
 
 	@Override
-	public List<Faktura> findAllByKorisnik_Email(String korisnikEmail) {
-		return fakturaRepository.findAllByKorisnik_Email(korisnikEmail);
-	}
-
-	@Override
 	public List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(String statusFakture,
 			String korisnikEmail, long poslovnaGodina) {
-		return fakturaRepository.findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id
-				(statusFakture, korisnikEmail, poslovnaGodina);
+		return fakturaRepository.findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(statusFakture,
+				korisnikEmail, poslovnaGodina);
 	}
 
 	@Override
 	public Faktura save(Faktura faktura) {
 		fakturaRepository.save(faktura);
-        return faktura;
+		return faktura;
 	}
 
-	//TODO: Dodati atribut "obrisana" u entitet "faktura" i zavrsiti metodu
-	//Faktura moze da se brise ISKLJUCIVO ako je u fazi formiranja
+	// Faktura moze samo da se stornira
 	@Override
-	public Boolean delete(Long id) {
-		return null;
+	public Boolean storniraj(Long id) {
+		Faktura fakturaDB = fakturaRepository.getOne(id);
+		if(fakturaDB.getStatusFakture() != StatusFakture.STORNIRANA) {
+			fakturaDB.setStatusFakture(StatusFakture.STORNIRANA);
+			return true;
+		}		
+		return false;
+	}
+
+	// Faktura ne moze da se brise sem ako nije u fazi formiranja!
+	// Ukoliko menjamo stavke fakture, pravi se nova faktura, a prethodna se
+	// stornira
+	@Override
+	public Boolean update(Faktura faktura) {
+		Faktura fakturaDB = fakturaRepository.getOne(faktura.getId());
+		if (fakturaDB.getStatusFakture() == StatusFakture.FORMIRANA
+				|| faktura.getStatusFakture() != StatusFakture.FORMIRANA) {
+			fakturaDB.setStatusFakture(faktura.getStatusFakture());
+			save(fakturaDB);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void update(Faktura faktura) {
-		double osnovica = 0;
-    	double ukupanPdv = 0;
-    	double iznosZaPlacanje = 0;
-    	double iznosBezRabata = 0;
-    	double rabat = 0;
-    	for (StavkaFakture s : faktura.getStavkeFakture()) {
-    		rabat += s.getRabat();
-    		iznosBezRabata += s.getKolicina() * s.getJedinicnaCena();
-    		osnovica += s.getOsnovicaZaPdv();
-    		ukupanPdv += s.getIznosPdva();
-    		iznosZaPlacanje += s.getIznosStavke();
-    	}
-    	faktura.setIznosZaPlacanje(iznosZaPlacanje);
-    	faktura.setOsnovica(osnovica);
-    	faktura.setUkupanPdv(ukupanPdv);
-    	faktura.setIznosBezRabata(iznosBezRabata);
-    	faktura.setRabat(rabat);
-    	save(faktura);		
+	public Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceId(int godina, String preduzece, Pageable pageable) {
+		if (godina == 0) {
+			return fakturaRepository.findAllByPreduzece_Naziv(preduzece, pageable);
+		} else {
+			return fakturaRepository.findAllByPoslovnaGodina_IdAndPreduzece_Naziv(godina, preduzece, pageable);
+		}
+	}
+
+	@Override
+	public List<Faktura> findAllByKorisnik_Id(long korisnikId) {
+		return fakturaRepository.findAllByKorisnik_Id(korisnikId);
 	}
 }

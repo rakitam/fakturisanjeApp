@@ -88,5 +88,4 @@ public class MestoController {
 		mestoServiceInterface.delete(id);
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
-
 }

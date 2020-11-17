@@ -2,6 +2,8 @@ package sf.posinf.fakturisanje.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +30,11 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 	
 	//Proveriti da li sam dobro namapirala enum u bazi
 	List<Faktura> findAllByStatusFakture(String statusFakture);
+	
+	Page<Faktura> findAllByPoslovnaGodina_IdAndPreduzece_Naziv(long poslovnaGodina, String naziv, Pageable pageable);
+	
+	Page<Faktura> findAllByPreduzece_Naziv(String naziv, Pageable pageable);
+
+	List<Faktura> findAllByKorisnik_Id(long korisnikId);
 }
 

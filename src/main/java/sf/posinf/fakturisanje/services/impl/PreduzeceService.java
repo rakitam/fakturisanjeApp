@@ -2,6 +2,7 @@ package sf.posinf.fakturisanje.services.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.Preduzece;
@@ -9,6 +10,7 @@ import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.repository.PreduzeceRepository;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 
+@Service
 public class PreduzeceService implements PreduzeceServiceInterface {
 
 	@Autowired

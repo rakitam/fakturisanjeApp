@@ -26,7 +26,7 @@ import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 
 @RestController
-@RequestMapping("api/grupa_robe")
+@RequestMapping("api/grupa-robe")
 public class GrupaRobeController {
 
 	@Autowired
@@ -40,18 +40,17 @@ public class GrupaRobeController {
 
 	@Autowired
 	private RobaUslugaMapper robaUslugaMapper;
-	
+
+	// TODO: Popraviti pageable
 	@GetMapping
-    public ResponseEntity getAll(@RequestParam(value = "page",defaultValue = "0") int page,
-                                 @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
-                                 @RequestParam(value = "naziv",defaultValue = "") String naziv){
-        Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(naziv,page,num);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("total",String.valueOf(grupaRobePage.getTotalPages()));
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(grupaRobeMapper.grupaRobeToDto(grupaRobePage.getContent()));
-    }
+	public ResponseEntity getAll(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "num", defaultValue = Integer.MAX_VALUE + "") int num,
+			@RequestParam(value = "naziv", defaultValue = "") String naziv) {
+		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(naziv, page, num);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("total", String.valueOf(grupaRobePage.getTotalPages()));
+		return ResponseEntity.ok().headers(headers).body(grupaRobeMapper.grupaRobeToDto(grupaRobePage.getContent()));
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
@@ -64,9 +63,9 @@ public class GrupaRobeController {
 
 	@GetMapping("/{id}/roba")
 	public ResponseEntity getRoba(@PathVariable("id") long id) {
-		return ResponseEntity.ok(robaUslugaMapper
-				.robaUslugaToDto(robaUslugaServiceInterface.findAllByGrupaRobe_id(id, "", 0, Integer.MAX_VALUE).getContent()
-						.stream().filter(p -> !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList())));
+		return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(
+				robaUslugaServiceInterface.findAllByGrupaRobe_id(id, "", 0, Integer.MAX_VALUE).getContent().stream()
+						.filter(p -> !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList())));
 	}
 
 	@PostMapping

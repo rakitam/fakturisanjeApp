@@ -46,8 +46,6 @@ public class Faktura {
     
     @NotNull
 	private double iznosZaPlacanje;
-    
-	private boolean placeno;
 	
 	private boolean obrisana;
 	
@@ -72,8 +70,8 @@ public class Faktura {
 
 	public Faktura(long id, long brojFakture, Date datumFakture, Date datumValute, StatusFakture statusFakture,
 			@NotNull double osnovica, @NotNull double rabat, @NotNull double ukupanPdv, @NotNull double iznosBezRabata,
-			@NotNull double iznosZaPlacanje, boolean placeno, boolean obrisana, Preduzece preduzece,
-			PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture, Korisnik korisnik) {
+			@NotNull double iznosZaPlacanje, boolean obrisana, Preduzece preduzece, PoslovnaGodina poslovnaGodina,
+			Set<StavkaFakture> stavkeFakture, Korisnik korisnik) {
 		super();
 		this.id = id;
 		this.brojFakture = brojFakture;
@@ -85,7 +83,6 @@ public class Faktura {
 		this.ukupanPdv = ukupanPdv;
 		this.iznosBezRabata = iznosBezRabata;
 		this.iznosZaPlacanje = iznosZaPlacanje;
-		this.placeno = placeno;
 		this.obrisana = obrisana;
 		this.preduzece = preduzece;
 		this.poslovnaGodina = poslovnaGodina;
@@ -171,14 +168,6 @@ public class Faktura {
 
 	public void setIznosZaPlacanje(double iznosZaPlacanje) {
 		this.iznosZaPlacanje = iznosZaPlacanje;
-	}
-
-	public boolean isPlaceno() {
-		return placeno;
-	}
-
-	public void setPlaceno(boolean placeno) {
-		this.placeno = placeno;
 	}
 
 	public boolean isObrisana() {

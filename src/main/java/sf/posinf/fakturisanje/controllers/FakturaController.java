@@ -15,6 +15,7 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,6 +45,7 @@ import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.PoslovnaGodina;
 import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.model.RobaUsluga;
+import sf.posinf.fakturisanje.model.StatusFakture;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.services.impl.PreduzeceService;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
@@ -81,42 +83,15 @@ public class FakturaController {
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(fakturaServiceInterface.findAll()));
 	}
 
-	/*
-	 * TODO: Trebaju mi sve izlazne fakture za moje preduzece
-	 * 
-	 * @GetMapping(value = "/izlazne-fakture") public ResponseEntity
-	 * getIzlazneFakture(@RequestParam(value = "godina", defaultValue = "0") int
-	 * godina,
-	 * 
-	 * @RequestParam(value = "naziv", defaultValue = "") String naziv) { if (godina
-	 * == 0) { List<Faktura> fakture =
-	 * fakturaServiceInterface.findAllByVrstaFaktureAndPoslovniPartner(false,
-	 * naziv); HttpHeaders headers = new HttpHeaders(); headers.set("total",
-	 * String.valueOf(fakture)); return
-	 * ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture)
-	 * ); } List<Faktura> fakture = fakturaServiceInterface.
-	 * findAllByVrstaFaktureAndPoslovniPartnerAndPoslovnaGodina(false, naziv,
-	 * godina); HttpHeaders headers = new HttpHeaders(); headers.set("total",
-	 * String.valueOf(fakture)); return
-	 * ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture)
-	 * ); }
-	 */
-
-	/*
-	 * Da li ova metoda treba ovde ili kod korisnika; da li je dobar mapping value?
-	 * 
-	 * @GetMapping(value = "/korisnik-fakture/{id}") public ResponseEntity
-	 * getKorisnikFakture(@RequestParam(value = "id", defaultValue = "") String id)
-	 * { if (godina == 0) { List<Faktura> fakture =
-	 * fakturaServiceInterface.findAllByKorisnik(id); HttpHeaders headers = new
-	 * HttpHeaders(); headers.set("total", String.valueOf(fakture)); return
-	 * ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture)
-	 * ); } List<Faktura> fakture =
-	 * fakturaServiceInterface.findAllByKorisnik_Email(); HttpHeaders headers = new
-	 * HttpHeaders(); headers.set("total", String.valueOf(fakture)); return
-	 * ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture)
-	 * ); }
-	 */
+	@GetMapping(value = "/izlazne-fakture")
+	public ResponseEntity getIzlazneFakture(@RequestParam(value = "godina", defaultValue = "0") int godina,
+			@RequestParam(value = "preduzece", defaultValue = "") String preduzece, Pageable pageable) {
+		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceId(godina, preduzece,
+				pageable);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("total", String.valueOf(fakture.getTotalPages()));
+		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
@@ -172,7 +147,6 @@ public class FakturaController {
 	}
 
 	@GetMapping("/{id}/robaCenovnika")
-
 	public ResponseEntity getCenovnikRoba(@PathVariable("id") long id) {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		if (faktura == null) {
@@ -188,38 +162,41 @@ public class FakturaController {
 		return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(roba));
 	}
 
-	/*
-	 * TODO: Dodati status fakture
-	 * 
-	 * @PostMapping public ResponseEntity postFaktura(@Validated @RequestBody
-	 * FakturaDto dto, Errors errors) { if (errors.hasErrors()) { return new
-	 * ResponseEntity(HttpStatus.BAD_REQUEST); } PoslovnaGodina
-	 * poslednjaPoslovnaGodina =
-	 * poslovnaGodinaServiceInterface.findByZakljucanaIsFalse(); Faktura faktura =
-	 * fakturaMapper.fakturaDtoToEntity(dto);
-	 * faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1)
-	 * //.setStatusFakture(faktura.setStatusFakture(null)
-	 * .setIznosZaPlacanje(0).setOsnovica(0)
-	 * .setUkupanPdv(0).setIznosBezRabata(0).setRabat(0).setPlaceno(false)
-	 * .setPoslovnaGodina(poslednjaPoslovnaGodina).setObrisano(false); faktura =
-	 * fakturaServiceInterface.save(faktura); if (faktura == null) { return new
-	 * ResponseEntity(HttpStatus.BAD_REQUEST); } return new
-	 * ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.CREATED); }
-	 */
+	@PostMapping
+	public ResponseEntity postFaktura(@Validated @RequestBody FakturaDto dto, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		PoslovnaGodina poslednjaPoslovnaGodina = poslovnaGodinaServiceInterface.findByZakljucanaIsFalse();
+		Faktura faktura = fakturaMapper.fakturaDtoToEntity(dto);
+		faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1);
+		faktura.setStatusFakture(StatusFakture.FORMIRANA);
+		faktura.setIznosZaPlacanje(0);
+		faktura.setOsnovica(0);
+		faktura.setUkupanPdv(0);
+		faktura.setIznosBezRabata(0);
+		faktura.setRabat(0);
+		faktura.setPoslovnaGodina(poslednjaPoslovnaGodina);
+		faktura = fakturaServiceInterface.save(faktura);
+		if (faktura == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.CREATED);
+	}
 
-	/*TODO: Popraviti jer ce status fakture biti u enumu
-	 * @PutMapping("/{id}/plati")
-	 *
+	@PutMapping("/{id}/plati")
 	public ResponseEntity platiFakturu(@PathVariable("id") long id) {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		if (faktura == null)
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		else if (faktura.isPlaceno())
+		else if (faktura.getStatusFakture() != StatusFakture.STORNIRANA && faktura.getStatusFakture() != StatusFakture.PLACENA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		faktura.setDatumFakture(new Date()).setDatumValute(new Date()).setPlaceno(true);
+		faktura.setDatumFakture(new Date());
+		faktura.setDatumValute(new Date());
+		faktura.setStatusFakture(StatusFakture.PLACENA);
 		faktura = fakturaServiceInterface.save(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
-	}*/
+	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity putOne(@PathVariable("id") long id, @Validated @RequestBody FakturaDto dto, Errors errors) {
@@ -234,16 +211,5 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(faktura));
-	}
-
-	// TODO: Popraviti metodu tako da radi u zavisnosti od statusa fakture
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteOne(@PathVariable("id") long id) {
-		Faktura faktura = fakturaServiceInterface.findOne(id);
-		if (faktura == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		fakturaServiceInterface.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 }

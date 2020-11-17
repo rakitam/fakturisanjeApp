@@ -14,7 +14,5 @@ public interface GrupaRobeServiceInterface {
     
     List<GrupaRobe> findByPreduzece_id(Long id);
     
-    GrupaRobe save(GrupaRobe grupaRobe);
-    
-    void update(GrupaRobe grupaRobe);    
+    GrupaRobe save(GrupaRobe grupaRobe);  
 }

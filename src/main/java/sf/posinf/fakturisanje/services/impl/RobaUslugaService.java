@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.repository.RobaUslugaRepository;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 
+@Service
 public class RobaUslugaService implements RobaUslugaServiceInterface{
 
 	@Autowired

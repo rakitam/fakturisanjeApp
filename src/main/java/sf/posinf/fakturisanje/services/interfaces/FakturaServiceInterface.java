@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.StatusFakture;
@@ -17,8 +18,6 @@ public interface FakturaServiceInterface {
     
     List<Faktura> findAllByPreduzece(String preduzece);
     
-    List<Faktura> findAllByKorisnik_Email(String korisnikEmail);
-    
     List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(String statusFakture, String korisnikEmail, long poslovnaGodina);
     
     List<Faktura> findAllByPoslovnaGodina(long poslovnaGodina);
@@ -28,7 +27,11 @@ public interface FakturaServiceInterface {
     Faktura save(Faktura faktura);
     
     //Faktura moze biti obrisana samo u fazi formiranja!!!
-    Boolean delete(Long id);
+    Boolean storniraj(Long id);
     
-    void update(Faktura faktura);
+    Boolean update(Faktura faktura);
+
+	Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceId(int godina, String preduzece, Pageable pageable);
+
+	List<Faktura> findAllByKorisnik_Id(long korisnikId);
 }
