@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sf.posinf.fakturisanje.dto.StopaPDV_Dto;
 import sf.posinf.fakturisanje.mapstruct.StopaPDVMapper;
-import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
@@ -31,10 +30,10 @@ public class StopaPDV_Controller {
 	private StopaPDVMapper stopaPDVMapper;
 
 	@GetMapping
-    public ResponseEntity getAll(){
-        return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopaPdvService.findAll()));
-    }
-	
+	public ResponseEntity getAll() {
+		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopaPdvService.findAll()));
+	}
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity getOne(@PathVariable long id) {
 		StopaPDV stopa = stopaPdvService.findOne(id);
@@ -43,42 +42,41 @@ public class StopaPDV_Controller {
 		}
 		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
 	}
-	
+
 	@PostMapping
-    public ResponseEntity postStopaPDV(@Validated @RequestBody StopaPDV_Dto dto, Errors errors){
-        if(errors.hasErrors()){
-            return new ResponseEntity(errors.getAllErrors(),HttpStatus.BAD_REQUEST);
-        }
-        StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto));
-        if( stopa==null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(stopaPDVMapper.stopaPdvToDto(stopa),HttpStatus.CREATED);
-    }	
-	
-    @PutMapping(value = "/{id}")
-    public ResponseEntity putStopaPDV(@PathVariable long id, @Validated @RequestBody StopaPDV_Dto dto,Errors errors){
-        if(errors.hasErrors()){
-            return new ResponseEntity(errors.getAllErrors(),HttpStatus.BAD_REQUEST);
-        }
-        if(dto.getId()!=id){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto).setId(id));
-        if(stopa==null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
-    }
-    
-    /*TODO: Dodati atribut obrisano svuda 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteOne(@PathVariable long id){
-        StopaPDV stopaPDV = stopaPdvService.findOne(id);
-        if(stopaPDV == null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        stopaPdvService.delete(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }*/
+	public ResponseEntity postStopaPDV(@Validated @RequestBody StopaPDV_Dto dto, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+		StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto));
+		if (stopa == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(stopaPDVMapper.stopaPdvToDto(stopa), HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity putStopaPDV(@PathVariable long id, @Validated @RequestBody StopaPDV_Dto dto, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getId() != id) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto).setId(id));
+		if (stopa == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity deleteOne(@PathVariable long id) {
+		StopaPDV stopaPDV = stopaPdvService.findOne(id);
+		if (stopaPDV == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		stopaPdvService.delete(id);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
+	}
 }

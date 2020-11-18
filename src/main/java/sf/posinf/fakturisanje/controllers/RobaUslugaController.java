@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,6 @@ import sf.posinf.fakturisanje.dto.RobaUslugaDto;
 import sf.posinf.fakturisanje.mapstruct.PDVMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
-import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
@@ -51,17 +51,15 @@ public class RobaUslugaController {
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
 
 	@GetMapping
-	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "num", defaultValue = Integer.MAX_VALUE + "") int num,
-			@RequestParam(value = "naziv", defaultValue = "") String naziv) {
+	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa, boolean obrisana,
+			@RequestParam(value = "naziv", defaultValue = "") String naziv, Pageable pageable) {
 		if (grupa == 0) {
-			Page<RobaUsluga> robeUsluge = robaUslugaService.findAll(naziv, page, num);
+			Page<RobaUsluga> robeUsluge = robaUslugaService.findAll(naziv, pageable);
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
 			return ResponseEntity.ok().headers(headers).body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));
 		} else {
-			Page<RobaUsluga> robeUsluge = robaUslugaService.findAllByGrupaRobe_id(grupa, naziv, page, num);
+			Page<RobaUsluga> robeUsluge = robaUslugaService.findAllByGrupaRobe_id(grupa, false, naziv, pageable);
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
 			return ResponseEntity.ok().headers(headers).body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));

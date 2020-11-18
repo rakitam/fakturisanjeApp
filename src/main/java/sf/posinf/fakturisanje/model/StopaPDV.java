@@ -20,17 +20,20 @@ public class StopaPDV {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pdv_id")
-    private PDV pdv;   
+    private PDV pdv;
+    
+    private boolean obrisana;
 
     public StopaPDV() {
     	
     }
 
-    public StopaPDV(float procenat, Date datumVazenja, PDV pdv) {
+    public StopaPDV(float procenat, Date datumVazenja, PDV pdv, boolean obrisana) {
 		super();
 		this.procenat = procenat;
 		this.datumVazenja = datumVazenja;
 		this.pdv = pdv;
+		this.obrisana = obrisana;
     }
 
 	public long getId() {
@@ -67,5 +70,13 @@ public class StopaPDV {
 	public StopaPDV setPdv(PDV pdv) {
 		this.pdv = pdv;
 		return this;
-	}	
+	}
+	
+	public boolean isObrisana() {
+		return obrisana;
+	}
+
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
+	}
 }

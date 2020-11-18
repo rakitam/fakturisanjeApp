@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.repository.StopaPDVRepository;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
@@ -31,8 +32,14 @@ public class StopaPDV_Service implements StopaPDV_ServiceInterface {
         return stopaPDV;
     }
 
-	@Override
-	public void update(StopaPDV stopaPDV) {
-		// TODO Auto-generated method stub
-	}	
+    @Override
+	public Boolean delete(Long id) {
+		StopaPDV stopaPDV = stopaPdvRepository.getOne(id);
+		if (stopaPDV == null) {
+			return false;
+		}
+		stopaPDV.setObrisana(true);
+		stopaPdvRepository.saveAndFlush(stopaPDV);
+		return true;
+	}
 }

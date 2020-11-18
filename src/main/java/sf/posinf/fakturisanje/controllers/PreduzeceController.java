@@ -37,7 +37,6 @@ import sf.posinf.fakturisanje.mapstruct.GrupaRobeMapper;
 import sf.posinf.fakturisanje.mapstruct.PreduzeceMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.Faktura;
-import sf.posinf.fakturisanje.model.Mesto;
 import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
@@ -56,19 +55,15 @@ public class PreduzeceController {
 	private PreduzeceMapper preduzeceMapper;
 
 	@Autowired
-	private FakturaMapper fakturaMapper;
-
-	@Autowired
 	private GrupaRobeMapper grupaRobeMapper;
 
 	@Autowired
 	private CenovnikMapper cenovnikMapper;
-	
 
 	@GetMapping
-    public ResponseEntity getAll() {
-        return ResponseEntity.ok(preduzeceMapper.preduzeceToDto(preduzeceServiceInterface.findAll()));
-    }
+	public ResponseEntity getAll() {
+		return ResponseEntity.ok(preduzeceMapper.preduzeceToDto(preduzeceServiceInterface.findAll()));
+	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity getOne(@PathVariable long id) {
@@ -80,13 +75,14 @@ public class PreduzeceController {
 	}
 
 	@GetMapping("/{id}/cenovnici")
-    public ResponseEntity getCenovnici(@PathVariable("id") long id){
-    	Preduzece preduzece = preduzeceServiceInterface.findOne(id);
-   	Set<Cenovnik> c = preduzece.getCenovnici();
-		return ResponseEntity.ok(cenovnikMapper.cenovnikToDto(c.stream().filter(x -> !x.isObrisano()).collect(Collectors.toList())));
-    }
+	public ResponseEntity getCenovnici(@PathVariable("id") long id) {
+		Preduzece preduzece = preduzeceServiceInterface.findOne(id);
+		Set<Cenovnik> c = preduzece.getCenovnici();
+		return ResponseEntity
+				.ok(cenovnikMapper.cenovnikToDto(c.stream().filter(x -> !x.isObrisano()).collect(Collectors.toList())));
+	}
 
-	//TODO: RESITI STATUS FAKTURE
+	// TODO: RESITI STATUS FAKTURE
 	@GetMapping("/{id}/fakture/izlazne")
 	public ResponseEntity getFaktureIzlazne(@PathVariable("id") long id,
 			@RequestParam(value = "godina", defaultValue = "0") int godina) {
@@ -98,9 +94,9 @@ public class PreduzeceController {
 	}
 
 	@GetMapping("/{id}/grupe_robe")
-    public ResponseEntity getGrupeRobe(@PathVariable("id") long id){
-        return ResponseEntity.ok(grupaRobeMapper.grupaRobeToDto(grupaRobeService.findByPreduzece_id(id)));
-    }
+	public ResponseEntity getGrupeRobe(@PathVariable("id") long id) {
+		return ResponseEntity.ok(grupaRobeMapper.grupaRobeToDto(grupaRobeService.findByPreduzece_id(id)));
+	}
 
 	@PostMapping
 	public ResponseEntity postPreduzece(@Validated @RequestBody PreduzeceDto dto, Errors errors) {
@@ -140,11 +136,12 @@ public class PreduzeceController {
 	}
 
 	// Metoda za izvestaj KIF
-	//TODO: Popraviti Enum
+	// TODO: Popraviti Enum
 	@GetMapping("{id}/reports/izlazne")
 	public ResponseEntity getReportsIzlazne(@RequestParam("godina") int godina, @PathVariable("id") long id) {
 		Preduzece preduzece = preduzeceServiceInterface.findOne(id);
-		List<Faktura> fakture = preduzeceServiceInterface.findAllByPreduzeceAndStatusFaktureAndPlaceno(id, "formirana", true);
+		List<Faktura> fakture = preduzeceServiceInterface.findAllByPreduzeceAndStatusFaktureAndPlaceno(id, "formirana",
+				true);
 		List<Faktura> faktureFinal = new ArrayList<Faktura>();
 		if (fakture == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);

@@ -29,10 +29,10 @@ public class KorisnikController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	FakturaServiceInterface fakturaServiceInterface;
-	
+
 	@Autowired
 	FakturaMapper fakturaMapper;
 
@@ -42,7 +42,7 @@ public class KorisnikController {
 		return this.korisnikServiceInterface.findAll();
 	}
 
-	//TODO: Dodati registraciju i login
+	// TODO: Dodati registraciju i login
 
 	@GetMapping(value = "/{id}/fakture")
 	public ResponseEntity getKorisnikFakture(@RequestParam(value = "id", defaultValue = "") long korisnikId) {

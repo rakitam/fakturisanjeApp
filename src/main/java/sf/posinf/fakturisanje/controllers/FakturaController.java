@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,11 +41,9 @@ import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.PoslovnaGodina;
-import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StatusFakture;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
-import sf.posinf.fakturisanje.services.impl.PreduzeceService;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
@@ -75,9 +71,6 @@ public class FakturaController {
 	@Autowired
 	private RobaUslugaMapper robaUslugaMapper;
 
-	@Autowired
-	private PreduzeceService preduzeceService;
-
 	@GetMapping
 	public ResponseEntity getAll() {
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(fakturaServiceInterface.findAll()));
@@ -86,7 +79,7 @@ public class FakturaController {
 	@GetMapping(value = "/izlazne-fakture")
 	public ResponseEntity getIzlazneFakture(@RequestParam(value = "godina", defaultValue = "0") int godina,
 			@RequestParam(value = "preduzece", defaultValue = "") String preduzece, Pageable pageable) {
-		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceId(godina, preduzece,
+		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceNaziv(godina, preduzece,
 				pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(fakture.getTotalPages()));
@@ -189,7 +182,8 @@ public class FakturaController {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		if (faktura == null)
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		else if (faktura.getStatusFakture() != StatusFakture.STORNIRANA && faktura.getStatusFakture() != StatusFakture.PLACENA)
+		else if (faktura.getStatusFakture() != StatusFakture.STORNIRANA
+				&& faktura.getStatusFakture() != StatusFakture.PLACENA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		faktura.setDatumFakture(new Date());
 		faktura.setDatumValute(new Date());

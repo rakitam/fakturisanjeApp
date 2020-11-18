@@ -86,7 +86,7 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
-	public Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceId(int godina, String preduzece, Pageable pageable) {
+	public Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceNaziv(int godina, String preduzece, Pageable pageable) {
 		if (godina == 0) {
 			return fakturaRepository.findAllByPreduzece_Naziv(preduzece, pageable);
 		} else {

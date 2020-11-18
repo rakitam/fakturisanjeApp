@@ -16,6 +16,4 @@ public interface StavkaFaktureServiceInterface {
     StavkaFakture save(StavkaFakture stavkaFakture);
     
     Boolean delete(Long id);
-    
-    void update(StavkaFakture stavkaFakture);
 }

@@ -1,13 +1,11 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import sf.posinf.fakturisanje.model.Faktura;
-import sf.posinf.fakturisanje.model.StatusFakture;
 
 //TODO: Za sad dodato vise metoda koje bi se potencijalno mogle koristiti; posle pobrisati one koje ne budu bili potrebne
 public interface FakturaServiceInterface {
@@ -31,7 +29,7 @@ public interface FakturaServiceInterface {
     
     Boolean update(Faktura faktura);
 
-	Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceId(int godina, String preduzece, Pageable pageable);
+	Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceNaziv(int godina, String preduzece, Pageable pageable);
 
 	List<Faktura> findAllByKorisnik_Id(long korisnikId);
 }

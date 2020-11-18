@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sf.posinf.fakturisanje.model.Cenovnik;
@@ -18,12 +19,9 @@ public class GrupaRobeService implements GrupaRobeServiceInterface {
 	@Autowired
 	GrupaRobeRepository grupaRobeRepository;
 	
-	//TODO: Pageable
 	@Override
-	public Page<GrupaRobe> findAll(String naziv, int brojStranice, int brojPrikazanih) {
-		//return grupaRobeRepository.findAllByObrisanoAndNazivGrupeIgnoreCaseContains(false, naziv,
-                //new PageRequest(brojStranice,brojPrikazanih));
-		return null;
+	public Page<GrupaRobe> findAll(boolean obrisano, String naziv, Pageable pageable) {
+		return grupaRobeRepository.findAllByObrisanoAndNazivGrupeIgnoreCaseContains(obrisano, naziv, pageable);
 	}
 
 	@Override

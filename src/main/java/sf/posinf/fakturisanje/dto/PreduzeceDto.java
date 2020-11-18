@@ -4,29 +4,28 @@ import com.sun.istack.NotNull;
 
 public class PreduzeceDto {
 
-
 	private long id;
-    @NotNull
+	@NotNull
 	private String naziv;
-    @NotNull
+	@NotNull
 	private String adresaPreduzeca;
-    @NotNull
-    private String PIB;
-    @NotNull
+	@NotNull
+	private String PIB;
+	@NotNull
 	private String telefon;
-    @NotNull
+	@NotNull
 	private String email;
-    @NotNull
+	@NotNull
 	private String tekuciRacun;
-    @NotNull
+	@NotNull
 	private String logo;
-    @NotNull
-    private long mesto;
-	
+	@NotNull
+	private long mesto;
+
 	public PreduzeceDto() {
-		
+
 	}
-	
+
 	public PreduzeceDto(String naziv, String adresaPreduzeca, String pIB, String telefon, String email,
 			String tekuciRacun, String logo, long mesto) {
 		super();
@@ -39,7 +38,6 @@ public class PreduzeceDto {
 		this.logo = logo;
 		this.mesto = mesto;
 	}
-	
 
 	public String getTekuciRacun() {
 		return tekuciRacun;

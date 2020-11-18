@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,15 +39,10 @@ public class GrupaRobeController {
 	@Autowired
 	private GrupaRobeMapper grupaRobeMapper;
 
-	@Autowired
-	private RobaUslugaMapper robaUslugaMapper;
-
-	// TODO: Popraviti pageable
 	@GetMapping
-	public ResponseEntity getAll(@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "num", defaultValue = Integer.MAX_VALUE + "") int num,
-			@RequestParam(value = "naziv", defaultValue = "") String naziv) {
-		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(naziv, page, num);
+	public ResponseEntity getAll(boolean obrisano, @RequestParam(value = "naziv", defaultValue = "") String naziv,
+			Pageable pageable) {
+		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(false, naziv, pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(grupaRobePage.getTotalPages()));
 		return ResponseEntity.ok().headers(headers).body(grupaRobeMapper.grupaRobeToDto(grupaRobePage.getContent()));
@@ -61,12 +57,14 @@ public class GrupaRobeController {
 		return ResponseEntity.ok(grupaRobeMapper.grupaRobeToDto(grupaRobe));
 	}
 
-	@GetMapping("/{id}/roba")
-	public ResponseEntity getRoba(@PathVariable("id") long id) {
-		return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(
-				robaUslugaServiceInterface.findAllByGrupaRobe_id(id, "", 0, Integer.MAX_VALUE).getContent().stream()
-						.filter(p -> !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList())));
-	}
+	// TODO: STA JE SLICE
+	/*
+	 * @GetMapping("/{id}/roba") public ResponseEntity getRoba(@PathVariable("id")
+	 * long id) { return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(
+	 * robaUslugaServiceInterface.findAllByGrupaRobe_id(id, "", 0,
+	 * Integer.MAX_VALUE).getContent().stream() .filter(p ->
+	 * !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList()))); }
+	 */
 
 	@PostMapping
 	public ResponseEntity postGrupaRobe(@Validated @RequestBody GrupaRobeDto dto, Errors errors) {

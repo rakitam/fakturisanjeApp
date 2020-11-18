@@ -12,6 +12,6 @@ public interface StopaPDV_ServiceInterface {
     
     StopaPDV save(StopaPDV stopaPDV);
     
-    void update(StopaPDV stopaPDV);
+    Boolean delete(Long id);
 
 }

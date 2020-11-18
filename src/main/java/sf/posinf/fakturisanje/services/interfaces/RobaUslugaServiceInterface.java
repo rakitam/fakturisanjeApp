@@ -1,12 +1,15 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
+import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.model.RobaUsluga;
 
 public interface RobaUslugaServiceInterface {
 
-	Page<RobaUsluga> findAll(String naziv, int brojStanice, int brojPrikazanih);
+	Page<RobaUsluga> findAll(String naziv, Pageable pageable);
 	
     RobaUsluga findOne(Long id);
     
@@ -14,8 +17,6 @@ public interface RobaUslugaServiceInterface {
     
     RobaUsluga save(RobaUsluga robaUsluga);
     
-    void update(RobaUsluga robaUsluga);
-    
-    Page<RobaUsluga> findAllByGrupaRobe_id(Long id, String naziv, int brojStanice, int brojPrikazanih);
+    Page<RobaUsluga> findAllByGrupaRobe_id(Long grupaRobeid, boolean obrisana, String naziv, Pageable pageable);
 	
 }

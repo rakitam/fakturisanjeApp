@@ -41,11 +41,6 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
         fakturaServiceInterface.update(stavkaFakture.getFaktura());
         return stavkaFakture;
 	}
-	
-	@Override
-	public void update(StavkaFakture stavkaFakture) {
-		// TODO Auto-generated method stub		
-	}
 
 	//TODO: Razmisliti u kom momentu sme da se brise stavka fakture
 	@Override

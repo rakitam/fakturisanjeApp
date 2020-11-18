@@ -47,8 +47,6 @@ public class Faktura {
     @NotNull
 	private double iznosZaPlacanje;
 	
-	private boolean obrisana;
-	
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
@@ -83,7 +81,6 @@ public class Faktura {
 		this.ukupanPdv = ukupanPdv;
 		this.iznosBezRabata = iznosBezRabata;
 		this.iznosZaPlacanje = iznosZaPlacanje;
-		this.obrisana = obrisana;
 		this.preduzece = preduzece;
 		this.poslovnaGodina = poslovnaGodina;
 		this.stavkeFakture = stavkeFakture;
@@ -168,14 +165,6 @@ public class Faktura {
 
 	public void setIznosZaPlacanje(double iznosZaPlacanje) {
 		this.iznosZaPlacanje = iznosZaPlacanje;
-	}
-
-	public boolean isObrisana() {
-		return obrisana;
-	}
-
-	public void setObrisana(boolean obrisana) {
-		this.obrisana = obrisana;
 	}
 
 	public Preduzece getPreduzece() {
