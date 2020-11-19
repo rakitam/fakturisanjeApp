@@ -15,10 +15,10 @@ public class GrupaRobeService implements GrupaRobeServiceInterface {
 	
 	@Autowired
 	GrupaRobeRepository grupaRobeRepository;
-	
+
 	@Override
-	public Page<GrupaRobe> findAll(boolean obrisano, String naziv, Pageable pageable) {
-		return grupaRobeRepository.findAllByObrisanoAndNazivGrupeIgnoreCaseContains(obrisano, naziv, pageable);
+	public Page<GrupaRobe> findAll(String naziv, Pageable pageable) {
+		return grupaRobeRepository.findAllByNazivGrupeIgnoreCaseContains(naziv, pageable);
 	}
 
 	@Override

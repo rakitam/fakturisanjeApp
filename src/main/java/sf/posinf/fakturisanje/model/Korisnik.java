@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-
 @Entity
 public class Korisnik {
 	
@@ -23,21 +22,19 @@ public class Korisnik {
 	
 	private String brojTelefona;
 	
-	@OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "korisnik")
     private Set<Faktura> faktureKorisnika = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
-	
-	private boolean obrisan;
 	
 	public Korisnik() {
 		
 	}	
 
 	public Korisnik(long id, @NotNull String email, @NotNull String password, @NotNull String imeIPrezime,
-			String brojTelefona, Set<Faktura> faktureKorisnika, Preduzece preduzece, boolean obrisan) {
+			String brojTelefona, Set<Faktura> faktureKorisnika, Preduzece preduzece) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -46,7 +43,6 @@ public class Korisnik {
 		this.brojTelefona = brojTelefona;
 		this.faktureKorisnika = faktureKorisnika;
 		this.preduzece = preduzece;
-		this.obrisan = obrisan;
 	}	
 
 	public long getId() {
@@ -97,18 +93,9 @@ public class Korisnik {
 		this.preduzece = preduzece;
 	}
 
-	public boolean isObrisan() {
-		return obrisan;
-	}
-
-	public void setObrisan(boolean obrisan) {
-		this.obrisan = obrisan;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public String getPassword() {
 		return password;

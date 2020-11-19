@@ -8,11 +8,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.StavkaFaktureDto;
 import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
+import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.StavkaFakture;
+import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 @RestController
-@RequestMapping("/api/stavkafakture")
+@RequestMapping("/api/stavke-fakture")
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class StavkaFaktureController {
 
@@ -21,6 +25,12 @@ public class StavkaFaktureController {
 
 	@Autowired
 	StavkaFaktureMapper stavkaFaktureMapper;
+
+	@Autowired
+	private FakturaServiceInterface fakturaService;
+
+	@Autowired
+	private RobaUslugaServiceInterface robaUslugaServiceInterface;
 
 	@GetMapping
 	public ResponseEntity getAll() {
@@ -43,7 +53,10 @@ public class StavkaFaktureController {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		StavkaFakture stavkaFakture = stavkaFaktureService.save(stavkaFaktureMapper.stavkaFaktureDtoToEntity(dto));
+		StavkaFakture stavkaFakture = stavkaFaktureMapper.stavkaFaktureDtoToEntity(dto);
+		stavkaFakture.setFaktura(fakturaService.findOne(stavkaFakture.getFaktura().getId()));
+		stavkaFakture.setRobaUsluga(robaUslugaServiceInterface.findOne(stavkaFakture.getRobaUsluga().getId()));
+		stavkaFakture = stavkaFaktureService.save(stavkaFakture);
 		if (stavkaFakture != null) {
 			return new ResponseEntity(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFakture), HttpStatus.CREATED);
 		} else {

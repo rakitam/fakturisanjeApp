@@ -17,10 +17,10 @@ public class PDV {
 	@Size(max = 30)
     private String nazivPDV;
     
-	@OneToMany(mappedBy = "pdv", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pdv")
 	private Set<StopaPDV> stopePdv = new HashSet<>();
 	
-	@OneToMany(mappedBy = "pdv", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pdv")
     private Set<GrupaRobe> grupeRobe = new HashSet<>();
 
 

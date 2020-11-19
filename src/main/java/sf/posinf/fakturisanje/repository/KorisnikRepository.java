@@ -12,12 +12,4 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
 	List<Korisnik> findAllByEmail(String email);
 	
 	Korisnik findByImeIPrezime(String imeIPrezime);
-	
-	Korisnik findByBrojTelefona(int brojTelefona);
-	
-	List<Korisnik> findByObrisanFalse();
-	
-	List<Korisnik> findByObrisanTrue();
-		
-	List<Korisnik> findAll();
 }

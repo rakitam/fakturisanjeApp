@@ -9,8 +9,4 @@ import java.util.List;
 @Repository
 public interface PreduzeceRepository extends JpaRepository<Preduzece,Long> {
 
-    List<Preduzece> findAllByObrisano(boolean obrisano);
-
-    Preduzece findByObrisanoAndId(boolean obrisano, long id);
-
 }

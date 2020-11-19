@@ -18,18 +18,16 @@ public class GrupaRobe {
     @Size(max = 50)
     private String nazivGrupe;
     
-	@OneToMany(mappedBy = "grupaRobe", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "grupaRobe")
     private Set<RobaUsluga> robaUsluge = new HashSet<>();
     
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "preduzece_id")
     private Preduzece preduzece;
     
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "pdv_id")
     private PDV pdv;
-
-	private boolean obrisano;
 	
 	public GrupaRobe() {
 		
@@ -83,13 +81,5 @@ public class GrupaRobe {
 
 	public void setPdv(PDV pdv) {
 		this.pdv = pdv;
-	}
-
-	public boolean isObrisano() {
-		return obrisano;
-	}
-
-	public void setObrisano(boolean obrisano) {
-		this.obrisano = obrisano;
 	}
 }

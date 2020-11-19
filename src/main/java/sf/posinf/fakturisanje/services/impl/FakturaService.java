@@ -28,28 +28,6 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
-	public List<Faktura> findAllByPoslovnaGodina(long poslovnaGodina) {
-		return fakturaRepository.findAllByPoslovnaGodina_Id(poslovnaGodina);
-	}
-
-	@Override
-	public List<Faktura> findAllByStatusFakture(StatusFakture statusFakture) {
-		return fakturaRepository.findAllByStatusFakture(statusFakture);
-	}
-
-	@Override
-	public List<Faktura> findAllByPreduzece(String preduzece) {
-		return fakturaRepository.findAllByPreduzece(preduzece);
-	}
-
-	@Override
-	public List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(StatusFakture statusFakture,
-			String korisnikEmail, long poslovnaGodina) {
-		return fakturaRepository.findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(statusFakture,
-				korisnikEmail, poslovnaGodina);
-	}
-
-	@Override
 	public Faktura save(Faktura faktura) {
 		fakturaRepository.save(faktura);
 		return faktura;
@@ -80,19 +58,5 @@ public class FakturaService implements FakturaServiceInterface {
 		} else {
 			return false;
 		}
-	}
-
-	@Override
-	public Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceNaziv(int godina, String preduzece, Pageable pageable) {
-		if (godina == 0) {
-			return fakturaRepository.findAllByPreduzece_Naziv(preduzece, pageable);
-		} else {
-			return fakturaRepository.findAllByPoslovnaGodina_IdAndPreduzece_Naziv(godina, preduzece, pageable);
-		}
-	}
-
-	@Override
-	public List<Faktura> findAllByKorisnik_Id(long korisnikId) {
-		return fakturaRepository.findAllByKorisnik_Id(korisnikId);
 	}
 }

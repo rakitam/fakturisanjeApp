@@ -11,7 +11,4 @@ public interface StopaPDV_ServiceInterface {
     StopaPDV findOne(Long id);
     
     StopaPDV save(StopaPDV stopaPDV);
-    
-    Boolean delete(Long id);
-
 }

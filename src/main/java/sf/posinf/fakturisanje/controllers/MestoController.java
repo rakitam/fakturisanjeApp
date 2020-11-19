@@ -51,7 +51,7 @@ public class MestoController {
 		if (mesto == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		return ResponseEntity.ok(mestoMapper.mestoDtoToEntity(dto));
+		return ResponseEntity.ok(mestoMapper.mestoToDto(mesto));
 	}
 
 	@PutMapping("/{id}")

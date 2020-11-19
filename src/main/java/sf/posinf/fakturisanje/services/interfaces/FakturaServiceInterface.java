@@ -14,22 +14,10 @@ public interface FakturaServiceInterface {
 	
 	Faktura findOne(Long id);
     
-    List<Faktura> findAllByPreduzece(String preduzece);
-    
-    List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(StatusFakture statusFakture, String korisnikEmail, long poslovnaGodina);
-    
-    List<Faktura> findAllByPoslovnaGodina(long poslovnaGodina);
-    
-    List<Faktura> findAllByStatusFakture(StatusFakture statusFakture);
-    
     Faktura save(Faktura faktura);
     
     //Faktura moze biti obrisana samo u fazi formiranja!!!
     Boolean storniraj(Long id);
     
     Boolean update(Faktura faktura);
-
-	Page<Faktura> findAllByPoslovnaGodinaAndPreduzeceNaziv(int godina, String preduzece, Pageable pageable);
-
-	List<Faktura> findAllByKorisnik_Id(long korisnikId);
 }

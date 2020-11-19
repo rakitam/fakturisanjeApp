@@ -29,15 +29,4 @@ public class StopaPDV_Service implements StopaPDV_ServiceInterface {
         stopaPdvRepository.save(stopaPDV);
         return stopaPDV;
     }
-
-    @Override
-	public Boolean delete(Long id) {
-		StopaPDV stopaPDV = stopaPdvRepository.getOne(id);
-		if (stopaPDV == null) {
-			return false;
-		}
-		stopaPDV.setObrisana(true);
-		stopaPdvRepository.saveAndFlush(stopaPDV);
-		return true;
-	}
 }

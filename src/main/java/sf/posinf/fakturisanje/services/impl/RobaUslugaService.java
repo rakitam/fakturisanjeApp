@@ -26,7 +26,7 @@ public class RobaUslugaService implements RobaUslugaServiceInterface {
 
 	@Override
 	public Page<RobaUsluga> findAllByGrupaRobe_idAndNaziv(Long grupaRobeId, String naziv, Pageable pageable) {
-		return robaUslugaRepository.findAllByGrupaRobe_idAndNazivRobeUslugeIgnoreCaseContainsAndObrisano(grupaRobeId, naziv, false,
+		return robaUslugaRepository.findAllByGrupaRobe_idAndNazivRobeUslugeIgnoreCaseContains(grupaRobeId, naziv,
 				pageable);
 	}
 
@@ -34,11 +34,5 @@ public class RobaUslugaService implements RobaUslugaServiceInterface {
 	public RobaUsluga save(RobaUsluga robaUsluga) {
 		robaUslugaRepository.save(robaUsluga);
 		return robaUsluga;
-	}
-
-	@Override
-	public Boolean delete(Long id) {
-		robaUslugaRepository.deleteById(id);
-		return true;
 	}
 }

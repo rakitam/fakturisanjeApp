@@ -21,28 +21,17 @@ public class CenovnikService implements CenovnikServiceInterface {
 	
 	@Override
 	public Page<StavkaCenovnika> findAllByCenovnikId(long id, String nazivRobeUsluge, Pageable pageable) {
-		return stavkaCenovnikaRepository.findAllByObrisanoAndCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(false, id, nazivRobeUsluge, pageable);
+		return stavkaCenovnikaRepository.findAllByCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(id, nazivRobeUsluge, pageable);
 	}
 	
 	@Override
 	public Cenovnik findOne(Long id) {
-		return cenovnikRepository.findByObrisanoAndId(false, id);
+		return cenovnikRepository.getOne(id);
 	}
 
 	@Override
 	public Cenovnik save(Cenovnik cenovnik) {
 		return cenovnikRepository.save(cenovnik);
-	}
-
-	@Override
-	public Boolean delete(Long id) {
-		Cenovnik cenovnik = cenovnikRepository.getOne(id);
-		if (cenovnik == null) {
-			return false;
-		}
-		cenovnik.setObrisano(true);
-		cenovnikRepository.saveAndFlush(cenovnik);
-		return true;
 	}
 
 	@Override

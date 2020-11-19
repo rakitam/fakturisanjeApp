@@ -21,7 +21,7 @@ public class PreduzeceService implements PreduzeceServiceInterface {
 	
     @Override
     public List<Preduzece> findAll() {
-        return preduzeceRepository.findAllByObrisano(false);
+        return preduzeceRepository.findAll();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class PreduzeceService implements PreduzeceServiceInterface {
     }
     
     @Override
-	public List<Faktura> findAllByPreduzeceAndStatusFaktureAndPoslovnaGodina(long preduzece, long poslovnaGodina) {
+	public List<Faktura> findAllByPreduzeceAndPoslovnaGodina(long preduzece, long poslovnaGodina) {
         if(poslovnaGodina == 0) {
             return fakturaRepository.findAllByPreduzece_Id(preduzece);
         } else {
@@ -48,12 +48,5 @@ public class PreduzeceService implements PreduzeceServiceInterface {
     public Preduzece save(Preduzece preduzece) {
         return preduzeceRepository.save(preduzece);
     }    
-    
-    @Override
-    public Boolean delete(Long id) {
-        Preduzece preduzece = preduzeceRepository.findById(id).orElse(null);
-        preduzece.setObrisano(true);
-        preduzeceRepository.saveAndFlush(preduzece);
-        return true;
-    }
+
 }

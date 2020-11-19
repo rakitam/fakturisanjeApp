@@ -38,18 +38,18 @@ public class Faktura {
     @NotNull
 	private double iznosZaPlacanje;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "poslovna_godina_id")
 	private PoslovnaGodina poslovnaGodina;
     
-    @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "faktura")
     private Set<StavkaFakture> stavkeFakture = new HashSet<>();
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
 	@JoinColumn(name = "korisnik_id")
 	private Korisnik korisnik;
 	

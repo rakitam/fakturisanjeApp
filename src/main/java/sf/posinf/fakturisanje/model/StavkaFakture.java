@@ -31,13 +31,11 @@ public class StavkaFakture {
 	@NotNull
 	private double iznosStavke;
 	
-	private boolean obrisana;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "faktura_id")
 	private Faktura faktura;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "roba_usluga_id")
 	private RobaUsluga robaUsluga;
 	
@@ -57,7 +55,6 @@ public class StavkaFakture {
 		this.procenatPdva = procenatPdva;
 		this.iznosPdva = iznosPdva;
 		this.iznosStavke = iznosStavke;
-		this.obrisana = obrisana;
 		this.faktura = faktura;
 		this.robaUsluga = robaUsluga;
 	}
@@ -124,14 +121,6 @@ public class StavkaFakture {
 
 	public void setIznosStavke(double iznosStavke) {
 		this.iznosStavke = iznosStavke;
-	}
-
-	public boolean isObrisana() {
-		return obrisana;
-	}
-
-	public void setObrisana(boolean obrisana) {
-		this.obrisana = obrisana;
 	}
 
 	public Faktura getFaktura() {

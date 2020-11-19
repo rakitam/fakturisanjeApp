@@ -8,11 +8,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.StopaPDV_Dto;
 import sf.posinf.fakturisanje.mapstruct.StopaPDVMapper;
+import sf.posinf.fakturisanje.model.StavkaFakture;
 import sf.posinf.fakturisanje.model.StopaPDV;
+import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
 @RestController
-@RequestMapping(value = "api/stopa-pdv")
+@RequestMapping(value = "api/stope-pdv")
 public class StopaPDV_Controller {
 
 	@Autowired
@@ -20,6 +23,9 @@ public class StopaPDV_Controller {
 
 	@Autowired
 	private StopaPDVMapper stopaPDVMapper;
+
+	@Autowired
+	private PDV_ServiceInterface pdvServiceInterface;
 
 	@GetMapping
 	public ResponseEntity getAll() {
@@ -40,7 +46,9 @@ public class StopaPDV_Controller {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto));
+		StopaPDV stopa = stopaPDVMapper.stopaPdvDtoToEntity(dto);
+		stopa.setPdv(pdvServiceInterface.findOne(stopa.getPdv().getId()));
+		stopa = stopaPdvService.save(stopa);
 		if (stopa == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -55,20 +63,12 @@ public class StopaPDV_Controller {
 		if (dto.getId() != id) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-		StopaPDV stopa = stopaPdvService.save(stopaPDVMapper.stopaPdvDtoToEntity(dto).setId(id));
+		StopaPDV stopa = stopaPDVMapper.stopaPdvDtoToEntity(dto);
+		stopa.setPdv(pdvServiceInterface.findOne(stopa.getPdv().getId()));
+		stopa = stopaPdvService.save(stopa);
 		if (stopa == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity deleteOne(@PathVariable long id) {
-		StopaPDV stopaPDV = stopaPdvService.findOne(id);
-		if (stopaPDV == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		stopaPdvService.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 }

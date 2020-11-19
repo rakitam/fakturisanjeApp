@@ -15,6 +15,7 @@ import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
 import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
+import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterface;
 
@@ -40,6 +41,9 @@ public class RobaUslugaController {
 
 	@Autowired
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
+
+	@Autowired
+	private GrupaRobeServiceInterface grupaRobeServiceInterface;
 
 	@GetMapping
 	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa,
@@ -67,6 +71,7 @@ public class RobaUslugaController {
 		}
 	}
 
+	//Za AKTUELNI cenovnik
 	@GetMapping("/{id}/cena")
 	public ResponseEntity getCena(@PathVariable("id") long id) {
 		RobaUsluga robaUsluga = robaUslugaService.findOne(id);
@@ -93,7 +98,9 @@ public class RobaUslugaController {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		RobaUsluga robaUsluga = robaUslugaService.save(robaUslugaMapper.robaUslugaDtoToentity(dto));
+		RobaUsluga robaUsluga = robaUslugaMapper.robaUslugaDtoToentity(dto);
+		robaUsluga.setGrupaRobe(grupaRobeServiceInterface.findOne(robaUsluga.getGrupaRobe().getId()));
+		robaUsluga = robaUslugaService.save(robaUsluga);
 		if (robaUsluga != null) {
 			return new ResponseEntity(robaUslugaMapper.robaUslugaToDto(robaUsluga), HttpStatus.CREATED);
 		} else {
@@ -111,22 +118,13 @@ public class RobaUslugaController {
 		if (dto.getId() != id) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		RobaUsluga robaUsluga = robaUslugaService.save(robaUslugaMapper.robaUslugaDtoToentity(dto));
+		RobaUsluga robaUsluga = robaUslugaMapper.robaUslugaDtoToentity(dto);
+		robaUsluga.setGrupaRobe(grupaRobeServiceInterface.findOne(robaUsluga.getGrupaRobe().getId()));
+		robaUsluga = robaUslugaService.save(robaUsluga);
 		if (robaUsluga != null) {
 			return new ResponseEntity(robaUslugaMapper.robaUslugaToDto(robaUsluga), HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity deleteOne(@PathVariable long id) {
-		RobaUsluga robaUsluga = robaUslugaService.findOne(id);
-		if (robaUsluga == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		robaUslugaService.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
-	}
-
 }

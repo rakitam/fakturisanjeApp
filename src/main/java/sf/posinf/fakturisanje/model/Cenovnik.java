@@ -17,26 +17,22 @@ public class Cenovnik {
 	@NotNull
 	private Date datumVazenja;
 	
-    @OneToMany(mappedBy = "cenovnik", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cenovnik")
 	private Set<StavkaCenovnika> stavkeCenovnika = new HashSet<>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
-    
-    @NotNull
-   	private boolean obrisano;
     
 	public Cenovnik() {
 		
 	}
 
-	public Cenovnik(long id, Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika, Preduzece preduzece, boolean obrisano) {
+	public Cenovnik(long id, Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika, Preduzece preduzece) {
 		this.id = id;
 		this.datumVazenja = datumVazenja;
 		this.stavkeCenovnika = stavkeCenovnika;
 		this.preduzece = preduzece;
-		this.obrisano = obrisano;
 	}
 
 	public long getId() {
@@ -69,13 +65,5 @@ public class Cenovnik {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
-	}
-
-	public boolean isObrisano() {
-		return obrisano;
-	}
-
-	public void setObrisano(boolean obrisano) {
-		this.obrisano = obrisano;
 	}
 }

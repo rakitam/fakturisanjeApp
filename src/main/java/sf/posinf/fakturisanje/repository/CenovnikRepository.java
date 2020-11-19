@@ -9,7 +9,4 @@ import sf.posinf.fakturisanje.model.Cenovnik;
 @Repository
 public interface CenovnikRepository extends JpaRepository<Cenovnik, Long> {
 	
-	Page<Cenovnik> findAllByObrisano(boolean obrisano, Pageable pageable);
-
-	Cenovnik findByObrisanoAndId(boolean obrisano, long id);
 }

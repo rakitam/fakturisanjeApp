@@ -26,7 +26,7 @@ public class Mesto {
 	@Size(max = 40)
 	private String drzava;
     
-    @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mesto")
 	private Set<Preduzece> preduzeca = new HashSet<>();
     
 	@NotNull

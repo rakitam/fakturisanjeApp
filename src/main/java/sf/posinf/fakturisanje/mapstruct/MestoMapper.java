@@ -16,5 +16,5 @@ public interface MestoMapper {
 	
 	List<Mesto> mestoDtoToEntity(List<MestoDto> mesta);
 	
-	List<GrupaRobeDto> mestoToDto(List<Mesto> mesta);
+	List<MestoDto> mestoToDto(List<Mesto> mesta);
 }

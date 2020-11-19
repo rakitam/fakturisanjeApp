@@ -14,6 +14,4 @@ public interface CenovnikServiceInterface {
 	Cenovnik findOne(Long id);
 
 	Cenovnik save(Cenovnik cenovnik);
-
-	Boolean delete(Long id);
 }

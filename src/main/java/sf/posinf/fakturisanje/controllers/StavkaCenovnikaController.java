@@ -8,11 +8,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.StavkaCenovnikaDTO;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
+import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
+import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterface;
 
 @RestController
-@RequestMapping("/api/stavka_cenovnika")
+@RequestMapping("/api/stavke-cenovnika")
 public class StavkaCenovnikaController {
 
 	@Autowired
@@ -20,6 +24,12 @@ public class StavkaCenovnikaController {
 
 	@Autowired
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
+
+	@Autowired
+	private CenovnikServiceInterface cenovnikService;
+
+	@Autowired
+	private RobaUslugaServiceInterface robaUslugaServiceInterface;
 
 	@GetMapping
 	public ResponseEntity getAll() {
@@ -40,7 +50,10 @@ public class StavkaCenovnikaController {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		StavkaCenovnika stavka = stavkaCenovnikaService.save(stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto));
+		StavkaCenovnika stavka = stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto);
+		stavka.setCenovnik(cenovnikService.findOne(stavka.getCenovnik().getId()));
+		stavka.setRobaUsluga(robaUslugaServiceInterface.findOne(stavka.getRobaUsluga().getId()));
+		stavka = stavkaCenovnikaService.save(stavka);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -56,21 +69,13 @@ public class StavkaCenovnikaController {
 		if (dto.getId() != id) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-		StavkaCenovnika stavka = stavkaCenovnikaService
-				.save(stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto).setId(id));
+		StavkaCenovnika stavka = stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto);
+		stavka.setCenovnik(cenovnikService.findOne(stavka.getCenovnik().getId()));
+		stavka.setRobaUsluga(robaUslugaServiceInterface.findOne(stavka.getRobaUsluga().getId()));
+		stavka = stavkaCenovnikaService.save(stavka);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity deleteOne(@PathVariable long id) {
-		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
-		if (stavka == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		stavkaCenovnikaService.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 }

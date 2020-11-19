@@ -44,7 +44,7 @@ public class PDV_Controller {
 		return ResponseEntity.ok(pdvMapper.pdvToDto(pdv));
 	}
 
-	@GetMapping(value = "/{id}/stopa")
+	@GetMapping(value = "/{id}/stope")
 	public ResponseEntity getStopa(@PathVariable long id) {
 		PDV pdv = pdvServiceInterface.findOne(id);
 		if (pdv == null || pdv.getStopePdv().isEmpty()) {
@@ -53,8 +53,7 @@ public class PDV_Controller {
 		List<StopaPDV> stope = new ArrayList(pdv.getStopePdv());
 
 		// Sortiramo stopePDV-a po datumu vazenja
-		Collections.sort(stope,
-				(stopaPdv1, stopaPdv2) -> (stopaPdv1.getDatumVazenja().compareTo(stopaPdv2.getDatumVazenja())));
+		Collections.sort(stope, (stopaPdv1, stopaPdv2) -> (stopaPdv1.getDatumVazenja().compareTo(stopaPdv2.getDatumVazenja())));
 
 		// vracamo trenutnu stopu, samo nam je ta potrebna
 		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stope.get(stope.size() - 1)));

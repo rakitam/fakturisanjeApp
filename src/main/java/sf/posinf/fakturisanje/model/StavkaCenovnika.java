@@ -12,26 +12,22 @@ public class StavkaCenovnika {
     @NotNull
     private float cena;
     
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "cenovnik_id")
 	private Cenovnik cenovnik;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "roba_usluga_id")
     private RobaUsluga robaUsluga;
-	
-	@NotNull
-	private boolean obrisano;
 
     public StavkaCenovnika(){ }
     
 
-    public StavkaCenovnika(float cena, Cenovnik cenovnik, RobaUsluga robaUsluga, boolean obrisano) {
+    public StavkaCenovnika(float cena, Cenovnik cenovnik, RobaUsluga robaUsluga) {
 		super();
 		this.cena = cena;
 		this.cenovnik = cenovnik;
 		this.robaUsluga = robaUsluga;
-		this.obrisano = obrisano;
 	}
 
 
@@ -71,16 +67,4 @@ public class StavkaCenovnika {
 		this.robaUsluga = robaUsluga;
 		return this;
 	}
-
-
-	public boolean isObrisano() {
-		return obrisano;
-	}
-
-
-	public void setObrisano(boolean obrisano) {
-		this.obrisano = obrisano;
-	}
-
-
 }

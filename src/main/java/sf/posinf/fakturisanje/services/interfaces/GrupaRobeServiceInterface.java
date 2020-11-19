@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GrupaRobeServiceInterface {
 	
-	Page<GrupaRobe> findAll(boolean obrisano, String naziv, Pageable pageable);
+	Page<GrupaRobe> findAll(String naziv, Pageable pageable);
 	
     GrupaRobe findOne(Long id);
     

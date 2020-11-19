@@ -10,13 +10,8 @@ import java.util.List;
 
 @Repository
 public interface StavkaCenovnikaRepository extends JpaRepository<StavkaCenovnika,Long>{
-
-    List<StavkaCenovnika> findAllByObrisano(boolean obrisano);
-
-    StavkaCenovnika findByObrisanoAndId(boolean obrisano, long id);
     
-    List<StavkaCenovnika> findAllByObrisanoAndRobaUsluga_Id(boolean obrisano, Long id);
+    List<StavkaCenovnika> findAllByRobaUsluga_Id(Long id);
 
-    Page<StavkaCenovnika> findAllByObrisanoAndCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(
-            boolean obrisano, long cenovnik_id, String nazivRobeUsluge, Pageable pageable);
+    Page<StavkaCenovnika> findAllByCenovnik_IdAndRobaUsluga_NazivRobeUslugeIgnoreCaseContains(long cenovnik_id, String nazivRobeUsluge, Pageable pageable);
 }

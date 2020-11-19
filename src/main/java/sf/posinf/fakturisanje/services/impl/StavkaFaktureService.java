@@ -39,10 +39,4 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
         fakturaServiceInterface.update(stavkaFakture.getFaktura());
         return stavkaFakture;
 	}
-
-	//TODO: Razmisliti u kom momentu sme da se brise stavka fakture
-	@Override
-	public Boolean delete(Long id) {
-		return null;
-	}
 }

@@ -9,8 +9,7 @@ import sf.posinf.fakturisanje.model.RobaUsluga;
 @Repository
 public interface RobaUslugaRepository extends JpaRepository<RobaUsluga,Long>{
 
-	Page<RobaUsluga> findAllByGrupaRobe_idAndNazivRobeUslugeIgnoreCaseContainsAndObrisano(Long idGrupe, String naziv,
-            boolean obrisano, Pageable pageable);
+	Page<RobaUsluga> findAllByGrupaRobe_idAndNazivRobeUslugeIgnoreCaseContains(Long idGrupe, String naziv, Pageable pageable);
 	
 	Page<RobaUsluga> findAllByNazivRobeUslugeIgnoreCaseContains(String nazivRobeUsluge, Pageable pageable);
 	

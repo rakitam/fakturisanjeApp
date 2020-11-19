@@ -10,8 +10,6 @@ public interface RobaUslugaServiceInterface {
 	
     RobaUsluga findOne(Long id);
     
-    Boolean delete(Long id);
-    
     RobaUsluga save(RobaUsluga robaUsluga);
     
     Page<RobaUsluga> findAllByGrupaRobe_idAndNaziv(Long grupaRobeid, String naziv, Pageable pageable);

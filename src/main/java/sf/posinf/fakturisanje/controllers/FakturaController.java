@@ -53,20 +53,24 @@ public class FakturaController {
 	@Autowired
 	private RobaUslugaMapper robaUslugaMapper;
 
+	//TODO: Ne treba mi getAll jer imam samo izlazne
 	@GetMapping
 	public ResponseEntity getAll() {
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(fakturaServiceInterface.findAll()));
 	}
 
-	@GetMapping(value = "/izlazne-fakture")
+	/*@GetMapping(value = "/izlazne-fakture")
 	public ResponseEntity getIzlazneFakture(@RequestParam(value = "godina", defaultValue = "0") int godina,
-			@RequestParam(value = "preduzece", defaultValue = "") String preduzece, Pageable pageable) {
-		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceNaziv(godina, preduzece,
+			@RequestParam(value = "preduzece", defaultValue = "") Long preduzece, Pageable pageable) {
+		if(preduzece == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceId(godina, preduzece,
 				pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(fakture.getTotalPages()));
 		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
-	}
+	}*/
 
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
@@ -86,7 +90,7 @@ public class FakturaController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("faktura", faktura);
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			String connectionURL = "jdbc:mysql://localhost:3306/fakturisanjeBaza";
 
 			Properties appProperties = new Properties();
@@ -121,22 +125,6 @@ public class FakturaController {
 				.ok(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFaktureServiceInterface.findByFaktura_id(id)));
 	}
 
-	@GetMapping("/{id}/robaCenovnika")
-	public ResponseEntity getCenovnikRoba(@PathVariable("id") long id) {
-		Faktura faktura = fakturaServiceInterface.findOne(id);
-		if (faktura == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		List<Cenovnik> cenovnici = new ArrayList<Cenovnik>();
-		cenovnici.addAll(faktura.getPreduzece().getCenovnici());
-		Cenovnik c = cenovnici.get(cenovnici.size() - 1);
-		ArrayList<RobaUsluga> roba = new ArrayList();
-		for (StavkaCenovnika s : c.getStavkeCenovnika()) {
-			roba.add(s.getRobaUsluga());
-		}
-		return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(roba));
-	}
-
 	@PostMapping
 	public ResponseEntity postFaktura(@Validated @RequestBody FakturaDto dto, Errors errors) {
 		if (errors.hasErrors()) {
@@ -164,8 +152,7 @@ public class FakturaController {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		if (faktura == null)
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		else if (faktura.getStatusFakture() != StatusFakture.STORNIRANA
-				&& faktura.getStatusFakture() != StatusFakture.PLACENA)
+		else if (faktura.getStatusFakture() != StatusFakture.FORMIRANA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		faktura.setDatumFakture(new Date());
 		faktura.setDatumValute(new Date());
@@ -180,6 +167,10 @@ public class FakturaController {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		if (dto.getId() != id) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		Faktura fakturaDB = fakturaServiceInterface.findOne(id);
+		if(fakturaDB.getStatusFakture() != StatusFakture.PORUDZBENICA) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		Faktura faktura = fakturaServiceInterface.save(fakturaMapper.fakturaDtoToEntity(dto));

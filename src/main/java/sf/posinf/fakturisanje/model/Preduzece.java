@@ -39,24 +39,21 @@ public class Preduzece {
     
 	private String logo;
 	
-	@OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "preduzece")
     private Set<Korisnik> korisnici = new HashSet<>();
 	
-    @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "preduzece")
     private Set<Faktura> fakture = new HashSet<>();
     
-	@OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "preduzece")
 	private Set<Cenovnik> cenovnici = new HashSet<>();
 	
-    @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "preduzece")
 	private Set<GrupaRobe> grupeRobe = new HashSet<>();
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "mesto_id")
     private Mesto mesto;
-    
-	@NotNull
-	private boolean obrisano;
 	
 	public Preduzece() {
 		
@@ -66,7 +63,7 @@ public class Preduzece {
 			@NotNull @Size(min = 8, max = 8) String pIB, @NotNull @Size(min = 10, max = 20) String telefon,
 			@NotNull @Size(max = 60) String email, @NotNull @Size(max = 18) String tekuciRacun, String logo,
 			Set<Korisnik> korisnici, Set<Faktura> fakture, Set<Cenovnik> cenovnici, Set<GrupaRobe> grupeRobe,
-			Mesto mesto, @NotNull boolean obrisano) {
+			Mesto mesto) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -81,7 +78,6 @@ public class Preduzece {
 		this.cenovnici = cenovnici;
 		this.grupeRobe = grupeRobe;
 		this.mesto = mesto;
-		this.obrisano = obrisano;
 	}
 
 	public long getId() {
@@ -187,12 +183,4 @@ public class Preduzece {
 	public void setMesto(Mesto mesto) {
 		this.mesto = mesto;
 	}
-
-	public boolean isObrisano() {
-		return obrisano;
-	}
-
-	public void setObrisano(boolean obrisano) {
-		this.obrisano = obrisano;
-	}	
 }

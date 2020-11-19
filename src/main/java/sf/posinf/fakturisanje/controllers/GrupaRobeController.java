@@ -13,7 +13,11 @@ import sf.posinf.fakturisanje.dto.GrupaRobeDto;
 import sf.posinf.fakturisanje.mapstruct.GrupaRobeMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.model.GrupaRobe;
+import sf.posinf.fakturisanje.model.PDV;
+import sf.posinf.fakturisanje.services.impl.CenovnikService;
 import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 
 import java.util.stream.Collectors;
@@ -34,10 +38,16 @@ public class GrupaRobeController {
 	@Autowired
 	RobaUslugaMapper robaUslugaMapper;
 
+	@Autowired
+	PDV_ServiceInterface pdvServiceInterface;
+
+	@Autowired
+	private PreduzeceServiceInterface preduzeceServiceInterface;
+
 	@GetMapping
 	public ResponseEntity getAll(boolean obrisano, @RequestParam(value = "naziv", defaultValue = "") String naziv,
 			Pageable pageable) {
-		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(false, naziv, pageable);
+		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(naziv, pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(grupaRobePage.getTotalPages()));
 		return ResponseEntity.ok().headers(headers).body(grupaRobeMapper.grupaRobeToDto(grupaRobePage.getContent()));
@@ -66,7 +76,10 @@ public class GrupaRobeController {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		GrupaRobe grupaRobe = grupaRobeServiceInterface.save(grupaRobeMapper.grupaRobeDtoToEntity(dto));
+		GrupaRobe grupaRobe = grupaRobeMapper.grupaRobeDtoToEntity(dto);
+		grupaRobe.setPdv(pdvServiceInterface.findOne(grupaRobe.getPdv().getId()));
+		grupaRobe.setPreduzece(preduzeceServiceInterface.findOne(grupaRobe.getPreduzece().getId()));
+		grupaRobe = grupaRobeServiceInterface.save(grupaRobe);
 		if (grupaRobe == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -81,11 +94,12 @@ public class GrupaRobeController {
 		if (dto.getId() != id) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		GrupaRobe grupaRobe = grupaRobeServiceInterface.save(grupaRobeMapper.grupaRobeDtoToEntity(dto));
+		GrupaRobe grupaRobe = grupaRobeMapper.grupaRobeDtoToEntity(dto);
+		grupaRobe.setPdv(pdvServiceInterface.findOne(grupaRobe.getPdv().getId()));
+		grupaRobe = grupaRobeServiceInterface.save(grupaRobe);
 		if (grupaRobe == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(grupaRobeMapper.grupaRobeToDto(grupaRobe));
 	}
-
 }

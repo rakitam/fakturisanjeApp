@@ -21,7 +21,7 @@ public class PoslovnaGodina {
     
     private boolean zakljucana;
     
-    @OneToMany(mappedBy = "poslovnaGodina", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "poslovnaGodina")
     private Set<Faktura> fakture = new HashSet<>();
 
     public PoslovnaGodina() {

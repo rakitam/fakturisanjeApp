@@ -29,23 +29,9 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
         stavkaCenovnikaRepository.save(stavkaCenovnika);
         return stavkaCenovnika;
     }
-
-    @Override
-    public Boolean delete(Long id) {
-        StavkaCenovnika stavkaCenovnika = stavkaCenovnikaRepository.findById(id).orElse(null);
-        stavkaCenovnika.setObrisano(true);
-        stavkaCenovnikaRepository.saveAndFlush(stavkaCenovnika);
-        return true;
-    }
     
     @Override
     public List<StavkaCenovnika> findAllByRobaUsluga_Id(Long id){
-    	return stavkaCenovnikaRepository.findAllByObrisanoAndRobaUsluga_Id(false, id);
+    	return stavkaCenovnikaRepository.findAllByRobaUsluga_Id(id);
     }
-
-	@Override
-	public void update(StavkaCenovnika stavkaCenovnika) {
-		// TODO Auto-generated method stub
-		
-	}
 }
