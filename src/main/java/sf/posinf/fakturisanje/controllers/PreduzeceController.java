@@ -117,7 +117,6 @@ public class PreduzeceController {
 	}
 
 	// Metoda za izvestaj KIF
-	// TODO: Popraviti Enum
 	@GetMapping("{id}/reports/izlazne")
 	public ResponseEntity getReportsIzlazne(@RequestParam("godina") int godina, @PathVariable("id") long id) {
 		Preduzece preduzece = preduzeceServiceInterface.findOne(id);

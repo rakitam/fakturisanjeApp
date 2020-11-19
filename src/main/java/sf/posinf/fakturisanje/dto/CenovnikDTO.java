@@ -1,7 +1,6 @@
 package sf.posinf.fakturisanje.dto;
 
-import com.sun.istack.NotNull;
-
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class CenovnikDTO {
@@ -9,37 +8,40 @@ public class CenovnikDTO {
 	private long id;
 	@NotNull
 	private Date datumVazenja;
+	@NotNull
+	private long preduzece;
 	
 	public CenovnikDTO() {
 		
 	}
-	
-	public CenovnikDTO(Date datumVazenja) {
-		super();
+
+	public CenovnikDTO(long id, Date datumVazenja, @javax.validation.constraints.NotNull long preduzece) {
+		this.id = id;
 		this.datumVazenja = datumVazenja;
-	
-		
+		this.preduzece = preduzece;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public CenovnikDTO setId(long id) {
+	public void setId(long id) {
 		this.id = id;
-		return this;
 	}
 
 	public Date getDatumVazenja() {
 		return datumVazenja;
 	}
 
-	public CenovnikDTO setDatumVazenja(Date datumVazenja) {
+	public void setDatumVazenja(Date datumVazenja) {
 		this.datumVazenja = datumVazenja;
-		return this;
 	}
 
-	
+	public long getPreduzece() {
+		return preduzece;
+	}
 
-
+	public void setPreduzece(long preduzece) {
+		this.preduzece = preduzece;
+	}
 }

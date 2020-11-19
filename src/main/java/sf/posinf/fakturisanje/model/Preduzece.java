@@ -45,7 +45,7 @@ public class Preduzece {
     @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
     private Set<Faktura> fakture = new HashSet<>();
     
-	@OneToMany( cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)
 	private Set<Cenovnik> cenovnici = new HashSet<>();
 	
     @OneToMany(mappedBy = "preduzece", cascade = CascadeType.ALL)

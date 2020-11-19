@@ -19,6 +19,10 @@ public class Cenovnik {
 	
     @OneToMany(mappedBy = "cenovnik", cascade = CascadeType.ALL)
 	private Set<StavkaCenovnika> stavkeCenovnika = new HashSet<>();
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "preduzece_id")
+	private Preduzece preduzece;
     
     @NotNull
    	private boolean obrisano;
@@ -26,35 +30,45 @@ public class Cenovnik {
 	public Cenovnik() {
 		
 	}
-	
-	public Cenovnik(Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika) {
-		super();
+
+	public Cenovnik(long id, Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika, Preduzece preduzece, boolean obrisano) {
+		this.id = id;
 		this.datumVazenja = datumVazenja;
 		this.stavkeCenovnika = stavkeCenovnika;
+		this.preduzece = preduzece;
+		this.obrisano = obrisano;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Date getDatumVazenja() {
 		return datumVazenja;
 	}
+
+	public void setDatumVazenja(Date datumVazenja) {
+		this.datumVazenja = datumVazenja;
+	}
+
 	public Set<StavkaCenovnika> getStavkeCenovnika() {
 		return stavkeCenovnika;
 	}
 
-
-	public Cenovnik setId(long id) {
-		this.id = id;
-		return this;
-	}
-	public Cenovnik setDatumVazenja(Date datumVazenja) {
-		this.datumVazenja = datumVazenja;
-		return this;
-	}
-	public Cenovnik setStavkeCenovnika(Set<StavkaCenovnika> stavkeCenovnika) {
+	public void setStavkeCenovnika(Set<StavkaCenovnika> stavkeCenovnika) {
 		this.stavkeCenovnika = stavkeCenovnika;
-		return this;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
 	}
 
 	public boolean isObrisano() {
@@ -64,5 +78,4 @@ public class Cenovnik {
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
 	}
-
 }

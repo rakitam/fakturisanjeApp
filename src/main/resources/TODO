@@ -1,0 +1,5 @@
+CENOVNIK KONTROLER
+GET localhost:8080/api/cenovnik - RADI
+GET localhost:8080/api/cenovnik/1 - RADI
+GET localhost:8080/api/cenovnik/1/stavke-cenovnika - RADI
+POST localhost:8080/api/cenovnik - JSON datum format?

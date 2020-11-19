@@ -1,4 +1,4 @@
-insert into cenovnik (datum_vazenja, obrisano) values ('2020-11-30', 0);
+insert into cenovnik (datum_vazenja, obrisano, preduzece_id) values ('2020-11-30', 0, 1);
 
 insert into poslovna_godina (godina, zakljucana) values (2020, 0);
 
