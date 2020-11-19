@@ -1,17 +1,11 @@
 package sf.posinf.fakturisanje.model;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.sun.istack.NotNull;
 
 @Entity
 public class Cenovnik {

@@ -1,12 +1,11 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import sf.posinf.fakturisanje.dto.FakturaDto;
 import sf.posinf.fakturisanje.model.Faktura;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface FakturaMapper {

@@ -1,15 +1,13 @@
 
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.Korisnik;
 import sf.posinf.fakturisanje.repository.KorisnikRepository;
 import sf.posinf.fakturisanje.services.interfaces.KorisnikServiceInterface;
+
+import java.util.List;
 
 @Service
 public class KorisnikService implements KorisnikServiceInterface {

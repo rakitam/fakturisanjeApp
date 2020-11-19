@@ -1,17 +1,14 @@
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.repository.GrupaRobeRepository;
 import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
+
+import java.util.List;
 
 @Service
 public class GrupaRobeService implements GrupaRobeServiceInterface {

@@ -1,7 +1,5 @@
 package sf.posinf.fakturisanje.controllers;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,21 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.GrupaRobeDto;
 import sf.posinf.fakturisanje.mapstruct.GrupaRobeMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/grupa-robe")
@@ -38,6 +30,9 @@ public class GrupaRobeController {
 
 	@Autowired
 	private GrupaRobeMapper grupaRobeMapper;
+	
+	@Autowired
+	RobaUslugaMapper robaUslugaMapper;
 
 	@GetMapping
 	public ResponseEntity getAll(boolean obrisano, @RequestParam(value = "naziv", defaultValue = "") String naziv,
@@ -57,14 +52,14 @@ public class GrupaRobeController {
 		return ResponseEntity.ok(grupaRobeMapper.grupaRobeToDto(grupaRobe));
 	}
 
-	// TODO: STA JE SLICE
-	/*
-	 * @GetMapping("/{id}/roba") public ResponseEntity getRoba(@PathVariable("id")
-	 * long id) { return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(
-	 * robaUslugaServiceInterface.findAllByGrupaRobe_id(id, "", 0,
-	 * Integer.MAX_VALUE).getContent().stream() .filter(p ->
-	 * !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList()))); }
-	 */
+	@GetMapping("/{id}/roba")
+	public ResponseEntity getRoba(@PathVariable("id") long id,
+		  	@RequestParam(name = "naziv", defaultValue = "") String naziv,
+	  		Pageable pageable) {
+		return ResponseEntity.ok(robaUslugaMapper.robaUslugaToDto(
+				robaUslugaServiceInterface.findAllByGrupaRobe_idAndNaziv(id, naziv, pageable).getContent().stream()
+						.filter(p -> !p.getStavkeCenovnika().isEmpty()).collect(Collectors.toList())));
+	}
 
 	@PostMapping
 	public ResponseEntity postGrupaRobe(@Validated @RequestBody GrupaRobeDto dto, Errors errors) {

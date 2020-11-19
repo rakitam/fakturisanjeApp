@@ -1,18 +1,15 @@
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.StatusFakture;
-import sf.posinf.fakturisanje.model.StavkaFakture;
 import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
+
+import java.util.List;
 
 @Service
 public class FakturaService implements FakturaServiceInterface {
@@ -36,7 +33,7 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
-	public List<Faktura> findAllByStatusFakture(String statusFakture) {
+	public List<Faktura> findAllByStatusFakture(StatusFakture statusFakture) {
 		return fakturaRepository.findAllByStatusFakture(statusFakture);
 	}
 
@@ -46,7 +43,7 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
-	public List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(String statusFakture,
+	public List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(StatusFakture statusFakture,
 			String korisnikEmail, long poslovnaGodina) {
 		return fakturaRepository.findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(statusFakture,
 				korisnikEmail, poslovnaGodina);

@@ -1,14 +1,11 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import sf.posinf.fakturisanje.dto.PreduzeceDto;
 import sf.posinf.fakturisanje.dto.RobaUslugaDto;
-import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.model.RobaUsluga;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RobaUslugaMapper {

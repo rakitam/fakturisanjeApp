@@ -1,11 +1,10 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import sf.posinf.fakturisanje.model.GrupaRobe;
+
+import java.util.List;
 
 public interface GrupaRobeServiceInterface {
 	

@@ -1,28 +1,21 @@
 package sf.posinf.fakturisanje.controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.PDV_Dto;
 import sf.posinf.fakturisanje.mapstruct.PDVMapper;
 import sf.posinf.fakturisanje.mapstruct.StopaPDVMapper;
 import sf.posinf.fakturisanje.model.PDV;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/pdv")

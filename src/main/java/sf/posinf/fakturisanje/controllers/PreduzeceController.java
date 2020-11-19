@@ -1,13 +1,9 @@
 package sf.posinf.fakturisanje.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -16,23 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.PreduzeceDto;
 import sf.posinf.fakturisanje.mapstruct.CenovnikMapper;
-import sf.posinf.fakturisanje.mapstruct.FakturaMapper;
 import sf.posinf.fakturisanje.mapstruct.GrupaRobeMapper;
 import sf.posinf.fakturisanje.mapstruct.PreduzeceMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
@@ -40,6 +22,10 @@ import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
+
+import java.io.ByteArrayInputStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/preduzece")
@@ -82,15 +68,10 @@ public class PreduzeceController {
 				.ok(cenovnikMapper.cenovnikToDto(c.stream().filter(x -> !x.isObrisano()).collect(Collectors.toList())));
 	}
 
-	// TODO: RESITI STATUS FAKTURE
 	@GetMapping("/{id}/fakture/izlazne")
 	public ResponseEntity getFaktureIzlazne(@PathVariable("id") long id,
 			@RequestParam(value = "godina", defaultValue = "0") int godina) {
-		if (godina == 0) {
-			return ResponseEntity.ok(preduzeceServiceInterface.findAllByPreduzeceAndStatusFakture(id, "formirana"));
-		}
-		return ResponseEntity.ok(preduzeceServiceInterface.findAllByPreduzeceAndStatusFakture(id, "formirana").stream()
-				.filter(f -> f.getPoslovnaGodina().getId() == godina).collect(Collectors.toList()));
+			return ResponseEntity.ok(preduzeceServiceInterface.findAllByPreduzeceAndStatusFaktureAndPoslovnaGodina(id, godina));
 	}
 
 	@GetMapping("/{id}/grupe_robe")

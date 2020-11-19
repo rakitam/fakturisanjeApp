@@ -1,9 +1,8 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
-
-import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
+
+import java.util.List;
 
 public interface StavkaCenovnikaServiceInterface {
 

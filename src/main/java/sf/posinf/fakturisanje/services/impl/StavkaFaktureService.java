@@ -1,15 +1,13 @@
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sf.posinf.fakturisanje.model.StavkaFakture;
 import sf.posinf.fakturisanje.repository.StavkaFaktureRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
+
+import java.util.List;
 
 @Service
 public class StavkaFaktureService implements StavkaFaktureServiceInterface {

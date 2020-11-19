@@ -1,6 +1,7 @@
 package sf.posinf.fakturisanje.dto;
 
 import com.sun.istack.NotNull;
+
 import java.util.Date;
 
 public class CenovnikDTO {

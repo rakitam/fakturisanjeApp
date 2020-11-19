@@ -1,16 +1,9 @@
 package sf.posinf.fakturisanje.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -21,32 +14,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.FakturaDto;
 import sf.posinf.fakturisanje.mapstruct.FakturaMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
-import sf.posinf.fakturisanje.model.Cenovnik;
-import sf.posinf.fakturisanje.model.Faktura;
-import sf.posinf.fakturisanje.model.PoslovnaGodina;
-import sf.posinf.fakturisanje.model.RobaUsluga;
-import sf.posinf.fakturisanje.model.StatusFakture;
-import sf.posinf.fakturisanje.model.StavkaCenovnika;
+import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.*;
 
 @RestController
 @SuppressWarnings({ "rawtypes", "unchecked" })

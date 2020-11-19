@@ -1,14 +1,11 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import sf.posinf.fakturisanje.dto.StavkaFaktureDto;
 import sf.posinf.fakturisanje.dto.StopaPDV_Dto;
-import sf.posinf.fakturisanje.model.StavkaFakture;
 import sf.posinf.fakturisanje.model.StopaPDV;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface StopaPDVMapper {

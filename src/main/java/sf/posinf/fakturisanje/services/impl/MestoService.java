@@ -3,10 +3,12 @@ package sf.posinf.fakturisanje.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import sf.posinf.fakturisanje.model.Mesto;
 import sf.posinf.fakturisanje.repository.MestoRepository;
 import sf.posinf.fakturisanje.services.interfaces.MestoServiceInterface;
 
+@Service
 public class MestoService implements MestoServiceInterface {
 
 	@Autowired

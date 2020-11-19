@@ -1,14 +1,14 @@
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.Preduzece;
 import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.repository.PreduzeceRepository;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
+
+import java.util.List;
 
 @Service
 public class PreduzeceService implements PreduzeceServiceInterface {
@@ -30,21 +30,18 @@ public class PreduzeceService implements PreduzeceServiceInterface {
     }
     
     @Override
-	public List<Faktura> findAllByPreduzeceAndStatusFakture(long id, String statusFakture) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Faktura> findAllByPreduzeceAndStatusFaktureAndPoslovnaGodina(long preduzece, long poslovnaGodina) {
+        if(poslovnaGodina == 0) {
+            return fakturaRepository.findAllByPreduzece_Id(preduzece);
+        } else {
+            return fakturaRepository.findAllByPreduzece_IdAndPoslovnaGodina_Id(preduzece, poslovnaGodina);
+        }
 	}
 
 	@Override
 	public List<Faktura> findAllByPreduzeceAndStatusFaktureAndPlaceno(long id, String statusFakture, boolean placeno) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void update(Preduzece preduzece) {
-		// TODO Auto-generated method stub
-		
 	}
 
     @Override

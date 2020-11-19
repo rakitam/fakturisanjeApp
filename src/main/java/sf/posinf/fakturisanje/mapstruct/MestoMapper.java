@@ -1,13 +1,11 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
-
 import sf.posinf.fakturisanje.dto.GrupaRobeDto;
 import sf.posinf.fakturisanje.dto.MestoDto;
-import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.model.Mesto;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring") 
 public interface MestoMapper {

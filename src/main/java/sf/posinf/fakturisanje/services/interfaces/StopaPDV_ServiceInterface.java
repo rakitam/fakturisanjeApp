@@ -1,8 +1,8 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
-
 import sf.posinf.fakturisanje.model.StopaPDV;
+
+import java.util.List;
 
 public interface StopaPDV_ServiceInterface {
 	

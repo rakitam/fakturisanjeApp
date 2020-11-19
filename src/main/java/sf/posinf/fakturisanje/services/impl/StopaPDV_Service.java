@@ -1,14 +1,12 @@
 package sf.posinf.fakturisanje.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.repository.StopaPDVRepository;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
+
+import java.util.List;
 
 @Service
 public class StopaPDV_Service implements StopaPDV_ServiceInterface {

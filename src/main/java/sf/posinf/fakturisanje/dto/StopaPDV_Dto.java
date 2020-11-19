@@ -1,8 +1,7 @@
 package sf.posinf.fakturisanje.dto;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class StopaPDV_Dto {
 

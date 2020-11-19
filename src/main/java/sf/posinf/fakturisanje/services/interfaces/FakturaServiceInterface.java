@@ -1,11 +1,11 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import sf.posinf.fakturisanje.model.Faktura;
+import sf.posinf.fakturisanje.model.StatusFakture;
+
+import java.util.List;
 
 //TODO: Za sad dodato vise metoda koje bi se potencijalno mogle koristiti; posle pobrisati one koje ne budu bili potrebne
 public interface FakturaServiceInterface {
@@ -16,11 +16,11 @@ public interface FakturaServiceInterface {
     
     List<Faktura> findAllByPreduzece(String preduzece);
     
-    List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(String statusFakture, String korisnikEmail, long poslovnaGodina);
+    List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina(StatusFakture statusFakture, String korisnikEmail, long poslovnaGodina);
     
     List<Faktura> findAllByPoslovnaGodina(long poslovnaGodina);
     
-    List<Faktura> findAllByStatusFakture(String statusFakture);
+    List<Faktura> findAllByStatusFakture(StatusFakture statusFakture);
     
     Faktura save(Faktura faktura);
     

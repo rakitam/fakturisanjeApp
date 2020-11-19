@@ -1,40 +1,34 @@
 package sf.posinf.fakturisanje.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import sf.posinf.fakturisanje.model.Faktura;
+import sf.posinf.fakturisanje.model.StatusFakture;
+
+import java.util.List;
 
 @Repository
 public interface FakturaRepository extends JpaRepository<Faktura, Long> {
-	
-	List<Faktura> findAllByStatusFaktureAndKorisnik_Email(String statusFakture, String korisnikEmail);
-	
-	List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(String statusFakture, String korisnikEmail, long poslovna_godina_id);
-	
-	List<Faktura> findAllByStatusFaktureAndPoslovnaGodina_Id(String statusFakture, long poslovnaGodina_id);
 
-	List<Faktura> findAllByKorisnik_Email(String korisnikEmail);
+	List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(StatusFakture statusFakture, String korisnikEmail, long poslovna_godina_id);
 	
 	List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodina_id);
 	
 	List<Faktura> findAllByPreduzece(String preduzece);
 	
-	List<Faktura> findByStatusFaktureAndPreduzece_IdAndPlaceno(String statusFakture, long id, boolean placeno);
-	
-	List<Faktura> findByStatusFaktureAndPreduzece_Id(String statusFakture,long id);
-	
 	//Proveriti da li sam dobro namapirala enum u bazi
-	List<Faktura> findAllByStatusFakture(String statusFakture);
+	List<Faktura> findAllByStatusFakture(StatusFakture statusFakture);
 	
 	Page<Faktura> findAllByPoslovnaGodina_IdAndPreduzece_Naziv(long poslovnaGodina, String naziv, Pageable pageable);
 	
 	Page<Faktura> findAllByPreduzece_Naziv(String naziv, Pageable pageable);
 
 	List<Faktura> findAllByKorisnik_Id(long korisnikId);
+
+	List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Id(long preduzece, long poslovnaGodina);
+
+	List<Faktura> findAllByPreduzece_Id(long preduzece);
 }
 

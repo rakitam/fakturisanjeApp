@@ -1,13 +1,10 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
-
-import sf.posinf.fakturisanje.dto.GrupaRobeDto;
 import sf.posinf.fakturisanje.dto.PDV_Dto;
-import sf.posinf.fakturisanje.model.GrupaRobe;
 import sf.posinf.fakturisanje.model.PDV;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PDVMapper {

@@ -1,10 +1,9 @@
 package sf.posinf.fakturisanje.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import sf.posinf.fakturisanje.model.Korisnik;
+
+import java.util.List;
 
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
 

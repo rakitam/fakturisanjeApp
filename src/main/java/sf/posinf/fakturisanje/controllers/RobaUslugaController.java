@@ -1,8 +1,5 @@
 package sf.posinf.fakturisanje.controllers;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,16 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.RobaUslugaDto;
 import sf.posinf.fakturisanje.mapstruct.PDVMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
@@ -29,6 +17,9 @@ import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterface;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/robausluga")
@@ -51,7 +42,7 @@ public class RobaUslugaController {
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
 
 	@GetMapping
-	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa, boolean obrisana,
+	public ResponseEntity getAll(@RequestParam(value = "grupa", defaultValue = "0") Long grupa,
 			@RequestParam(value = "naziv", defaultValue = "") String naziv, Pageable pageable) {
 		if (grupa == 0) {
 			Page<RobaUsluga> robeUsluge = robaUslugaService.findAll(naziv, pageable);
@@ -59,7 +50,7 @@ public class RobaUslugaController {
 			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
 			return ResponseEntity.ok().headers(headers).body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));
 		} else {
-			Page<RobaUsluga> robeUsluge = robaUslugaService.findAllByGrupaRobe_id(grupa, false, naziv, pageable);
+			Page<RobaUsluga> robeUsluge = robaUslugaService.findAllByGrupaRobe_idAndNaziv(grupa, naziv, pageable);
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("total", String.valueOf(robeUsluge.getTotalPages()));
 			return ResponseEntity.ok().headers(headers).body(robaUslugaMapper.robaUslugaToDto(robeUsluge.getContent()));

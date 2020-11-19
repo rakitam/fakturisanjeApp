@@ -1,18 +1,10 @@
 package sf.posinf.fakturisanje.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -39,6 +31,8 @@ public class RobaUsluga {
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "grupa_robe_id")
 	private GrupaRobe grupaRobe;
+
+	private boolean obrisano;
 	
 	public RobaUsluga() {
 		
@@ -46,7 +40,7 @@ public class RobaUsluga {
 
 	public RobaUsluga(long id, @NotNull @Size(max = 50) String nazivRobeUsluge,
 			@NotNull @Size(max = 12) String jedinicaMere, Set<StavkaFakture> stavkeFakture,
-			Set<StavkaCenovnika> stavkeCenovnika, GrupaRobe grupaRobe) {
+			Set<StavkaCenovnika> stavkeCenovnika, GrupaRobe grupaRobe, boolean obrisano) {
 		super();
 		this.id = id;
 		this.nazivRobeUsluge = nazivRobeUsluge;
@@ -54,6 +48,7 @@ public class RobaUsluga {
 		this.stavkeFakture = stavkeFakture;
 		this.stavkeCenovnika = stavkeCenovnika;
 		this.grupaRobe = grupaRobe;
+		this.obrisano = obrisano;
 	}
 
 	public long getId() {
@@ -102,5 +97,13 @@ public class RobaUsluga {
 
 	public void setGrupaRobe(GrupaRobe grupaRobe) {
 		this.grupaRobe = grupaRobe;
-	}	
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
 }

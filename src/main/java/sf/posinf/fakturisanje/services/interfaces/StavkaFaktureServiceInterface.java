@@ -1,9 +1,8 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
-import java.util.List;
-import java.util.Optional;
-
 import sf.posinf.fakturisanje.model.StavkaFakture;
+
+import java.util.List;
 
 public interface StavkaFaktureServiceInterface {
 

@@ -1,36 +1,16 @@
 package sf.posinf.fakturisanje.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.*;
 
 
 @Entity
-public class Korisnik implements UserDetails {
+public class Korisnik {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-	
-	//TODO: Otkomentarisati security u pom.xml
-	//private Authority authority;
 	
 	@NotNull
 	private String email;
@@ -41,7 +21,7 @@ public class Korisnik implements UserDetails {
 	@NotNull
 	private String imeIPrezime;
 	
-	private int brojTelefona;
+	private String brojTelefona;
 	
 	@OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
     private Set<Faktura> faktureKorisnika = new HashSet<>();
@@ -57,7 +37,7 @@ public class Korisnik implements UserDetails {
 	}	
 
 	public Korisnik(long id, @NotNull String email, @NotNull String password, @NotNull String imeIPrezime,
-			int brojTelefona, Set<Faktura> faktureKorisnika, Preduzece preduzece, boolean obrisan) {
+			String brojTelefona, Set<Faktura> faktureKorisnika, Preduzece preduzece, boolean obrisan) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -93,11 +73,11 @@ public class Korisnik implements UserDetails {
 		this.imeIPrezime = imeIPrezime;
 	}
 
-	public int getBrojTelefona() {
+	public String getBrojTelefona() {
 		return brojTelefona;
 	}
 
-	public void setBrojTelefona(int brojTelefona) {
+	public void setBrojTelefona(String brojTelefona) {
 		this.brojTelefona = brojTelefona;
 	}
 
@@ -129,40 +109,8 @@ public class Korisnik implements UserDetails {
 		this.password = password;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authority = new ArrayList<>();
-		//authority.add(this.authority);
-		return authority;
-	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
-
-	@Override
-	public String getUsername() {
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
-	}		
 }

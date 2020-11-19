@@ -1,14 +1,11 @@
 package sf.posinf.fakturisanje.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import sf.posinf.fakturisanje.dto.FakturaDto;
 import sf.posinf.fakturisanje.dto.GrupaRobeDto;
-import sf.posinf.fakturisanje.model.Faktura;
 import sf.posinf.fakturisanje.model.GrupaRobe;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring") 
 public interface GrupaRobeMapper {
