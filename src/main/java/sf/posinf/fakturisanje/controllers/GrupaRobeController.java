@@ -23,7 +23,7 @@ import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/grupa-robe")
+@RequestMapping("api/grupe-robe")
 public class GrupaRobeController {
 
 	@Autowired

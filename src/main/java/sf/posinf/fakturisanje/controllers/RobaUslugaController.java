@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/robausluga")
+@RequestMapping("/api/robe-usluge")
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class RobaUslugaController {
 

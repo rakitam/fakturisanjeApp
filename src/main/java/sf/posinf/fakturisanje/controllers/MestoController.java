@@ -15,7 +15,7 @@ import sf.posinf.fakturisanje.model.Mesto;
 import sf.posinf.fakturisanje.services.interfaces.MestoServiceInterface;
 
 @RestController
-@RequestMapping("api/mesto")
+@RequestMapping("api/mesta")
 public class MestoController {
 
 	@Autowired

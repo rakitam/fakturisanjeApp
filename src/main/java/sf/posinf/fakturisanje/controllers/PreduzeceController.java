@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/preduzece")
+@RequestMapping("/api/preduzeca")
 public class PreduzeceController {
 
 	@Autowired

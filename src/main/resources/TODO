@@ -1,11 +1,8 @@
-TODO: DODATI FILTER PO OBRISANOM SVUDA; PAZITI NA NAZIVE APIJA; GDE GOD U DTO IMAM REFERENCU NA CEO OBJEKAT, MOGU DA STAVIM DTO (MAPPER RADI AUTOMATSKI)
-
 CENOVNIK KONTROLER
 GET localhost:8080/api/cenovnik - RADI
 GET localhost:8080/api/cenovnik/1 - RADI
 GET localhost:8080/api/cenovnik/1/stavke-cenovnika - RADI
 POST localhost:8080/api/cenovnik - RADI
-DELETE localhost:8080/api/cenovnik/1 - RADI
 PUT localhost:8080/api/cenovnik/1 - RADI
 
 FAKTURA KONTROLER
@@ -21,7 +18,6 @@ GET localhost:8080/api/grupa-robe - RADI
 GET localhost:8080/api/grupa-robe/1 - RADI
 GET localhost:8080/api/grupa-robe/1/roba - RADI
 POST localhost:8080/api/grupa-robe - RADI
-TODO: Dodati delete za grupu robe
 
 KORISNIK KONTROLER
 TODO: Odraditi ceo kontroler kad se bude radio front i security
@@ -30,7 +26,6 @@ MESTO KONTROLER
 GET localhost:8080/api/mesto - RADI
 GET localhost:8080/api/mesto/1 - RADI
 GET localhost:8080/api/mesto/3 - RADI
-DELETE localhost:8080/api/mesto/3 - RADI
 
 PDV_CONTROLLER
 GET localhost:8080/api/pdv - RADI
@@ -57,14 +52,12 @@ GET localhost:8080/api/robausluga/cena - RADI
 GET localhost:8080/api/robausluga/pdv - RADI
 POST localhost:8080/api/robausluga - RADI
 PUT localhost:8080/api/robausluga/id - RADI
-DELETE localhost:8080/api/robausluga - RADI
 
 STAVKACENOVNIKA KONTROLER
 GET localhost:8080/api/stavke-cenovnika - RADI
 GET localhost:8080/api/stavke-cenovnika/id - RADI
 POST localhost:8080/api/stavke-cenovnika/id - RADI
 PUT localhost:8080/api/stavke-cenovnika/id - RADI
-DELETE localhost:8080/api/stavke-cenovnika/id - RADI
 
 STAVKAFAKTURE CONTROLLER
 GET localhost:8080/api/stavke-fakture - RADI
@@ -77,7 +70,6 @@ GET localhost:8080/api/stope-pdv - RADI
 GET localhost:8080/api/stope-pdv/1 - RADI
 POST localhost:8080/api/stope-pdv - RADI
 PUT localhost:8080/api/stope-pdv/id - RADI
-DELETE localhost:8080/api/stope-pdv/id - RADI
 
 
 

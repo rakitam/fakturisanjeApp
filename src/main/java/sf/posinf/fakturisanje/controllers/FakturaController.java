@@ -81,6 +81,7 @@ public class FakturaController {
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(faktura));
 	}
 
+	//TODO: Skontati jasper
 	@GetMapping("/{id}/report")
 	public ResponseEntity getReport(@PathVariable("id") long id) {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
@@ -161,6 +162,19 @@ public class FakturaController {
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
 	}
 
+	@PutMapping("/{id}/storniraj")
+	public ResponseEntity storniraj(@PathVariable("id") long id) {
+		Faktura faktura = fakturaServiceInterface.findOne(id);
+		if (faktura == null)
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		else if (faktura.getStatusFakture() == StatusFakture.STORNIRANA)
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		faktura.setStatusFakture(StatusFakture.STORNIRANA);
+		faktura = fakturaServiceInterface.save(faktura);
+		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
+	}
+
+	//Faktura se moze menjati iskljucivo pre nego sto je formirana
 	@PutMapping("/{id}")
 	public ResponseEntity putOne(@PathVariable("id") long id, @Validated @RequestBody FakturaDto dto, Errors errors) {
 		if (errors.hasErrors()) {

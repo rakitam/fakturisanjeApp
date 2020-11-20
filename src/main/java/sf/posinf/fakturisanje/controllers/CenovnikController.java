@@ -21,7 +21,7 @@ import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 
 @RestController
-@RequestMapping("/api/cenovnik")
+@RequestMapping("/api/cenovnici")
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class CenovnikController {
 
