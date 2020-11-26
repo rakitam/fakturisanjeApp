@@ -32,12 +32,6 @@ public class StavkaFaktureController {
 	@Autowired
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
 
-	@GetMapping
-	public ResponseEntity getAll() {
-		return new ResponseEntity(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFaktureService.findAll()),
-				HttpStatus.OK);
-	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {
 		StavkaFakture stavkaFakture = stavkaFaktureService.findOne(id);
@@ -48,21 +42,7 @@ public class StavkaFaktureController {
 		}
 	}
 
-	@PostMapping
-	public ResponseEntity postOne(@Validated @RequestBody StavkaFaktureDto dto, Errors errors) {
-		if (errors.hasErrors()) {
-			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		StavkaFakture stavkaFakture = stavkaFaktureMapper.stavkaFaktureDtoToEntity(dto);
-		stavkaFakture.setFaktura(fakturaService.findOne(stavkaFakture.getFaktura().getId()));
-		stavkaFakture.setRobaUsluga(robaUslugaServiceInterface.findOne(stavkaFakture.getRobaUsluga().getId()));
-		stavkaFakture = stavkaFaktureService.save(stavkaFakture);
-		if (stavkaFakture != null) {
-			return new ResponseEntity(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFakture), HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-	}
+	//TODO: Napraviti put metodu za izmenu stavke ukoliko je faktura u statusu "porudzbenica"
 
-	// Stavke fakture ne treba brisati niti menjati - ukoliko dodje do greske, faktura se stornira
+	//TODO: Napraviti delete metodu za brisanje stavke ukoliko je faktura u statusu "porudzbenica"
 }

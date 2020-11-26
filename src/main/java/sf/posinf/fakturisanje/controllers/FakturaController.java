@@ -134,7 +134,7 @@ public class FakturaController {
 		PoslovnaGodina poslednjaPoslovnaGodina = poslovnaGodinaServiceInterface.findByZakljucanaIsFalse();
 		Faktura faktura = fakturaMapper.fakturaDtoToEntity(dto);
 		faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1);
-		faktura.setStatusFakture(StatusFakture.FORMIRANA);
+		faktura.setStatusFakture(StatusFakture.PORUDZBENICA);
 		faktura.setIznosZaPlacanje(0);
 		faktura.setOsnovica(0);
 		faktura.setUkupanPdv(0);
@@ -158,6 +158,18 @@ public class FakturaController {
 		faktura.setDatumFakture(new Date());
 		faktura.setDatumValute(new Date());
 		faktura.setStatusFakture(StatusFakture.PLACENA);
+		faktura = fakturaServiceInterface.save(faktura);
+		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
+	}
+
+	@PutMapping("/{id}/formiraj")
+	public ResponseEntity formirajFakturu(@PathVariable("id") long id) {
+		Faktura faktura = fakturaServiceInterface.findOne(id);
+		if (faktura == null)
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA)
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		faktura.setStatusFakture(StatusFakture.FORMIRANA);
 		faktura = fakturaServiceInterface.save(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
 	}

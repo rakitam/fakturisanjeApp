@@ -7,13 +7,11 @@ import sf.posinf.fakturisanje.model.RobaUsluga;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {GrupaRobeMapper.class})
 public interface RobaUslugaMapper {
 
-	@Mapping(source = "grupaRobe.id", target = "grupaRobe")
 	RobaUslugaDto robaUslugaToDto(RobaUsluga robaUsluga);
 	
-	@Mapping(source = "grupaRobe", target = "grupaRobe.id")
 	RobaUsluga robaUslugaDtoToentity(RobaUslugaDto robaUslugaDto);
 	
 	List<RobaUsluga> robaUslugaDtoToEntity(List<RobaUslugaDto> robeUsluge);

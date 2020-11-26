@@ -11,13 +11,13 @@ public class RobaUslugaDto {
     @NotNull
 	private String jedinicaMere;
     @NotNull
-	private Long grupaRobe;
+	private GrupaRobeDto grupaRobe;
 	
 	public RobaUslugaDto() {
 		
 	}
 	
-	public RobaUslugaDto(String nazivRobeUsluge, String jedinicaMere, Long grupaRobe) {
+	public RobaUslugaDto(String nazivRobeUsluge, String jedinicaMere, GrupaRobeDto grupaRobe) {
 		super();
 		this.nazivRobeUsluge = nazivRobeUsluge;
 		this.jedinicaMere = jedinicaMere;
@@ -51,11 +51,11 @@ public class RobaUslugaDto {
 		return this;
 	}
 
-	public Long getGrupaRobe() {
+	public GrupaRobeDto getGrupaRobe() {
 		return grupaRobe;
 	}
 
-	public RobaUslugaDto setGrupaRobe(Long grupaRobe) {
+	public RobaUslugaDto setGrupaRobe(GrupaRobeDto grupaRobe) {
 		this.grupaRobe = grupaRobe;
 		return this;
 	}

@@ -7,13 +7,11 @@ import sf.posinf.fakturisanje.model.StavkaCenovnika;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {RobaUslugaMapper.class})
 public interface StavkaCenovnikaMapper {
-	@Mapping(source = "robaUsluga.id", target = "robaUsluga")
 	@Mapping(source = "cenovnik.id", target = "cenovnik")
 	StavkaCenovnikaDTO stavkaCenovnikaToDto(StavkaCenovnika stavkaCenovnika);
 
-	@Mapping(source = "robaUsluga", target = "robaUsluga.id")
 	@Mapping(source = "cenovnik", target = "cenovnik.id")
 	StavkaCenovnika stavkaCenovnikaDtoToEntity(StavkaCenovnikaDTO stavkaCenovnikaDTO);
 	
