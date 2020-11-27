@@ -8,7 +8,7 @@ $(document).ready(function(){
         var id = url.substring(url.lastIndexOf('=') + 1);
 
         $.ajax({
-            url: '/api/cenovnici/'+ id +'/stavke-cenovnika',
+            url: '/api/cenovnici/'+ id + '/stavke-cenovnika',
             success: function (data) {
                 console.log(data);
                 for (const stavke of data) {
