@@ -20,6 +20,7 @@ import sf.posinf.fakturisanje.mapstruct.FakturaMapper;
 import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
 import sf.posinf.fakturisanje.model.*;
+import sf.posinf.fakturisanje.services.impl.KorisnikService;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
@@ -52,6 +53,9 @@ public class FakturaController {
 
 	@Autowired
 	private RobaUslugaMapper robaUslugaMapper;
+
+	@Autowired
+	private KorisnikService korisnikService;
 
 	//TODO: Ne treba mi getAll jer imam samo izlazne
 	@GetMapping
@@ -126,22 +130,10 @@ public class FakturaController {
 				.ok(stavkaFaktureMapper.stavkaFaktureToDto(stavkaFaktureServiceInterface.findByFaktura_id(id)));
 	}
 
-	@PostMapping
-	public ResponseEntity postFaktura(@Validated @RequestBody FakturaDto dto, Errors errors) {
-		if (errors.hasErrors()) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		PoslovnaGodina poslednjaPoslovnaGodina = poslovnaGodinaServiceInterface.findByZakljucanaIsFalse();
-		Faktura faktura = fakturaMapper.fakturaDtoToEntity(dto);
-		faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1);
-		faktura.setStatusFakture(StatusFakture.PORUDZBENICA);
-		faktura.setIznosZaPlacanje(0);
-		faktura.setOsnovica(0);
-		faktura.setUkupanPdv(0);
-		faktura.setIznosBezRabata(0);
-		faktura.setRabat(0);
-		faktura.setPoslovnaGodina(poslednjaPoslovnaGodina);
-		faktura = fakturaServiceInterface.save(faktura);
+	@GetMapping("/active")
+	public ResponseEntity getActiveKorpa() {
+		Korisnik k = korisnikService.findByEmail("mrakita1993@gmail.com");
+		Faktura faktura = fakturaServiceInterface.getActiveFakturaForKorisnik(k);
 		if (faktura == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -181,8 +173,7 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		else if (faktura.getStatusFakture() == StatusFakture.STORNIRANA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		faktura.setStatusFakture(StatusFakture.STORNIRANA);
-		faktura = fakturaServiceInterface.save(faktura);
+		fakturaServiceInterface.storniraj(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
 	}
 

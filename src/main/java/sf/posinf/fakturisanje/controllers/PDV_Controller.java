@@ -44,19 +44,10 @@ public class PDV_Controller {
 		return ResponseEntity.ok(pdvMapper.pdvToDto(pdv));
 	}
 
-	@GetMapping(value = "/{id}/stope")
+	@GetMapping(value = "/{id}/stopa")
 	public ResponseEntity getStopa(@PathVariable long id) {
-		PDV pdv = pdvServiceInterface.findOne(id);
-		if (pdv == null || pdv.getStopePdv().isEmpty()) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		List<StopaPDV> stope = new ArrayList(pdv.getStopePdv());
-
-		// Sortiramo stopePDV-a po datumu vazenja
-		Collections.sort(stope, (stopaPdv1, stopaPdv2) -> (stopaPdv1.getDatumVazenja().compareTo(stopaPdv2.getDatumVazenja())));
-
-		// vracamo trenutnu stopu, samo nam je ta potrebna
-		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stope.get(stope.size() - 1)));
+		StopaPDV stopaPdv = pdvServiceInterface.findActiveStopaPdv(id);
+		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopaPdv));
 	}
 
 	@PostMapping()

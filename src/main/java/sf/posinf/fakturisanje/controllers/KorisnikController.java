@@ -28,7 +28,7 @@ public class KorisnikController {
 		return this.korisnikServiceInterface.findAll();
 	}
 
-	// TODO: Dodati registraciju i login
+	// TODO: Dodati login
 
 	@GetMapping(value = "/{id}/fakture")
 	public ResponseEntity getKorisnikFakture(@RequestParam(value = "id", defaultValue = "") long korisnikId) {

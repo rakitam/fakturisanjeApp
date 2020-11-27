@@ -10,10 +10,8 @@ import sf.posinf.fakturisanje.dto.StavkaCenovnikaDTO;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
-import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
-import sf.posinf.fakturisanje.services.interfaces.GrupaRobeServiceInterface;
-import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
-import sf.posinf.fakturisanje.services.interfaces.StavkaCenovnikaServiceInterface;
+import sf.posinf.fakturisanje.services.impl.StavkaFaktureService;
+import sf.posinf.fakturisanje.services.interfaces.*;
 
 @RestController
 @RequestMapping("/api/stavke-cenovnika")
@@ -30,6 +28,9 @@ public class StavkaCenovnikaController {
 
 	@Autowired
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
+
+	@Autowired
+	StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 
 	@GetMapping
 	public ResponseEntity getAll() {
@@ -76,6 +77,16 @@ public class StavkaCenovnikaController {
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
+		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
+	}
+
+	@PostMapping(value = "/{id}/add-to-korpa")
+	public ResponseEntity addToKorpa(@PathVariable long id) {
+		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
+		if (stavka == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		stavkaFaktureServiceInterface.createSfFromSc(stavka);
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
 	}
 }

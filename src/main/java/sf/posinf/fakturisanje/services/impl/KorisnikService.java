@@ -22,6 +22,10 @@ public class KorisnikService implements KorisnikServiceInterface {
 		return korisnikRepository.findAll();
 	}
 
+	@Override
+	public Korisnik findByEmail(String email) {
+		return korisnikRepository.findByEmail(email);
+	}
 
 
 	@Override

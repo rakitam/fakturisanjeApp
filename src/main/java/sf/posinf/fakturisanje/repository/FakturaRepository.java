@@ -27,6 +27,8 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 
 	List<Faktura> findAllByKorisnik_Id(long korisnikId);
 
+	Faktura findByKorisnik_IdAndStatusFakture(long korisnikId, StatusFakture sf);
+
 	List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Id(long preduzece, long poslovnaGodina);
 
 	List<Faktura> findAllByPreduzece_Id(long preduzece);

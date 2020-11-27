@@ -1,5 +1,6 @@
 package sf.posinf.fakturisanje.services.interfaces;
 
+import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.model.StavkaFakture;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface StavkaFaktureServiceInterface {
     StavkaFakture save(StavkaFakture stavkaFakture);
 
     Boolean delete(Long id);
+
+    void createSfFromSc(StavkaCenovnika stavka);
 }

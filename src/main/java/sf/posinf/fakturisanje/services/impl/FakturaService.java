@@ -1,13 +1,18 @@
 package sf.posinf.fakturisanje.services.impl;
 
+import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sf.posinf.fakturisanje.model.Faktura;
+import sf.posinf.fakturisanje.model.Korisnik;
+import sf.posinf.fakturisanje.model.PoslovnaGodina;
 import sf.posinf.fakturisanje.model.StatusFakture;
 import sf.posinf.fakturisanje.repository.FakturaRepository;
+import sf.posinf.fakturisanje.repository.PoslovnaGodinaRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 
 import java.util.List;
 
@@ -16,6 +21,9 @@ public class FakturaService implements FakturaServiceInterface {
 
 	@Autowired
 	FakturaRepository fakturaRepository;
+
+	@Autowired
+	PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
 
 	@Override
 	public List<Faktura> findAll() {
@@ -35,13 +43,33 @@ public class FakturaService implements FakturaServiceInterface {
 
 	// Faktura moze samo da se stornira
 	@Override
-	public Boolean storniraj(Long id) {
-		Faktura fakturaDB = fakturaRepository.getOne(id);
-		if(fakturaDB.getStatusFakture() != StatusFakture.STORNIRANA) {
-			fakturaDB.setStatusFakture(StatusFakture.STORNIRANA);
+	public Boolean storniraj(Faktura faktura) {
+		if(faktura.getStatusFakture() != StatusFakture.STORNIRANA) {
+			faktura.setStatusFakture(StatusFakture.STORNIRANA);
+			save(faktura);
 			return true;
 		}		
 		return false;
+	}
+
+	@Override
+	public Faktura getActiveFakturaForKorisnik(Korisnik korisnik) {
+		Faktura faktura = fakturaRepository.findByKorisnik_IdAndStatusFakture(korisnik.getId(), StatusFakture.PORUDZBENICA);
+		if(faktura == null) {
+			PoslovnaGodina poslednjaPoslovnaGodina = poslovnaGodinaServiceInterface.findByZakljucanaIsFalse();
+			faktura = new Faktura();
+			faktura.setKorisnik(korisnik);
+			faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1);
+			faktura.setStatusFakture(StatusFakture.PORUDZBENICA);
+			faktura.setIznosZaPlacanje(0);
+			faktura.setOsnovica(0);
+			faktura.setUkupanPdv(0);
+			faktura.setIznosBezRabata(0);
+			faktura.setRabat(0);
+			faktura.setPoslovnaGodina(poslednjaPoslovnaGodina);
+			faktura = save(faktura);
+		}
+		return faktura;
 	}
 
 	// Faktura ne moze da se brise sem ako nije u fazi formiranja!

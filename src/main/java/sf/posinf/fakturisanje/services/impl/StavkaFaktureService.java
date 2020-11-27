@@ -2,12 +2,11 @@ package sf.posinf.fakturisanje.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sf.posinf.fakturisanje.model.Faktura;
-import sf.posinf.fakturisanje.model.Mesto;
-import sf.posinf.fakturisanje.model.StatusFakture;
-import sf.posinf.fakturisanje.model.StavkaFakture;
+import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.repository.StavkaFaktureRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.KorisnikServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.util.List;
@@ -17,9 +16,15 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	
 	@Autowired
 	StavkaFaktureRepository stavkaFaktureRepository;
+
+	@Autowired
+	KorisnikServiceInterface korisnikServiceInterface;
 	
 	@Autowired
 	FakturaServiceInterface fakturaServiceInterface;
+
+	@Autowired
+	PDV_ServiceInterface pdv_serviceInterface;
 
 	@Override
 	public List<StavkaFakture> findAll() {
@@ -36,6 +41,7 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 		return stavkaFaktureRepository.getOne(id);
 	}
 
+	//Popraviti u zavisnosti od toga da li se cuva ili menja
 	@Override
 	public StavkaFakture save(StavkaFakture stavkaFakture) {
 		Faktura faktura = stavkaFakture.getFaktura();
@@ -47,21 +53,39 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
         return stavkaFakture;
 	}
 
-	//TODO: Testirati metodu
 	@Override
 	public Boolean delete(Long id) {
 		StavkaFakture sf = stavkaFaktureRepository.getOne(id);
-		Faktura faktura = sf.getFaktura();
 		if (sf == null) {
 			return false;
 		}
-		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA) {
+		Faktura faktura = sf.getFaktura();
+		if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA) {
 			return false;
 		}
 		sf.setObrisana(true);
 		stavkaFaktureRepository.saveAndFlush(sf);
-		//TODO: Treba update-ovati i fakturu, jer se na njoj stavka vise ne nalazi?
-		fakturaServiceInterface.update(sf.getFaktura());
+		//Treba update-ovati i fakturu, jer se na njoj stavka vise ne nalazi?
+		//fakturaServiceInterface.update(sf.getFaktura());
 		return true;
+	}
+
+	@Override
+	public void createSfFromSc(StavkaCenovnika stavka) {
+		StavkaFakture sf = new StavkaFakture();
+		PDV pdv = stavka.getRobaUsluga().getGrupaRobe().getPdv();
+		StopaPDV stopa = pdv_serviceInterface.findActiveStopaPdv(pdv.getId());
+		sf.setRobaUsluga(stavka.getRobaUsluga());
+		//TODO: Trenutno hardkodovano, ako se stigne preko principala
+		sf.setFaktura(fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail("mrakita1993@gmail.com")));
+		//TODO: Kolicina i rabat se unose na frontu
+		sf.setKolicina(1);
+		sf.setRabat(0);
+		sf.setOsnovicaZaPdv(stavka.getCena() * 1 - 0);
+		sf.setIznosPdva(sf.getOsnovicaZaPdv() * stopa.getProcenat()/100);
+		sf.setProcenatPdva(stopa.getProcenat());
+		sf.setIznosStavke(stavka.getCena());
+		sf.setJedinicnaCena(stavka.getCena());
+		sf.setObrisana(false);
 	}
 }

@@ -1,6 +1,5 @@
 $(document).ready(function(){
     var robaTable = $('#robaTable');
-    var buttonAddToKorpa = $("#addToKorpa");
     getRoba();
 
     function getRoba() {
@@ -17,9 +16,9 @@ $(document).ready(function(){
                             <td>${roba.robaUsluga.nazivRobeUsluge}</td>
                             <td>${roba.cena}</td>
                             <td>${roba.robaUsluga.grupaRobe.nazivGrupe}</td>
-                            <td>$("#addToKorpa").on("click", function (event) {
-                                
-                            }</td>
+                            <td>
+                                <button roba_id="${roba.id}" type="button" class="btn btn-primary addToKorpa">Dodaj</button>
+                            </td>
                         </tr>
                         `
                     )
@@ -27,5 +26,9 @@ $(document).ready(function(){
             }
         });
     }
+
+    $(document).on('click', '.addToKorpa',function (e) {
+        console.log($(this).attr('roba_id'));
+    })
 
 });

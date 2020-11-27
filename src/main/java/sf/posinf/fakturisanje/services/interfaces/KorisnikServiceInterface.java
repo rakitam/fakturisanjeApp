@@ -8,5 +8,7 @@ public interface KorisnikServiceInterface {
 
 	List<Korisnik> findAll();
 
+	Korisnik findByEmail(String email);
+
 	Korisnik save(Korisnik korisnik);
 }

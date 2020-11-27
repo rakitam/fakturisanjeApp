@@ -43,7 +43,6 @@ public class StavkaFaktureController {
 		}
 	}
 
-	//TODO: Testirati
 	@PutMapping("/{id}")
 	public ResponseEntity putOne(@PathVariable("id") long id, @Validated @RequestBody StavkaFaktureDto dto, Errors errors) {
 		if (errors.hasErrors()) {
@@ -60,10 +59,13 @@ public class StavkaFaktureController {
 		}
 	}
 
-	//TODO: Testirati
 	@DeleteMapping("/{id}")
 	public ResponseEntity deleteOne(@PathVariable("id") long id) {
-		stavkaFaktureService.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+		boolean deleted = stavkaFaktureService.delete(id);
+		if(deleted) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
 	}
 }
