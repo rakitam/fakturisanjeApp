@@ -9,13 +9,13 @@ public class CenovnikDTO {
 	@NotNull
 	private Date datumVazenja;
 	@NotNull
-	private long preduzece;
+	private PreduzeceDto preduzece;
 	
 	public CenovnikDTO() {
 		
 	}
 
-	public CenovnikDTO(long id, Date datumVazenja, @javax.validation.constraints.NotNull long preduzece) {
+	public CenovnikDTO(long id, Date datumVazenja, PreduzeceDto preduzece) {
 		this.id = id;
 		this.datumVazenja = datumVazenja;
 		this.preduzece = preduzece;
@@ -37,11 +37,11 @@ public class CenovnikDTO {
 		this.datumVazenja = datumVazenja;
 	}
 
-	public long getPreduzece() {
+	public PreduzeceDto getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(long preduzece) {
+	public void setPreduzece(PreduzeceDto preduzece) {
 		this.preduzece = preduzece;
 	}
 }
