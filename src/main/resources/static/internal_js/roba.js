@@ -2,10 +2,6 @@ $(document).ready(function(){
     var robaTable = $('#robaTable');
     getRoba();
 
-
-
-
-
     function getRoba() {
         $.ajax({
             url: '/api/stavke-cenovnika',
