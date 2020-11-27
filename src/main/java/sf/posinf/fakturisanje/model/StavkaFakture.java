@@ -38,6 +38,9 @@ public class StavkaFakture {
 	@ManyToOne
 	@JoinColumn(name = "roba_usluga_id")
 	private RobaUsluga robaUsluga;
+
+	@NotNull
+	private boolean obrisana;
 	
 	public StavkaFakture() {
 		
@@ -137,5 +140,13 @@ public class StavkaFakture {
 
 	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
-	}	
+	}
+
+	public boolean isObrisana() {
+		return obrisana;
+	}
+
+	public void setObrisana(boolean obrisana) {
+		this.obrisana = obrisana;
+	}
 }

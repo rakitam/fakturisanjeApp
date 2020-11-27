@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var robaTable = $('#robaTable');
+    var buttonAddToKorpa = $("#addToKorpa");
     getRoba();
 
     function getRoba() {
@@ -16,7 +17,9 @@ $(document).ready(function(){
                             <td>${roba.robaUsluga.nazivRobeUsluge}</td>
                             <td>${roba.cena}</td>
                             <td>${roba.robaUsluga.grupaRobe.nazivGrupe}</td>
-                            <td>dugme</td>
+                            <td>$("#addToKorpa").on("click", function (event) {
+                                
+                            }</td>
                         </tr>
                         `
                     )

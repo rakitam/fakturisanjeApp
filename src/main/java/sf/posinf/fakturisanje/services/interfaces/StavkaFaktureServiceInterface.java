@@ -13,4 +13,6 @@ public interface StavkaFaktureServiceInterface {
     StavkaFakture findOne(Long id);
     
     StavkaFakture save(StavkaFakture stavkaFakture);
+
+    Boolean delete(Long id);
 }

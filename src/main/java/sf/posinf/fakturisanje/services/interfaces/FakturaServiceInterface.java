@@ -7,7 +7,6 @@ import sf.posinf.fakturisanje.model.StatusFakture;
 
 import java.util.List;
 
-//TODO: Za sad dodato vise metoda koje bi se potencijalno mogle koristiti; posle pobrisati one koje ne budu bili potrebne
 public interface FakturaServiceInterface {
 
 	List<Faktura> findAll();
