@@ -53,8 +53,11 @@ public class FakturaController {
 
 	//TODO: Ne treba mi getAll jer imam samo izlazne
 	@GetMapping
-	public ResponseEntity getAll() {
-		return ResponseEntity.ok(fakturaMapper.fakturaToDto(fakturaServiceInterface.findAll()));
+	public ResponseEntity getAll(Pageable pageable) {
+		Page<Faktura> fakture = fakturaServiceInterface.findAll(pageable);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("total", String.valueOf(fakture.getTotalPages()));
+		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
 	}
 
 	@GetMapping("/{id}")

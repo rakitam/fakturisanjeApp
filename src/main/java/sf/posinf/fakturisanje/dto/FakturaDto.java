@@ -17,7 +17,7 @@ public class FakturaDto {
 	private String statusFakture;
 	@NotNull
 	private long preduzece;
-	private long poslovnaGodina;
+	private PoslovnaGodinaDto poslovnaGodina;
 	
 	public FakturaDto() {
 		
@@ -25,7 +25,7 @@ public class FakturaDto {
 
 	public FakturaDto(long id, long brojFakture, Date datumFakture, Date datumValute, double iznosBezRabata,
 			double rabat, double osnovica, double ukupanPdv, double iznosZaPlacanje, String statusFakture,
-			@NotNull long preduzece, long poslovnaGodina) {
+			@NotNull long preduzece, PoslovnaGodinaDto poslovnaGodina) {
 		super();
 		this.id = id;
 		this.brojFakture = brojFakture;
@@ -129,11 +129,11 @@ public class FakturaDto {
 		this.preduzece = preduzece;
 	}
 
-	public long getPoslovnaGodina() {
+	public PoslovnaGodinaDto getPoslovnaGodina() {
 		return poslovnaGodina;
 	}
 
-	public void setPoslovnaGodina(long poslovnaGodina) {
+	public void setPoslovnaGodina(PoslovnaGodinaDto poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
 	}	
 }

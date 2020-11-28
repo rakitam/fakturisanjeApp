@@ -27,8 +27,8 @@ public class FakturaService implements FakturaServiceInterface {
 	StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 
 	@Override
-	public List<Faktura> findAll() {
-		return fakturaRepository.findAll();
+	public Page<Faktura> findAll(Pageable pageable) {
+		return fakturaRepository.findAll(pageable);
 	}
 
 	@Override
