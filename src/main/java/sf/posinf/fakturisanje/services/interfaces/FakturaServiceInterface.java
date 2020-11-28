@@ -22,4 +22,6 @@ public interface FakturaServiceInterface {
     Faktura getActiveFakturaForKorisnik(Korisnik korisnik);
     
     Boolean update(Faktura faktura);
+
+    void racunaj(Long id);
 }

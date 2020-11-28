@@ -43,16 +43,10 @@ public class FakturaController {
 	private FakturaServiceInterface fakturaServiceInterface;
 
 	@Autowired
-	private PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
-
-	@Autowired
 	private FakturaMapper fakturaMapper;
 
 	@Autowired
 	private StavkaFaktureMapper stavkaFaktureMapper;
-
-	@Autowired
-	private RobaUslugaMapper robaUslugaMapper;
 
 	@Autowired
 	private KorisnikService korisnikService;
@@ -62,19 +56,6 @@ public class FakturaController {
 	public ResponseEntity getAll() {
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(fakturaServiceInterface.findAll()));
 	}
-
-	/*@GetMapping(value = "/izlazne-fakture")
-	public ResponseEntity getIzlazneFakture(@RequestParam(value = "godina", defaultValue = "0") int godina,
-			@RequestParam(value = "preduzece", defaultValue = "") Long preduzece, Pageable pageable) {
-		if(preduzece == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		Page<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodinaAndPreduzeceId(godina, preduzece,
-				pageable);
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("total", String.valueOf(fakture.getTotalPages()));
-		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
-	}*/
 
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") long id) {

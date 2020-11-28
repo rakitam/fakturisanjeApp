@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import sf.posinf.fakturisanje.model.Faktura;
-import sf.posinf.fakturisanje.model.Korisnik;
-import sf.posinf.fakturisanje.model.PoslovnaGodina;
-import sf.posinf.fakturisanje.model.StatusFakture;
+import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.repository.PoslovnaGodinaRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.util.List;
 
@@ -24,6 +22,9 @@ public class FakturaService implements FakturaServiceInterface {
 
 	@Autowired
 	PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
+
+	@Autowired
+	StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 
 	@Override
 	public List<Faktura> findAll() {
@@ -78,13 +79,35 @@ public class FakturaService implements FakturaServiceInterface {
 	@Override
 	public Boolean update(Faktura faktura) {
 		Faktura fakturaDB = fakturaRepository.getOne(faktura.getId());
-		if (fakturaDB.getStatusFakture() == StatusFakture.FORMIRANA
-				|| faktura.getStatusFakture() != StatusFakture.FORMIRANA) {
+		if (fakturaDB.getStatusFakture() == StatusFakture.FORMIRANA || faktura.getStatusFakture() != StatusFakture.FORMIRANA) {
 			fakturaDB.setStatusFakture(faktura.getStatusFakture());
 			save(fakturaDB);
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void racunaj(Long id) {
+		Faktura faktura = findOne(id);
+		double osnovica = 0;
+		double ukupanPdv = 0;
+		double iznosZaPlacanje = 0;
+		double iznosBezRabata = 0;
+		double ukupanRabat = 0;
+		for (StavkaFakture s : stavkaFaktureServiceInterface.findByFaktura_id(faktura.getId())) {
+			ukupanRabat += s.getRabat();
+			iznosBezRabata += s.getKolicina() * s.getJedinicnaCena();
+			osnovica += s.getOsnovicaZaPdv();
+			ukupanPdv += s.getIznosPdva();
+			iznosZaPlacanje += s.getIznosStavke();
+		}
+		faktura.setIznosZaPlacanje(iznosZaPlacanje);
+		faktura.setOsnovica(osnovica);
+		faktura.setUkupanPdv(ukupanPdv);
+		faktura.setIznosBezRabata(iznosBezRabata);
+		faktura.setRabat(ukupanRabat);
+		save(faktura);
 	}
 }

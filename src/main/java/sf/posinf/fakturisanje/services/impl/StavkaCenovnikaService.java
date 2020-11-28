@@ -1,6 +1,8 @@
 package sf.posinf.fakturisanje.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.repository.StavkaCenovnikaRepository;
@@ -15,8 +17,8 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
     StavkaCenovnikaRepository stavkaCenovnikaRepository;
 
     @Override
-    public List<StavkaCenovnika> findAll() {
-        return stavkaCenovnikaRepository.findAll();
+    public Page<StavkaCenovnika> findAll(Pageable pageable) {
+        return stavkaCenovnikaRepository.findAll(pageable);
     }
 
     @Override

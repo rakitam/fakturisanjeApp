@@ -22,7 +22,7 @@ public class StavkaFaktureDto {
     @NotNull
 	private long faktura;
     @NotNull
-	private long robaUsluga;
+	private RobaUslugaDto robaUsluga;
     
     public StavkaFaktureDto() {
     	
@@ -30,7 +30,7 @@ public class StavkaFaktureDto {
 
 	public StavkaFaktureDto(long id, @NotNull long kolicina, @NotNull float jedinicnaCena, @NotNull double rabat,
 			@NotNull double osnovicaZaPdv, @NotNull double procenatPdva, @NotNull double iznosPdva,
-			@NotNull double iznosStavke, @NotNull long faktura, @NotNull long robaUsluga) {
+			@NotNull double iznosStavke, @NotNull long faktura, @NotNull RobaUslugaDto robaUsluga) {
 		super();
 		this.id = id;
 		this.kolicina = kolicina;
@@ -116,11 +116,11 @@ public class StavkaFaktureDto {
 		this.faktura = faktura;
 	}
 
-	public long getRobaUsluga() {
+	public RobaUslugaDto getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public void setRobaUsluga(long robaUsluga) {
+	public void setRobaUsluga(RobaUslugaDto robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}    
 }

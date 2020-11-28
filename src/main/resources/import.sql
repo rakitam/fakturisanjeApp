@@ -163,4 +163,4 @@ insert into korisnik (broj_telefona, email, imeiprezime, password, preduzece_id)
 
 insert into faktura (broj_fakture, datum_fakture, datum_valute, iznos_bez_rabata, iznos_za_placanje, osnovica,rabat, status_fakture, ukupan_pdv, korisnik_id, poslovna_godina_id, preduzece_id) values (1, '2020-11-18', '2020-11-18', 500, 500, 500, 0, 'FORMIRANA', 1, 1, 1, 1);
 
-insert into stavka_fakture (iznos_pdva, iznos_stavke, jedinicna_cena, kolicina, osnovica_za_pdv, procenat_pdva, rabat, faktura_id, roba_usluga_id) values (20, 250, 150, 2, 2, 1, 0, 1, 1);
+insert into stavka_fakture(iznos_pdva, iznos_stavke, jedinicna_cena, kolicina, osnovica_za_pdv, procenat_pdva, rabat, faktura_id, roba_usluga_id, obrisana) values (20, 250, 150, 2, 2, 1, 0, 1, 1, 0)

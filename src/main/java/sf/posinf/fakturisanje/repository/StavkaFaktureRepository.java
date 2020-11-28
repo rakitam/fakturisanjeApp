@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StavkaFaktureRepository extends JpaRepository<StavkaFakture,Long> {
 
-	List<StavkaFakture> findByFaktura_id(Long id);
+	List<StavkaFakture> findByFaktura_idAndObrisanaIsFalse(Long id);
 }

@@ -1,6 +1,9 @@
 package sf.posinf.fakturisanje.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -33,8 +36,11 @@ public class StavkaCenovnikaController {
 	StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 
 	@GetMapping
-	public ResponseEntity getAll() {
-		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavkaCenovnikaService.findAll()));
+	public ResponseEntity getAll(Pageable pageable) {
+		Page<StavkaCenovnika> stavkeCenovnika = stavkaCenovnikaService.findAll(pageable);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("total", String.valueOf(stavkeCenovnika.getTotalPages()));
+		return ResponseEntity.ok().headers(headers).body(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavkeCenovnika.getContent()));
 	}
 
 	@GetMapping(value = "/{id}")
@@ -81,12 +87,12 @@ public class StavkaCenovnikaController {
 	}
 
 	@PostMapping(value = "/{id}/add-to-korpa")
-	public ResponseEntity addToKorpa(@PathVariable long id) {
+	public ResponseEntity addToKorpa(@PathVariable long id, @RequestParam(defaultValue = "1") int kolicina, @RequestParam(defaultValue = "0") int rabat) {
 		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		stavkaFaktureServiceInterface.createSfFromSc(stavka);
+		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat);
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
 	}
 }

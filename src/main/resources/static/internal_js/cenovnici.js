@@ -2,10 +2,6 @@ $(document).ready(function(){
     var cenovniciTable = $('#cenovniciTable');
     getCenovnici();
 
-
-
-
-
     function getCenovnici() {
         $.ajax({
             url: '/api/cenovnici',

@@ -33,7 +33,7 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 
 	@Override
 	public List<StavkaFakture> findByFaktura_id(Long id) {
-		return stavkaFaktureRepository.findByFaktura_id(id);
+		return stavkaFaktureRepository.findByFaktura_idAndObrisanaIsFalse(id);
 	}
 
 	@Override
@@ -65,27 +65,31 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 		}
 		sf.setObrisana(true);
 		stavkaFaktureRepository.saveAndFlush(sf);
-		//Treba update-ovati i fakturu, jer se na njoj stavka vise ne nalazi?
-		//fakturaServiceInterface.update(sf.getFaktura());
+		fakturaServiceInterface.racunaj(faktura.getId());
 		return true;
 	}
 
 	@Override
-	public void createSfFromSc(StavkaCenovnika stavka) {
+	public void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat) {
 		StavkaFakture sf = new StavkaFakture();
 		PDV pdv = stavka.getRobaUsluga().getGrupaRobe().getPdv();
 		StopaPDV stopa = pdv_serviceInterface.findActiveStopaPdv(pdv.getId());
+		Faktura korpa = fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail("mrakita1993@gmail.com"));
 		sf.setRobaUsluga(stavka.getRobaUsluga());
 		//TODO: Trenutno hardkodovano, ako se stigne preko principala
-		sf.setFaktura(fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail("mrakita1993@gmail.com")));
-		//TODO: Kolicina i rabat se unose na frontu
-		sf.setKolicina(1);
-		sf.setRabat(0);
-		sf.setOsnovicaZaPdv(stavka.getCena() * 1 - 0);
+		sf.setFaktura(korpa);
+		sf.setKolicina(kolicina);
+		sf.setRabat(rabat);
+		sf.setOsnovicaZaPdv(stavka.getCena() * kolicina - rabat);
 		sf.setIznosPdva(sf.getOsnovicaZaPdv() * stopa.getProcenat()/100);
 		sf.setProcenatPdva(stopa.getProcenat());
-		sf.setIznosStavke(stavka.getCena());
 		sf.setJedinicnaCena(stavka.getCena());
+		sf.setIznosStavke(stavka.getCena() * kolicina);
 		sf.setObrisana(false);
+		save(sf);
+
+		fakturaServiceInterface.racunaj(korpa.getId());
 	}
+
+
 }
