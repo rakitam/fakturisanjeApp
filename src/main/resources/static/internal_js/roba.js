@@ -2,10 +2,10 @@ $(document).ready(function () {
 
     $("#add-to-korpa").load("dialog/stavka.html");
 
-
     var robaTable = $('#robaTable');
     var pagination = $('#pagination');
     var page = 0;
+    var selectedRobaId;
     getRoba();
 
     function getRoba() {
@@ -42,31 +42,32 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '.addToKorpa', function (e) {
-        var robaId = $(this).attr('roba_id')
+        selectedRobaId = $(this).attr('roba_id')
         $('#stavka').modal('show')
         $('#rabat').val(0);
         $('#kolicina').val(1);
+        $('.alert').alert('close')
 
-        $('#potvrda').click(function () {
-            var rabat = $('#rabat').val();
-            if (rabat < 0) {
-                $('#messages').append(
-                    `<div class=" alert alert-warning alert-dismissible fade show" role="alert">Rabat ne sme biti manji od 1</div>`);
-                setTimeout(function () {$('.alert').alert('close')}, 3000);
-                return;
-            }
-            var kolicina = $('#kolicina').val();
-            if (kolicina < 1) {
-                $('#messages').append(
-                    `<div class="alert alert-danger fade show" role="alert">Kolicina ne sme biti manja od 1</div>`);
-                setTimeout(function () {$('.alert').alert('close')}, 3000);
-                return;
-            }
-            dodavanjeUKorpu(robaId, kolicina, rabat);
-            $('#stavka').modal('hide');
-        });
     });
 
+    $(document).on('click', '#potvrda', function () {
+        var rabat = $('#rabat').val();
+        if (rabat < 0) {
+            $('#messages').append(
+                `<div class=" alert alert-warning alert-dismissible fade show" role="alert">Rabat ne sme biti manji od 1</div>`);
+            setTimeout(function () {$('.alert').alert('close')}, 3000);
+            return;
+        }
+        var kolicina = $('#kolicina').val();
+        if (kolicina < 1) {
+            $('#messages').append(
+                `<div class="alert alert-danger fade show" role="alert">Kolicina ne sme biti manja od 1</div>`);
+            setTimeout(function () {$('.alert').alert('close')}, 3000);
+            return;
+        }
+        dodavanjeUKorpu(kolicina, rabat);
+        $('#stavka').modal('hide');
+    });
 
     pagination.on("click", "li.page-item", function (event) {
         event.preventDefault();
@@ -75,10 +76,10 @@ $(document).ready(function () {
     });
 
 
-    function dodavanjeUKorpu(id, kolicina, rabat) {
+    function dodavanjeUKorpu(kolicina, rabat) {
         $.ajax({
             method: 'POST',
-            url: '/api/stavke-cenovnika/' + id + '/add-to-korpa?kolicina=' + kolicina + '&rabat=' + rabat,
+            url: '/api/stavke-cenovnika/' + selectedRobaId + '/add-to-korpa?kolicina=' + kolicina + '&rabat=' + rabat,
             success: function (data) {
                 console.log('uspesno dodato u korpu');
             }

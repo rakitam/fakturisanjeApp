@@ -2,15 +2,14 @@ $(document).ready(function(){
     var stavkeTable = $('#stavkeTable');
     var pagination = $('#pagination');
     var page = 0;
+    var urlSearchParams = getParameters();
     getStavke();
 
     function getStavke() {
 
-        var url = (window.location).href;
-        var id = url.substring(url.lastIndexOf('=') + 1);
 
         $.ajax({
-            url: '/api/cenovnici/'+ id + '/stavke-cenovnika?size=10&page='+page,
+            url: '/api/cenovnici/'+ urlSearchParams['id'] + '/stavke-cenovnika?size=10&page='+page,
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -42,5 +41,17 @@ $(document).ready(function(){
         getStavke();
     });
 
+
+    function getParameters(){
+        var param = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            param.push(hash[0]);
+            param[hash[0]] = hash[1];
+        }
+        return param;
+    }
 
 });
