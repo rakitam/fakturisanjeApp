@@ -11,12 +11,12 @@ public class GrupaRobeDto {
     @NotNull
     private long preduzece;
     @NotNull
-    private long pdv;
+    private PDV_Dto pdv;
 
     public GrupaRobeDto() { }
 
 
-	public GrupaRobeDto(String nazivGrupe,long preduzece, long pdv) {
+	public GrupaRobeDto(String nazivGrupe,long preduzece, PDV_Dto pdv) {
 		super();
 		this.nazivGrupe = nazivGrupe;
 		this.preduzece = preduzece;
@@ -50,11 +50,11 @@ public class GrupaRobeDto {
 		return this;
 	}
 
-	public long getPdv() {
+	public PDV_Dto getPdv() {
 		return pdv;
 	}
 
-	public GrupaRobeDto setPdv(long pdv) {
+	public GrupaRobeDto setPdv(PDV_Dto pdv) {
 		this.pdv = pdv;
 		return this;
 	}

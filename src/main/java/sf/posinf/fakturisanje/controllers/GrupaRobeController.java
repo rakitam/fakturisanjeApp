@@ -45,8 +45,7 @@ public class GrupaRobeController {
 	private PreduzeceServiceInterface preduzeceServiceInterface;
 
 	@GetMapping
-	public ResponseEntity getAll(boolean obrisano, @RequestParam(value = "naziv", defaultValue = "") String naziv,
-			Pageable pageable) {
+	public ResponseEntity getAll(@RequestParam(value = "naziv", defaultValue = "") String naziv, Pageable pageable) {
 		Page<GrupaRobe> grupaRobePage = grupaRobeServiceInterface.findAll(naziv, pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(grupaRobePage.getTotalPages()));
