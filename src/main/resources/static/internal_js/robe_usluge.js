@@ -18,12 +18,13 @@ $(document).ready(function(){
 
     var page = 0;
     var urlSearchParams = getParameters();
+    var nazivInput = $('#naziv');
     getRoba();
 
     function getRoba() {
-
+    	var naziv = nazivInput.val();
         $.ajax({
-            url: '/api/robe-usluge?size=10&page='+page+'&grupa='+ urlSearchParams['grupa'],
+            url: '/api/robe-usluge?size=10&page='+page+'&grupa='+ urlSearchParams['grupa']+'&naziv='+naziv,
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -49,7 +50,13 @@ $(document).ready(function(){
         });
     }
 
+    nazivInput.keyup(function (e) {
+        e.preventDefault();
+        getRoba();
+    });
 
+     
+    
     pagination.on("click","li.page-item", function (event) {
         event.preventDefault();
         page = $(this).attr("page");
