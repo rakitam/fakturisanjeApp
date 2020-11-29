@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faktura</title>
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div id="nav"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <label class="float-right" for="brojFakture">Broj Fakture</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="brojFakture">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="datumFakture">Datum fakture</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="datumFakture">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="datumValute">Datum valute</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="datumValute">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="datumStorniranja">Datum storniranja</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="datumStorniranja">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="iznosBezRabata">Iznos bez rabata</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="iznosBezRabata">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="iznosZaPlacanje">Iznos za placanje</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="iznosZaPlacanje">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="osnovica">Osnovica</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="osnovica">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="rabat">Rabat</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="rabat">
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="float-right" for="statusFakture">Status fakture</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text"class="form-control" readonly id="statusFakture">
+            </div>
+        </div>
+
+        <div class="col-10">
+            <div class="float-right">
+                <button class="btn btn-success" id="plati">Plati</button>
+                <button class="btn btn-danger" id="storniraj">Storniraj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="internal_js/nav.js"></script>
+<script src="internal_js/faktura.js"></script>
+</body>
+</html>

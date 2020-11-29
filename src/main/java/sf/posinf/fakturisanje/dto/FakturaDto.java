@@ -9,6 +9,7 @@ public class FakturaDto {
 	private long brojFakture;
 	private Date datumFakture;
 	private Date datumValute;
+	private Date datumStorniranja;
 	private double iznosBezRabata;
 	private double rabat;
 	private double osnovica;
@@ -135,5 +136,13 @@ public class FakturaDto {
 
 	public void setPoslovnaGodina(PoslovnaGodinaDto poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
-	}	
+	}
+
+	public Date getDatumStorniranja() {
+		return datumStorniranja;
+	}
+
+	public void setDatumStorniranja(Date datumStorniranja) {
+		this.datumStorniranja = datumStorniranja;
+	}
 }

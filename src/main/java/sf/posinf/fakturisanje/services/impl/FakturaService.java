@@ -12,6 +12,7 @@ import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,6 +48,7 @@ public class FakturaService implements FakturaServiceInterface {
 	public Boolean storniraj(Faktura faktura) {
 		if(faktura.getStatusFakture() != StatusFakture.STORNIRANA) {
 			faktura.setStatusFakture(StatusFakture.STORNIRANA);
+			faktura.setDatumStorniranja(new Date());
 			save(faktura);
 			return true;
 		}		

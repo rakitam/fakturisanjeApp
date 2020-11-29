@@ -27,6 +27,7 @@ $(document).ready(function () {
                             <td>${faktura.brojFakture}/${faktura.poslovnaGodina.godina}</td>
                             <td>${!faktura.datumFakture ? '' : faktura.datumFakture}</td>
                             <td>${!faktura.datumValute ? '' : faktura.datumValute}</td>
+                            <td>${!faktura.datumStorniranja ? '' : faktura.datumStorniranja}</td>
                             <td>${faktura.iznosBezRabata}</td>
                             <td>${faktura.iznosZaPlacanje}</td>
                             <td>${faktura.statusFakture}</td>

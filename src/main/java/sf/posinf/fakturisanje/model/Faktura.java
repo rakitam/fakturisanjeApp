@@ -19,7 +19,9 @@ public class Faktura {
 	private Date datumFakture;
 	
 	private Date datumValute;
-	
+
+	private Date datumStorniranja;
+
 	@Enumerated(EnumType.STRING)
 	private StatusFakture statusFakture;
 	
@@ -188,5 +190,13 @@ public class Faktura {
 
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
-	}	
+	}
+
+	public Date getDatumStorniranja() {
+		return datumStorniranja;
+	}
+
+	public void setDatumStorniranja(Date datumStorniranja) {
+		this.datumStorniranja = datumStorniranja;
+	}
 }

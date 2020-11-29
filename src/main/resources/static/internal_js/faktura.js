@@ -9,6 +9,7 @@ $(document).ready(function(){
                 $('#brojFakture').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('#datumFakture').val(data.datumFakture);
                 $('#datumValute').val(data.datumValute);
+                $('#datumStorniranja').val(data.datumStorniranja);
                 $('#iznosBezRabata').val(data.iznosBezRabata);
                 $('#iznosZaPlacanje').val(data.iznosZaPlacanje);
                 $('#osnovica').val(data.osnovica);
