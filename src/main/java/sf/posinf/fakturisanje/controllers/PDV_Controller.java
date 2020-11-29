@@ -62,18 +62,4 @@ public class PDV_Controller {
 		return ResponseEntity.ok(pdvMapper.pdvToDto(pdv));
 	}
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity editPdv(@PathVariable long id, @Validated @RequestBody PDV_Dto dto, Errors errors) {
-		if (errors.hasErrors()) {
-			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		if (dto.getId() != id) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		PDV pdv = pdvServiceInterface.save(pdvMapper.pdvDtoToEntity(dto));
-		if (pdv == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		return ResponseEntity.ok(pdvMapper.pdvToDto(pdv));
-	}
 }

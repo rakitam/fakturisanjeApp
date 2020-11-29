@@ -55,20 +55,4 @@ public class StopaPDV_Controller {
 		return new ResponseEntity(stopaPDVMapper.stopaPdvToDto(stopa), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity putStopaPDV(@PathVariable long id, @Validated @RequestBody StopaPDV_Dto dto, Errors errors) {
-		if (errors.hasErrors()) {
-			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		if (dto.getId() != id) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		StopaPDV stopa = stopaPDVMapper.stopaPdvDtoToEntity(dto);
-		stopa.setPdv(pdvServiceInterface.findOne(stopa.getPdv().getId()));
-		stopa = stopaPdvService.save(stopa);
-		if (stopa == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopa));
-	}
 }

@@ -11,12 +11,12 @@ public class StopaPDV_Dto {
 	@NotNull
 	private Date datumVazenja;
 	@NotNull
-	private long pdv;
+	private PDV_Dto pdv;
 
 	public StopaPDV_Dto() {
 	}
 
-	public StopaPDV_Dto(float procenat, Date datumVazenja, long pdv) {
+	public StopaPDV_Dto(float procenat, Date datumVazenja, PDV_Dto pdv) {
 		super();
 		this.procenat = procenat;
 		this.datumVazenja = datumVazenja;
@@ -50,11 +50,11 @@ public class StopaPDV_Dto {
 		return this;
 	}
 
-	public long getPdv() {
+	public PDV_Dto getPdv() {
 		return pdv;
 	}
 
-	public StopaPDV_Dto setPdv(long pdv) {
+	public StopaPDV_Dto setPdv(PDV_Dto pdv) {
 		this.pdv = pdv;
 		return this;
 	}
