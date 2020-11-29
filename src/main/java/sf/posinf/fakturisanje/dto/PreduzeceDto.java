@@ -20,14 +20,15 @@ public class PreduzeceDto {
 	@NotNull
 	private String logo;
 	@NotNull
-	private long mesto;
+	private MestoDto mesto;
 
 	public PreduzeceDto() {
 
 	}
 
-	public PreduzeceDto(String naziv, String adresaPreduzeca, String pIB, String telefon, String email,
-			String tekuciRacun, String logo, long mesto) {
+	public PreduzeceDto(String naziv, String adresaPreduzeca,
+			String pIB, String telefon, String email,
+			String tekuciRacun, String logo, MestoDto mesto) {
 		super();
 		this.naziv = naziv;
 		this.adresaPreduzeca = adresaPreduzeca;
@@ -111,11 +112,11 @@ public class PreduzeceDto {
 		return this;
 	}
 
-	public long getMesto() {
+	public MestoDto getMesto() {
 		return mesto;
 	}
 
-	public PreduzeceDto setMesto(long mesto) {
+	public PreduzeceDto setMesto(MestoDto mesto) {
 		this.mesto = mesto;
 		return this;
 	}

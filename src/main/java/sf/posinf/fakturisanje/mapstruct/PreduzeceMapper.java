@@ -7,13 +7,11 @@ import sf.posinf.fakturisanje.model.Preduzece;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring") 
+@Mapper(componentModel = "spring", uses = {MestoMapper.class}) 
 public interface PreduzeceMapper {
 
-	@Mapping(source = "mesto.id", target = "mesto")
 	PreduzeceDto preduzeceToDto(Preduzece preduzece);
 	
-	@Mapping(source = "mesto", target = "mesto.id")
 	Preduzece preduzeceDtoToEntity(PreduzeceDto preduzeceDto);
 	
 	List<Preduzece> preduzeceDtoToEntity(List<PreduzeceDto> preduzeca);
