@@ -13,7 +13,7 @@ $(document).ready(function(){
                         `<tr>
                             <td>${pdv.id}</td>
                             <td>${pdv.nazivPDV}</td>
-                            <td><a href='stope-pdv.html?id=${pdv.id}' class='btn btn-outline-primary'>GET</a></td>
+                            <td></td>
                         </tr>
                         `
                     )

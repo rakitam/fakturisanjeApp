@@ -1,13 +1,12 @@
 $(document).ready(function(){
     var stavkeTable = $('#stavkeTable');
     var pagination = $('#pagination');
-    var nazivInput = $('#naziv');
     var page = 0;
     var urlSearchParams = getParameters();
     getStavke();
 
     function getStavke() {
-    	var naziv = nazivInput.val();
+
 
         $.ajax({
             url: '/api/cenovnici/'+ urlSearchParams['id'] + '/stavke-cenovnika?size=10&page='+page,
@@ -35,11 +34,6 @@ $(document).ready(function(){
         });
     }
 
-    
-    nazivInput.keyup(function (e) {
-        e.preventDefault();
-        getStavke();
-    });
 
     pagination.on("click","li.page-item", function (event) {
         event.preventDefault();
