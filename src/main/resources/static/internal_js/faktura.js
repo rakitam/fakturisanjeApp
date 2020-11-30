@@ -1,11 +1,12 @@
 $(document).ready(function(){
+    var stavkeTable = $('#stavkeTable');
     var urlSearchParams = getParameters();
     getFaktura();
 
     function getFaktura() {
         $.ajax({
             url: '/api/fakture/'+ urlSearchParams['id'],
-            headers: {'Authorization': localStorage.getItem('token')},
+            headers: {"Authorization": localStorage.getItem('token')},
             success: function (data) {
                 $('#brojFakture').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('#datumFakture').val(data.datumFakture);
@@ -20,6 +21,28 @@ $(document).ready(function(){
                     $('#plati').hide();
                     $('#storniraj').hide();
                 }
+                $.ajax({
+                    url: '/api/fakture/'+ urlSearchParams['id']+'/stavke',
+                    headers: {"Authorization": localStorage.getItem('token')},
+                    success: function (data) {
+                        for (const stavka of data) {
+                            stavkeTable.append(
+                                `<tr>
+                            <td>${stavka.id}</td>
+                            <td>${stavka.robaUsluga.nazivRobeUsluge}</td>
+                            <td>${stavka.robaUsluga.jedinicaMere}</td>
+                            <td>${stavka.kolicina}</td>
+                            <td>${stavka.jedinicnaCena}</td>
+                            <td>${stavka.osnovicaZaPdv}</td>
+                            <td>${stavka.procenatPdva}</td>
+                            <td>${stavka.iznosPdva}</td>
+                            <td>${stavka.rabat}</td>
+                            <td>${stavka.iznosStavke}</td>
+                        </tr>`
+                            )
+                        }
+                    }
+                });
             }
         });
     }
@@ -39,8 +62,8 @@ $(document).ready(function(){
     $('#plati').click(function () {
         $.ajax({
             method: 'PUT',
+            headers: {"Authentication": localStorage.getItem('token')},
             url: '/api/fakture/'+ urlSearchParams['id']+'/plati',
-            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }
@@ -50,8 +73,8 @@ $(document).ready(function(){
     $('#storniraj').click(function () {
         $.ajax({
             method: 'PUT',
+            headers: {"Authentication": localStorage.getItem('token')},
             url: '/api/fakture/'+ urlSearchParams['id']+'/storniraj',
-            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }
