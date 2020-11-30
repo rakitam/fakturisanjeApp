@@ -26,11 +26,12 @@ $(document).ready(function () {
                 for (const faktura of data) {
                     fakturaTable.append(
                         `<tr>
-                            <td>${faktura.id}</td>
+                            <td>${faktura.id}</td>                   
                             <td>${faktura.brojFakture}/${faktura.poslovnaGodina.godina}</td>
-                            <td>${!faktura.datumFakture ? '' : faktura.datumFakture}</td>
-                            <td>${!faktura.datumValute ? '' : faktura.datumValute}</td>
-                            <td>${!faktura.datumStorniranja ? '' : faktura.datumStorniranja}</td>
+                            <td>${faktura.korisnik}</td>
+                            <td>${!faktura.datumFakture ? '' : new Date(faktura.datumFakture).toLocaleString()}</td>
+                            <td>${!faktura.datumValute ? '' : new Date(faktura.datumValute).toLocaleString()}</td>
+                            <td>${!faktura.datumStorniranja ? '' : new Date(faktura.datumStorniranja).toLocaleString()}</td>
                             <td>${faktura.iznosBezRabata}</td>
                             <td>${faktura.iznosZaPlacanje}</td>
                             <td>${faktura.statusFakture}</td>

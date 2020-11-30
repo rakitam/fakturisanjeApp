@@ -9,9 +9,9 @@ $(document).ready(function(){
             headers: {"Authorization": localStorage.getItem('token')},
             success: function (data) {
                 $('#brojFakture').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
-                $('#datumFakture').val(data.datumFakture);
-                $('#datumValute').val(data.datumValute);
-                $('#datumStorniranja').val(data.datumStorniranja);
+                $('#datumFakture').val(new Date(data.datumFakture).toLocaleString());
+                $('#datumValute').val(new Date(data.datumValute).toLocaleString());
+                $('#datumStorniranja').val(new Date(data.datumStorniranja).toLocaleString());
                 $('#iznosBezRabata').val(data.iznosBezRabata);
                 $('#iznosZaPlacanje').val(data.iznosZaPlacanje);
                 $('#osnovica').val(data.osnovica);
@@ -19,6 +19,9 @@ $(document).ready(function(){
                 $('#statusFakture').val(data.statusFakture);
                 if (data.statusFakture != 'FORMIRANA') {
                     $('#plati').hide();
+                    $('#storniraj').hide();
+                }
+                if(localStorage.getItem('role')=="ROLE_KORISNIK") {
                     $('#storniraj').hide();
                 }
                 if(localStorage.getItem('role')=="ROLE_KORISNIK") {
