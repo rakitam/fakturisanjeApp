@@ -21,6 +21,9 @@ $(document).ready(function(){
                     $('#plati').hide();
                     $('#storniraj').hide();
                 }
+                if(localStorage.getItem('role')=="ROLE_KORISNIK") {
+                    $('#storniraj').hide();
+                }
                 $.ajax({
                     url: '/api/fakture/'+ urlSearchParams['id']+'/stavke',
                     headers: {"Authorization": localStorage.getItem('token')},
@@ -62,7 +65,7 @@ $(document).ready(function(){
     $('#plati').click(function () {
         $.ajax({
             method: 'PUT',
-            headers: {"Authentication": localStorage.getItem('token')},
+            headers: {"Authorization": localStorage.getItem('token')},
             url: '/api/fakture/'+ urlSearchParams['id']+'/plati',
             success: function (data) {
                 window.location.reload();
@@ -73,7 +76,7 @@ $(document).ready(function(){
     $('#storniraj').click(function () {
         $.ajax({
             method: 'PUT',
-            headers: {"Authentication": localStorage.getItem('token')},
+            headers: {"Authorization": localStorage.getItem('token')},
             url: '/api/fakture/'+ urlSearchParams['id']+'/storniraj',
             success: function (data) {
                 window.location.reload();

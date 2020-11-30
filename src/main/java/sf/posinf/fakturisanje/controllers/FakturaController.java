@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,6 @@ public class FakturaController {
 	@Autowired
 	private KorisnikService korisnikService;
 
-	//Ne treba mi getAll jer imam samo izlazne
 	//U zavisnosti od uloge korisnika, vratice ili sve, ili fakture samo jednog korisnika
 	@GetMapping
 	public ResponseEntity getAll(@RequestParam(name = "status", defaultValue = "") String status, Pageable pageable, Principal principal) {
@@ -160,6 +160,7 @@ public class FakturaController {
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{id}/storniraj")
 	public ResponseEntity storniraj(@PathVariable("id") long id) {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
