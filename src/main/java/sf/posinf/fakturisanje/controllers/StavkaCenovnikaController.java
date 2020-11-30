@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,7 @@ public class StavkaCenovnikaController {
 	}
 
 	@GetMapping(value = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity getOne(@PathVariable long id) {
 		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
 		if (stavka == null) {
@@ -55,6 +57,7 @@ public class StavkaCenovnikaController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity postStavkaCenovnika(@Validated @RequestBody StavkaCenovnikaDTO dto, Errors errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -68,6 +71,7 @@ public class StavkaCenovnikaController {
 	}
 
 	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity putStavkaCenovnika(@PathVariable long id, @Validated @RequestBody StavkaCenovnikaDTO dto,
 			Errors errors) {
 		if (errors.hasErrors()) {

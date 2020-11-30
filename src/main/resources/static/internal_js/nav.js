@@ -4,6 +4,10 @@ $(document).ready(function () {
             localStorage.clear();
             window.location.href = '/login.html'
         }
+
+        if(localStorage.getItem('role')=="ROLE_KORISNIK") {
+            $('.admin-only').remove();
+        }
     });
 
     $(document).on('click', '#logout', function () {

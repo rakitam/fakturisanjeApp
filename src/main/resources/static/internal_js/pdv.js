@@ -6,6 +6,7 @@ $(document).ready(function(){
     function getPDV() {
         $.ajax({
             url: '/api/pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 pdvTabela.empty();
                 for (const pdv of data) {
@@ -44,6 +45,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(noviPDV),
             contentType:"application/json",

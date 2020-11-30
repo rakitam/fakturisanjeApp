@@ -52,13 +52,22 @@ public class FakturaController {
 	@Autowired
 	private KorisnikService korisnikService;
 
-	//TODO: Ne treba mi getAll jer imam samo izlazne
+	//Ne treba mi getAll jer imam samo izlazne
+	//U zavisnosti od uloge korisnika, vratice ili sve, ili fakture samo jednog korisnika
 	@GetMapping
-	public ResponseEntity getAll(@RequestParam(name = "status", defaultValue = "") String status, Pageable pageable) {
-		Page<Faktura> fakture = fakturaServiceInterface.findAll(status, pageable);
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("total", String.valueOf(fakture.getTotalPages()));
-		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
+	public ResponseEntity getAll(@RequestParam(name = "status", defaultValue = "") String status, Pageable pageable, Principal principal) {
+		Korisnik k = korisnikService.findByEmail(principal.getName());
+		if(k.getUloga().getNaziv().equals("ROLE_ADMIN")) {
+			Page<Faktura> fakture = fakturaServiceInterface.findAll(status, pageable);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("total", String.valueOf(fakture.getTotalPages()));
+			return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
+		} else {
+			Page<Faktura> fakture = fakturaServiceInterface.findAllByKorisnik(k.getId(), status, pageable);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("total", String.valueOf(fakture.getTotalPages()));
+			return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));
+		}
 	}
 
 	@GetMapping("/{id}")

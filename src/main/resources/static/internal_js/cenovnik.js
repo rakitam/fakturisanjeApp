@@ -9,6 +9,7 @@ $(document).ready(function(){
     $("#modal_stavka").load("dialog/dodavanje_stavke_cenovnika.html", function () {
         $.ajax({
             url: '/api/robe-usluge?size=999999&page=0',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var robaSelect = $('#roba');
                 robeUsluge = data;
@@ -19,6 +20,7 @@ $(document).ready(function(){
         });
         $.ajax({
             url: '/api/cenovnici?size=999999&page=0',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var cenovniciSelect = $('#cenovnik');
                 cenovnici = data;
@@ -36,6 +38,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/cenovnici/'+ urlSearchParams['id'] + '/stavke-cenovnika?size=10&page='+page+'&naziv='+naziv,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -90,6 +93,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/stavke-cenovnika',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(novaStavkaCenovnika),
             contentType:"application/json",

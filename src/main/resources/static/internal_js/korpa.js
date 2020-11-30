@@ -5,9 +5,11 @@ $(document).ready(function () {
     function getKorpa() {
         $.ajax({
             url: '/api/fakture/active',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (faktura) {
                 $.ajax({
                     url: '/api/fakture/'+faktura.id+'/stavke',
+                    headers: {'Authorization': localStorage.getItem('token')},
                     success: function (data) {
                         for (const stavka of data) {
                             korpaTable.append(
@@ -52,6 +54,7 @@ $(document).ready(function () {
         $.ajax({
             method: 'DELETE',
             url: '/api/stavke-fakture/'+stavkaId,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }
@@ -65,6 +68,7 @@ $(document).ready(function () {
         $.ajax({
             method: 'PUT',
             url: '/api/fakture/'+fakturaId+'/formiraj',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }

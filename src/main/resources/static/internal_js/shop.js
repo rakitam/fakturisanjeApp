@@ -11,6 +11,7 @@ $(document).ready(function () {
     function getRoba() {
         $.ajax({
             url: '/api/stavke-cenovnika?size=10&page=' + page,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -44,20 +45,12 @@ $(document).ready(function () {
     $(document).on('click', '.addToKorpa', function (e) {
         selectedRobaId = $(this).attr('roba_id')
         $('#stavka').modal('show')
-        $('#rabat').val(0);
         $('#kolicina').val(1);
         $('.alert').alert('close')
 
     });
 
     $(document).on('click', '#potvrda', function () {
-        var rabat = $('#rabat').val();
-        if (rabat < 0) {
-            $('#messages').append(
-                `<div class=" alert alert-warning alert-dismissible fade show" role="alert">Rabat ne sme biti manji od 1</div>`);
-            setTimeout(function () {$('.alert').alert('close')}, 3000);
-            return;
-        }
         var kolicina = $('#kolicina').val();
         if (kolicina < 1) {
             $('#messages').append(
@@ -65,7 +58,7 @@ $(document).ready(function () {
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
         }
-        dodavanjeUKorpu(kolicina, rabat);
+        dodavanjeUKorpu(kolicina);
         $('#stavka').modal('hide');
     });
 
@@ -76,10 +69,11 @@ $(document).ready(function () {
     });
 
 
-    function dodavanjeUKorpu(kolicina, rabat) {
+    function dodavanjeUKorpu(kolicina) {
         $.ajax({
             method: 'POST',
-            url: '/api/stavke-cenovnika/' + selectedRobaId + '/add-to-korpa?kolicina=' + kolicina + '&rabat=' + rabat,
+            url: '/api/stavke-cenovnika/' + selectedRobaId + '/add-to-korpa?kolicina=' + kolicina + '&rabat=0' ,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 console.log('uspesno dodato u korpu');
             }

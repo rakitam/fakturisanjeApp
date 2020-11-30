@@ -11,8 +11,10 @@ import java.util.List;
 public interface FakturaServiceInterface {
 
 	Page<Faktura> findAll(String statusFakture, Pageable pageable);
-	
-	Faktura findOne(Long id);
+
+    Page<Faktura> findAllByKorisnik(long korisnik_id, String statusFakture, Pageable pageable);
+
+    Faktura findOne(Long id);
     
     Faktura save(Faktura faktura);
     

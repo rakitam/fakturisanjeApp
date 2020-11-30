@@ -37,6 +37,15 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
+	public Page<Faktura> findAllByKorisnik(long korisnik_id, String statusFakture, Pageable pageable) {
+		if (statusFakture.equals("")) {
+			return fakturaRepository.findAllByKorisnik_Id(korisnik_id, pageable);
+		} else {
+			return fakturaRepository.findAllByKorisnik_IdAndStatusFakture(korisnik_id, StatusFakture.valueOf(statusFakture), pageable);
+		}
+	}
+
+	@Override
 	public Faktura findOne(Long id) {
 		return fakturaRepository.getOne(id);
 	}

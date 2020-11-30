@@ -4,6 +4,7 @@ $(document).ready(function(){
     $("#modal_stopa").load("dialog/dodavanje_stopa_pdv.html", function () {
         $.ajax({
             url: '/api/pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var selectPdv = $('#pdv');
                 grupe = data;
@@ -18,6 +19,7 @@ $(document).ready(function(){
     function getStopaPDV() {
         $.ajax({
             url: '/api/stope-pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 stopaPDVTabela.empty();
                 for (const stopa of data) {
@@ -70,6 +72,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/stope-pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(novaStopa),
             contentType:"application/json",

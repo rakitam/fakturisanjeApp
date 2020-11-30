@@ -4,6 +4,7 @@ $(document).ready(function(){
     $("#modal_cenovnik").load("dialog/dodavanje_cenovnika.html", function () {
         $.ajax({
             url: '/api/preduzeca',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var preduzecaSelect = $('#preduzeca');
                 preduzeca = data;
@@ -18,6 +19,7 @@ $(document).ready(function(){
     function getCenovnici() {
         $.ajax({
             url: '/api/cenovnici',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 cenovniciTable.empty();
                 for (const cenovnik of data) {
@@ -62,6 +64,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/cenovnici',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(noviCenovnik),
             contentType:"application/json",

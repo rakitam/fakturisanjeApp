@@ -5,6 +5,7 @@ $(document).ready(function(){
     function getFaktura() {
         $.ajax({
             url: '/api/fakture/'+ urlSearchParams['id'],
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 $('#brojFakture').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('#datumFakture').val(data.datumFakture);
@@ -39,6 +40,7 @@ $(document).ready(function(){
         $.ajax({
             method: 'PUT',
             url: '/api/fakture/'+ urlSearchParams['id']+'/plati',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }
@@ -49,6 +51,7 @@ $(document).ready(function(){
         $.ajax({
             method: 'PUT',
             url: '/api/fakture/'+ urlSearchParams['id']+'/storniraj',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 window.location.reload();
             }

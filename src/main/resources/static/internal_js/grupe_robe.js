@@ -9,6 +9,7 @@ $(document).ready(function(){
     $("#add-grupa-robe").load("dialog/dodavanje_grupe_robe.html", function () {
         $.ajax({
             url: '/api/pdv',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var selectPDV = $('#pdv');
                 grupe = data;
@@ -24,6 +25,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/grupe-robe?size=10&page='+page,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -92,6 +94,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/grupe-robe',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(novaGrupa),
             contentType:"application/json",

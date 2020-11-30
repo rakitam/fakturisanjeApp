@@ -6,6 +6,7 @@ $(document).ready(function(){
     $("#add_roba").load("dialog/dodavanje_robe.html", function () {
         $.ajax({
             url: '/api/grupe-robe?size=9999999&page=0',
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 var selectGrupe = $('#grupe');
                 grupe = data;
@@ -25,6 +26,7 @@ $(document).ready(function(){
     	var naziv = nazivInput.val();
         $.ajax({
             url: '/api/robe-usluge?size=10&page='+page+'&grupa='+ urlSearchParams['grupa']+'&naziv='+naziv,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -119,6 +121,7 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/api/robe-usluge',
+            headers: {'Authorization': localStorage.getItem('token')},
             type: 'POST',
             data: JSON.stringify(novaRoba),
             contentType:"application/json",

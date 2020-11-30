@@ -1,5 +1,6 @@
 insert into uloga(naziv) values ('ROLE_ADMIN');
 insert into uloga(naziv) values ('ROLE_KORISNIK');
+
 insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id, uloga_id) values ('063525441', 'mrakita1993@gmail.com', 'Milica Rakita', '$2a$10$ivwIqMANXL1cxSdCpNJhwegFYzve75xGXPg4xirJIY6bMHOXzEOUO', 1, 1);
 insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id, uloga_id) values ('063555444', 'roman@snimanje.rs', 'Aleksandar Roman', '$2a$10$ivwIqMANXL1cxSdCpNJhwegFYzve75xGXPg4xirJIY6bMHOXzEOUO', 1, 2);
 insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id, uloga_id) values ('065555444', 'adrijanvujicic97@gmail.com', 'Adrijan Vujicic', '$2a$10$ivwIqMANXL1cxSdCpNJhwegFYzve75xGXPg4xirJIY6bMHOXzEOUO', 1, 2);
@@ -166,6 +167,6 @@ insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('470', 
 insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('250', 1, 66);
 insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('550', 1, 67);
 
-insert into faktura (broj_fakture, datum_fakture, datum_valute, iznos_bez_rabata, iznos_za_placanje, osnovica,rabat, status_fakture, ukupan_pdv, korisnik_id, poslovna_godina_id, preduzece_id) values (1, '2020-11-18', '2020-11-18', 500, 500, 500, 0, 'FORMIRANA', 1, 1, 1, 1);
+insert into faktura (broj_fakture, datum_fakture, datum_valute, iznos_bez_rabata, iznos_za_placanje, osnovica,rabat, status_fakture, ukupan_pdv, korisnik_id, poslovna_godina_id, preduzece_id) values (1, NULL, NULL, 500, 500, 500, 0, 'FORMIRANA', 1, 1, 1, 1);
 
 insert into stavka_fakture(iznos_pdva, iznos_stavke, jedinicna_cena, kolicina, osnovica_za_pdv, procenat_pdva, rabat, faktura_id, roba_usluga_id, obrisana) values (20, 250, 150, 2, 2, 1, 0, 1, 1, 0)

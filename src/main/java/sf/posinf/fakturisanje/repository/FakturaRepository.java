@@ -25,7 +25,9 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 	
 	Page<Faktura> findAllByPreduzece_Id(long naziv, Pageable pageable);
 
-	List<Faktura> findAllByKorisnik_Id(long korisnikId);
+	Page<Faktura> findAllByKorisnik_IdAndStatusFakture(long korisnikId, StatusFakture sf, Pageable pageable);
+
+	Page<Faktura> findAllByKorisnik_Id(long korisnikId, Pageable pageable);
 
 	Faktura findByKorisnik_IdAndStatusFakture(long korisnikId, StatusFakture sf);
 

@@ -11,6 +11,7 @@ $(document).ready(function () {
         var statusFakture = statusFaktureSelect.val();
         $.ajax({
             url: '/api/fakture?size=10&page='+page+'&status='+statusFakture,
+            headers: {'Authorization': localStorage.getItem('token')},
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
