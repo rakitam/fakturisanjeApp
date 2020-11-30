@@ -58,8 +58,6 @@ public class StavkaCenovnikaController {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		StavkaCenovnika stavka = stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto);
-		stavka.setCenovnik(cenovnikService.findOne(stavka.getCenovnik().getId()));
-		stavka.setRobaUsluga(robaUslugaServiceInterface.findOne(stavka.getRobaUsluga().getId()));
 		stavka = stavkaCenovnikaService.save(stavka);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -77,8 +75,6 @@ public class StavkaCenovnikaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		StavkaCenovnika stavka = stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto);
-		stavka.setCenovnik(cenovnikService.findOne(stavka.getCenovnik().getId()));
-		stavka.setRobaUsluga(robaUslugaServiceInterface.findOne(stavka.getRobaUsluga().getId()));
 		stavka = stavkaCenovnikaService.save(stavka);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

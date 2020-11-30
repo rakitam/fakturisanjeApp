@@ -28,8 +28,7 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface{
 
     @Override
     public StavkaCenovnika save(StavkaCenovnika stavkaCenovnika) {
-        stavkaCenovnikaRepository.save(stavkaCenovnika);
-        return stavkaCenovnika;
+        return stavkaCenovnikaRepository.save(stavkaCenovnika);
     }
     
     @Override

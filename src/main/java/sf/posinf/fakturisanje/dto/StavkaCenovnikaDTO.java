@@ -8,14 +8,14 @@ public class StavkaCenovnikaDTO {
 	@NotNull
 	private float cena;
 	@NotNull
-	private long cenovnik;
+	private CenovnikDTO cenovnik;
 	@NotNull
 	private RobaUslugaDto robaUsluga;
 
 	public StavkaCenovnikaDTO() {
 	}
 
-	public StavkaCenovnikaDTO(float cena, long cenovnik, RobaUslugaDto robaUsluga) {
+	public StavkaCenovnikaDTO(float cena, CenovnikDTO cenovnik, RobaUslugaDto robaUsluga) {
 		super();
 		this.cena = cena;
 		this.cenovnik = cenovnik;
@@ -35,11 +35,11 @@ public class StavkaCenovnikaDTO {
 		return this;
 	}
 
-	public long getCenovnik() {
+	public CenovnikDTO getCenovnik() {
 		return cenovnik;
 	}
 
-	public StavkaCenovnikaDTO setCenovnik(long cenovnik) {
+	public StavkaCenovnikaDTO setCenovnik(CenovnikDTO cenovnik) {
 		this.cenovnik = cenovnik;
 		return this;
 	}
