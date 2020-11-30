@@ -53,8 +53,8 @@ public class FakturaController {
 
 	//TODO: Ne treba mi getAll jer imam samo izlazne
 	@GetMapping
-	public ResponseEntity getAll(Pageable pageable) {
-		Page<Faktura> fakture = fakturaServiceInterface.findAll(pageable);
+	public ResponseEntity getAll(@RequestParam(name = "status", defaultValue = "") String status, Pageable pageable) {
+		Page<Faktura> fakture = fakturaServiceInterface.findAll(status, pageable);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("total", String.valueOf(fakture.getTotalPages()));
 		return ResponseEntity.ok().headers(headers).body(fakturaMapper.fakturaToDto(fakture.getContent()));

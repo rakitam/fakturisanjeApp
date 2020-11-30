@@ -2,13 +2,15 @@ $(document).ready(function () {
 
     var fakturaTable = $('#fakturaTable');
     var pagination = $('#pagination');
+    var statusFaktureSelect = $('#status-fakture');
     var page = 0;
     getFakture();
 
     function getFakture() {
 
+        var statusFakture = statusFaktureSelect.val();
         $.ajax({
-            url: '/api/fakture?size=10&page='+page,
+            url: '/api/fakture?size=10&page='+page+'&status='+statusFakture,
             success: function (data, status, headers) {
                 var total = headers.getResponseHeader('total');
                 pagination.empty();
@@ -33,7 +35,6 @@ $(document).ready(function () {
                             <td>${faktura.statusFakture}</td>
                             <td>
                                 <a class="btn btn-primary" href="/faktura.html?id=${faktura.id}">GET</a>
-                                <button class="btn btn-secondary">Izvestaj</button>
                             </td>
                         </tr>`
                     )
@@ -46,6 +47,11 @@ $(document).ready(function () {
     pagination.on("click","li.page-item", function (event) {
         event.preventDefault();
         page = $(this).attr("page");
+        getFakture();
+    });
+
+    statusFaktureSelect.change(function (e) {
+        e.preventDefault();
         getFakture();
     });
 

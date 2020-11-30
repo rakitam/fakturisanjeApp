@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface FakturaServiceInterface {
 
-	Page<Faktura> findAll(Pageable pageable);
+	Page<Faktura> findAll(String statusFakture, Pageable pageable);
 	
 	Faktura findOne(Long id);
     
