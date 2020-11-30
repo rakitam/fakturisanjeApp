@@ -70,13 +70,12 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	}
 
 	@Override
-	public void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat) {
+	public void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat, String email) {
 		StavkaFakture sf = new StavkaFakture();
 		PDV pdv = stavka.getRobaUsluga().getGrupaRobe().getPdv();
 		StopaPDV stopa = pdv_serviceInterface.findActiveStopaPdv(pdv.getId());
-		Faktura korpa = fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail("mrakita1993@gmail.com"));
+		Faktura korpa = fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail(email));
 		sf.setRobaUsluga(stavka.getRobaUsluga());
-		//TODO: Trenutno hardkodovano, ako se stigne preko principala
 		sf.setFaktura(korpa);
 		sf.setKolicina(kolicina);
 		sf.setRabat(rabat);

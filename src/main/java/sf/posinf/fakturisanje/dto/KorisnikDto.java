@@ -4,7 +4,7 @@ public class KorisnikDto {
 
 	private Long id;
 	private String email;
-	private String imeIPrezime;
+	private String imePrezime;
 	private int brojTelefona;
 	//private Authority authority;
 	
@@ -16,7 +16,7 @@ public class KorisnikDto {
 		super();
 		this.id = id;
 		this.email = email;
-		this.imeIPrezime = imeIPrezime;
+		this.imePrezime = imeIPrezime;
 		this.brojTelefona = brojTelefona;
 		//this.authority = authority;
 	}
@@ -37,12 +37,12 @@ public class KorisnikDto {
 		this.email = email;
 	}
 
-	public String getImeIPrezime() {
-		return imeIPrezime;
+	public String getImePrezime() {
+		return imePrezime;
 	}
 
-	public void setImeIPrezime(String imeIPrezime) {
-		this.imeIPrezime = imeIPrezime;
+	public void setImePrezime(String imeIPrezime) {
+		this.imePrezime = imeIPrezime;
 	}
 
 	public int getBrojTelefona() {

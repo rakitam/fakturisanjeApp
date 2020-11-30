@@ -1,11 +1,14 @@
 package sf.posinf.fakturisanje.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
-public class Korisnik {
+public class Korisnik implements UserDetails {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,7 @@ public class Korisnik {
 	private String password;
 	
 	@NotNull
-	private String imeIPrezime;
+	private String imePrezime;
 	
 	private String brojTelefona;
 	
@@ -28,22 +31,18 @@ public class Korisnik {
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
-	
-	public Korisnik() {
-		
-	}	
 
-	public Korisnik(long id, @NotNull String email, @NotNull String password, @NotNull String imeIPrezime,
-			String brojTelefona, Set<Faktura> faktureKorisnika, Preduzece preduzece) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.imeIPrezime = imeIPrezime;
-		this.brojTelefona = brojTelefona;
-		this.faktureKorisnika = faktureKorisnika;
-		this.preduzece = preduzece;
-	}	
+	@ManyToOne
+	@JoinColumn(name = "uloga_id")
+	private Uloga uloga;
+
+	public Uloga getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(Uloga uloga) {
+		this.uloga = uloga;
+	}
 
 	public long getId() {
 		return id;
@@ -61,12 +60,53 @@ public class Korisnik {
 		this.email = email;
 	}
 
-	public String getImeIPrezime() {
-		return imeIPrezime;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<Uloga> uloge = new ArrayList<>();
+		uloge.add(this.uloga);
+		return uloge;
 	}
 
-	public void setImeIPrezime(String imeIPrezime) {
-		this.imeIPrezime = imeIPrezime;
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return getEmail();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return false;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getImePrezime() {
+		return imePrezime;
+	}
+
+	public void setImePrezime(String imePrezime) {
+		this.imePrezime = imePrezime;
 	}
 
 	public String getBrojTelefona() {
@@ -91,13 +131,5 @@ public class Korisnik {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 }

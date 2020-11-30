@@ -16,6 +16,8 @@ import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.services.impl.StavkaFaktureService;
 import sf.posinf.fakturisanje.services.interfaces.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/stavke-cenovnika")
 public class StavkaCenovnikaController {
@@ -82,13 +84,15 @@ public class StavkaCenovnikaController {
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
 	}
 
+	//Principal - podaci o AUTENTIFIKOVANOM korisniku
 	@PostMapping(value = "/{id}/add-to-korpa")
-	public ResponseEntity addToKorpa(@PathVariable long id, @RequestParam(defaultValue = "1") int kolicina, @RequestParam(defaultValue = "0") int rabat) {
+	public ResponseEntity addToKorpa(@PathVariable long id, @RequestParam(defaultValue = "1") int kolicina, @RequestParam(defaultValue = "0") int rabat, Principal principal) {
 		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat);
+		//Principal name = username
+		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat, principal.getName());
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
 	}
 }

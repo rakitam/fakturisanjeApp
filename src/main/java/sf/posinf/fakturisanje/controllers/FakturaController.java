@@ -27,6 +27,7 @@ import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.*;
@@ -115,8 +116,8 @@ public class FakturaController {
 	}
 
 	@GetMapping("/active")
-	public ResponseEntity getActiveKorpa() {
-		Korisnik k = korisnikService.findByEmail("mrakita1993@gmail.com");
+	public ResponseEntity getActiveKorpa(Principal principal) {
+		Korisnik k = korisnikService.findByEmail(principal.getName());
 		Faktura faktura = fakturaServiceInterface.getActiveFakturaForKorisnik(k);
 		if (faktura == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
