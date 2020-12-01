@@ -11,16 +11,16 @@ $(document).ready(function () {
                     url: '/api/fakture/'+faktura.id+'/stavke',
                     headers: {'Authorization': localStorage.getItem('token')},
                     success: function (data) {
-                        for (const stavka of data) {
+                        for (const stavke of data) {
                             korpaTable.append(
                                 `<tr>
-                                    <td>${stavka.id}</td>
-                                    <td>${stavka.robaUsluga.nazivRobeUsluge}</td>
-                                    <td>${stavka.jedinicnaCena}</td>
-                                    <td>${stavka.kolicina}</td>
-                                    <td>${stavka.iznosStavke}</td>
+                                    <td>${stavke.id}</td>
+                                    <td>${stavke.robaUsluga.nazivRobeUsluge}</td>
+                                    <td>${stavke.jedinicnaCena}</td>
+                                    <td>${stavke.kolicina}</td>
+                                    <td>${stavke.iznosStavke}</td>
                                     <td>
-                                        <button class="btn btn-danger brisanjeStavke" stavka_id="${stavka.id}">Obrisi</button>
+                                        <button class="btn btn-danger brisanjeStavke" stavke_id="${stavke.id}">Obrisi</button>
                                     </td>
                                 </tr>`)
                         }
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
     $(document).on("click",".brisanjeStavke", function (event) {
         event.preventDefault();
-        var stavkaId = $(this).attr("stavka_id");
+        var stavkaId = $(this).attr("stavke_id");
         $.ajax({
             method: 'DELETE',
             url: '/api/stavke-fakture/'+stavkaId,
