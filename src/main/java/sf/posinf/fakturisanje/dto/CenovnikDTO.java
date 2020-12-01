@@ -10,7 +10,8 @@ public class CenovnikDTO {
 	private Date datumVazenja;
 	@NotNull
 	private PreduzeceDto preduzece;
-	private boolean aktivan;
+
+	private boolean aktivan = true;
 	
 	public CenovnikDTO() {
 		

@@ -24,9 +24,6 @@ $(document).ready(function(){
                 if(localStorage.getItem('role')=="ROLE_KORISNIK") {
                     $('#storniraj').hide();
                 }
-                if(localStorage.getItem('role')=="ROLE_KORISNIK") {
-                    $('#storniraj').hide();
-                }
                 $.ajax({
                     url: '/api/fakture/'+ urlSearchParams['id']+'/stavke',
                     headers: {"Authorization": localStorage.getItem('token')},
@@ -85,7 +82,6 @@ $(document).ready(function(){
                 window.location.reload();
             }
         });
-
     });
 
 });

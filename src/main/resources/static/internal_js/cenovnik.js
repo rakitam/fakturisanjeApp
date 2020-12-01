@@ -72,6 +72,18 @@ $(document).ready(function(){
         $('#cenovnik>option:eq(0)').prop('selected', true);
     });
 
+    $('#proglasiNeaktivnim').click(function () {
+        $.ajax({
+            method: 'PUT',
+            headers: {"Authorization": localStorage.getItem('token')},
+            url: '/api/cenovnici/'+ urlSearchParams['id']+'/proglasi-neaktivnim',
+            success: function (data) {
+                alert("Cenovnik proglasen neaktivnim.")
+                window.location.reload();
+            }
+        });
+    });
+
 
     $(document).on('click', '#potvrda_dodavanja_stavke_cenovnika', function () {
         $('.alert').alert('close')

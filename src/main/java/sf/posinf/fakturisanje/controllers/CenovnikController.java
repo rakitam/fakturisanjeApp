@@ -14,9 +14,7 @@ import sf.posinf.fakturisanje.dto.CenovnikDTO;
 import sf.posinf.fakturisanje.mapstruct.CenovnikMapper;
 import sf.posinf.fakturisanje.mapstruct.PreduzeceMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
-import sf.posinf.fakturisanje.model.Cenovnik;
-import sf.posinf.fakturisanje.model.Preduzece;
-import sf.posinf.fakturisanje.model.StavkaCenovnika;
+import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.repository.PreduzeceRepository;
 import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
@@ -105,5 +103,17 @@ public class CenovnikController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}/proglasi-neaktivnim")
+    public ResponseEntity proglasiNeaktivnim(@PathVariable("id") long id) {
+        Cenovnik c = cenovnikServiceInterface.findOne(id);
+        if (c == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        else if (c.isAktivan() == false)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        cenovnikServiceInterface.proglasiNeaktivnim(c);
+        return new ResponseEntity(cenovnikMapper.cenovnikToDto(c), HttpStatus.OK);
     }
 }
