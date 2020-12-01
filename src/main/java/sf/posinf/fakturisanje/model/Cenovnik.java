@@ -23,16 +23,20 @@ public class Cenovnik {
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id")
 	private Preduzece preduzece;
+
+	@NotNull
+	private boolean aktivan;
     
 	public Cenovnik() {
 		
 	}
 
-	public Cenovnik(long id, Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika, Preduzece preduzece) {
+	public Cenovnik(long id, Date datumVazenja, Set<StavkaCenovnika> stavkeCenovnika, Preduzece preduzece, boolean aktivan) {
 		this.id = id;
 		this.datumVazenja = datumVazenja;
 		this.stavkeCenovnika = stavkeCenovnika;
 		this.preduzece = preduzece;
+		this.aktivan = aktivan;
 	}
 
 	public long getId() {
@@ -65,5 +69,13 @@ public class Cenovnik {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public boolean isAktivan() {
+		return aktivan;
+	}
+
+	public void setAktivan(boolean aktivan) {
+		this.aktivan = aktivan;
 	}
 }

@@ -10,15 +10,17 @@ public class CenovnikDTO {
 	private Date datumVazenja;
 	@NotNull
 	private PreduzeceDto preduzece;
+	private boolean aktivan;
 	
 	public CenovnikDTO() {
 		
 	}
 
-	public CenovnikDTO(long id, Date datumVazenja, PreduzeceDto preduzece) {
+	public CenovnikDTO(long id, Date datumVazenja, PreduzeceDto preduzece, boolean aktivan) {
 		this.id = id;
 		this.datumVazenja = datumVazenja;
 		this.preduzece = preduzece;
+		this.aktivan = aktivan;
 	}
 
 	public long getId() {
@@ -43,5 +45,13 @@ public class CenovnikDTO {
 
 	public void setPreduzece(PreduzeceDto preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public boolean isAktivan() {
+		return aktivan;
+	}
+
+	public void setAktivan(boolean aktivan) {
+		this.aktivan = aktivan;
 	}
 }

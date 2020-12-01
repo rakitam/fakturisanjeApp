@@ -7,15 +7,21 @@ insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id,
 insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id, uloga_id) values ('062222333', 'krsticm@gmail.com', 'Milos Krstic', '$2a$10$ivwIqMANXL1cxSdCpNJhwegFYzve75xGXPg4xirJIY6bMHOXzEOUO', 1, 2);
 insert into korisnik (broj_telefona, email, ime_prezime, password, preduzece_id, uloga_id) values ('065777888', 'nkovacevic97@gmail.com', 'Nemanja Kovacevic', '$2a$10$ivwIqMANXL1cxSdCpNJhwegFYzve75xGXPg4xirJIY6bMHOXzEOUO', 1, 2);
 
-insert into cenovnik (datum_vazenja, preduzece_id) values ('2020-11-30', 1);
+insert into cenovnik (datum_vazenja, preduzece_id, aktivan) values ('2020-11-30', 1, true);
+insert into cenovnik (datum_vazenja, preduzece_id, aktivan) values ('2020-11-25', 1, true);
+insert into cenovnik (datum_vazenja, preduzece_id, aktivan) values ('2020-11-20', 1, false);
 
 insert into poslovna_godina (godina, zakljucana) values (2020, 0);
+insert into poslovna_godina (godina, zakljucana) values (2019, 1);
+insert into poslovna_godina (godina, zakljucana) values (2018, 1);
 
 insert into mesto (drzava, naziv, obrisano, postanski_broj) values ('Srbija', 'Backa Palanka', 0, 21400);
 
-insert into pdv (nazivpdv) values ('pdv');
+insert into pdv (nazivpdv) values ('10% sveze meso');
+insert into pdv (nazivpdv) values ('20% preradjevine');
 
-insert into stopapdv (datum_vazenja, procenat, pdv_id) values ('2020-11-18', 1, 1);
+insert into stopapdv (datum_vazenja, procenat, pdv_id) values ('2020-11-18', 10, 1);
+insert into stopapdv (datum_vazenja, procenat, pdv_id) values ('2020-11-18', 10, 2);
 
 insert into preduzece (pib, adresa_preduzeca, email, logo, naziv, tekuci_racun, telefon, mesto_id) values ('100749920', 'Kralja Petra I 36', 'mrakita1993@gmail.com', 'putanja do logoa', 'S.Z.T.R. DRAGSTOR V', '170-50005010000-11','063525441', 1);
 

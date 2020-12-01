@@ -5,10 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sf.posinf.fakturisanje.model.Cenovnik;
+import sf.posinf.fakturisanje.model.StatusFakture;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.repository.CenovnikRepository;
 import sf.posinf.fakturisanje.repository.StavkaCenovnikaRepository;
 import sf.posinf.fakturisanje.services.interfaces.CenovnikServiceInterface;
+
+import java.util.Date;
 
 @Service
 public class CenovnikService implements CenovnikServiceInterface {
@@ -32,6 +35,16 @@ public class CenovnikService implements CenovnikServiceInterface {
 	@Override
 	public Cenovnik save(Cenovnik cenovnik) {
 		return cenovnikRepository.save(cenovnik);
+	}
+
+	@Override
+	public Boolean proglasiNeaktivnim(Cenovnik cenovnik) {
+		if(cenovnik.isAktivan() != false) {
+			cenovnik.setAktivan(false);
+			save(cenovnik);
+			return true;
+		}
+		return false;
 	}
 
 	@Override

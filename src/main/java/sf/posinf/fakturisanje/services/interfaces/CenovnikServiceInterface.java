@@ -14,4 +14,6 @@ public interface CenovnikServiceInterface {
 	Cenovnik findOne(Long id);
 
 	Cenovnik save(Cenovnik cenovnik);
+
+	Boolean proglasiNeaktivnim(Cenovnik cenovnik);
 }

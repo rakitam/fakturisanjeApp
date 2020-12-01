@@ -29,7 +29,8 @@ $(document).ready(function(){
                             <td>${cenovnik.id}</td>
                             <td>${cenovnik.preduzece.naziv}</td>
                             <td>${cenovnik.datumVazenja}</td>
-                            <td><a href='cenovnik.html?id=${cenovnik.id}' class='btn btn-outline-primary'>GET</a></td>
+                            <td>${cenovnik.aktivan}</td>
+                            <td><a href='cenovnik.html?id=${cenovnik.id}' class='btn btn-outline-primary'>Pogledaj</a></td>
                         </tr>
                         `
                     )
