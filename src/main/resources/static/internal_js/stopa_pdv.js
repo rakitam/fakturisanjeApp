@@ -26,7 +26,7 @@ $(document).ready(function(){
                     stopaPDVTabela.append(
                         `<tr>
                             <td>${stopa.id}</td>
-                            <td>${stopa.datumVazenja}</td>
+                             <td>${new Date(stopa.datumVazenja).toLocaleString()}</td>
                             <td>${stopa.procenat}</td>
                             <td>${stopa.pdv.nazivPDV}</td>
                             <td></td>
