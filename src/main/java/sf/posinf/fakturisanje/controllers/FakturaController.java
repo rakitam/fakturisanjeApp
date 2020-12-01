@@ -141,8 +141,6 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		else if (faktura.getStatusFakture() != StatusFakture.FORMIRANA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		faktura.setDatumFakture(new Date());
-		faktura.setDatumValute(new Date());
 		faktura.setStatusFakture(StatusFakture.PLACENA);
 		faktura = fakturaServiceInterface.save(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
@@ -155,6 +153,14 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		//TODO: Pogledati ogranicenje - datum valute ne sme biti manji od datuma fakture
+		Date datumFakture = new Date();
+		Date datumValute = new Date();
+		if(datumValute.before(datumFakture)) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		faktura.setDatumFakture(datumFakture);
+		faktura.setDatumValute(datumValute);
 		faktura.setStatusFakture(StatusFakture.FORMIRANA);
 		faktura = fakturaServiceInterface.save(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);

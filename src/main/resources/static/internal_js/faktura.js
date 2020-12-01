@@ -8,20 +8,28 @@ $(document).ready(function(){
             url: '/api/fakture/'+ urlSearchParams['id'],
             headers: {"Authorization": localStorage.getItem('token')},
             success: function (data) {
-                $('#brojFakture').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
+                //$('#brojFaktureId').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
+                $('.brojFakture').text(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('#datumFakture').val(new Date(data.datumFakture).toLocaleString());
                 $('#datumValute').val(new Date(data.datumValute).toLocaleString());
                 $('#datumStorniranja').val(new Date(data.datumStorniranja).toLocaleString());
-                $('#iznosBezRabata').val(data.iznosBezRabata);
-                $('#iznosZaPlacanje').val(data.iznosZaPlacanje);
-                $('#osnovica').val(data.osnovica);
-                $('#rabat').val(data.rabat);
+                //$('#iznosBezRabata').val(data.iznosBezRabata);
+                $('#ukupno').text(data.iznosZaPlacanje);
+                $('#poreskaOsnovica').text(data.osnovica);
+                $('#ukupanRabat').text(data.rabat);
+                $('#ukupanPDV').text(data.ukupanPdv);
                 $('#statusFakture').val(data.statusFakture);
                 if (data.statusFakture != 'FORMIRANA') {
                     $('#plati').hide();
                     $('#storniraj').hide();
                 }
                 if(localStorage.getItem('role')=="ROLE_KORISNIK") {
+                    $('#storniraj').hide();
+                }
+                if(data.statusFakture == 'PLACENA') {
+                    $('#plati').hide();
+                }
+                if(data.statusFakture == 'STORNIRANA') {
                     $('#storniraj').hide();
                 }
                 $.ajax({
@@ -40,10 +48,10 @@ $(document).ready(function(){
                             <td>${stavka.procenatPdva}</td>
                             <td>${stavka.iznosPdva}</td>
                             <td>${stavka.rabat}</td>
-                            <td>${stavka.iznosStavke}</td>
+                            <td>${stavka.iznosStavke + stavka.iznosPdva}</td>
                         </tr>`
                             )
-                        }
+                        };
                     }
                 });
             }

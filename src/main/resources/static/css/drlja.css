@@ -1,0 +1,20 @@
+body {
+    background-image: url("/beige-tiles.png");
+}
+
+.nav-item a {
+    color: #000000!important;
+}
+
+.nav-item a:hover {
+    color: #94b376!important;
+}
+
+.footer-copyright {
+    background-color: #000;
+    color: #fff;
+}
+
+.footer-copyright a {
+    color: #94b376;
+}

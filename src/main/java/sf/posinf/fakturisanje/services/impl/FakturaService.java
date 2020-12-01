@@ -113,10 +113,10 @@ public class FakturaService implements FakturaServiceInterface {
 		double ukupanRabat = 0;
 		for (StavkaFakture s : stavkaFaktureServiceInterface.findByFaktura_id(faktura.getId())) {
 			ukupanRabat += s.getRabat();
-			iznosBezRabata += s.getKolicina() * s.getJedinicnaCena();
-			osnovica += s.getOsnovicaZaPdv();
+			iznosBezRabata += s.getJedinicnaCena();
+			osnovica += s.getKolicina() * s.getJedinicnaCena();
 			ukupanPdv += s.getIznosPdva();
-			iznosZaPlacanje += s.getIznosStavke();
+			iznosZaPlacanje += s.getIznosStavke() + s.getIznosPdva();
 		}
 		faktura.setIznosZaPlacanje(iznosZaPlacanje);
 		faktura.setOsnovica(osnovica);

@@ -34,7 +34,7 @@ $(document).ready(function () {
                         } else {
                             korpaTable.append(
                                 `<tr>
-                                    <td colspan="4"><span class="float-right">Ukupna Cena:</span></td>
+                                    <td colspan="4"><span class="float-right">Ukupna cena (bez PDV):</span></td>
                                     <td><b>${faktura.iznosZaPlacanje}</b></td>
                                     <td>
                                         <button class="btn btn-primary" id="kreiraj" faktura_id="${faktura.id}">Kreiraj fakturu</button>

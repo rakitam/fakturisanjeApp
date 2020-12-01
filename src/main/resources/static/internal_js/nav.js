@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#footer').load('footer.html'),
     $('#nav').load('nav.html', function () {
         if (!localStorage.getItem('token')) {
             localStorage.clear();
