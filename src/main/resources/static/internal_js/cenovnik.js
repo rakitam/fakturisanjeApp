@@ -63,7 +63,6 @@ $(document).ready(function(){
         });
     }
 
-
     $('#dodaj_stavku').click(function (e) {
         e.preventDefault();
         $('#dodavanje_stavke_cenovnika').modal('show');

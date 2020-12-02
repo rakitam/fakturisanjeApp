@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/drlja.css">
 </head>
-<body>
+<body id="homepageBody">
 <div id="nav"></div>
 <div class="container">
+    <div style="padding: 20px; text-align: center">
+        <h1>Podaci o preduzeću</h1>
+    </div>
     <div class="row">
         <div class="col-4">
             <label class="float-right" for="naziv">Naziv</label>
@@ -20,7 +24,7 @@
             </div>
         </div>
         <div class="col-4">
-            <label class="float-right" for="adresaPreduzeca">Adresa preduzeca</label>
+            <label class="float-right" for="adresaPreduzeca">Adresa</label>
         </div>
         <div class="col-6">
             <div class="form-group">
@@ -60,20 +64,25 @@
             </div>
         </div>
         <div class="col-4">
-            <label class="float-right" for="tekuciRacun">Tekuci Racun</label>
+            <label class="float-right" for="tekuciRacun">Tekući racun</label>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <input type="text" min="1" class="form-control" readonly id="tekuciRacun">
             </div>
         </div>
+        <div class="col-4">
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary" id="izmeniPodatke">Izmeni</button>
+        </div>
     </div>
 </div>
+<div id="footer"></div>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="internal_js/preduzece.js"></script>
 <script src="internal_js/nav.js"></script>
-
 </body>
 </html>

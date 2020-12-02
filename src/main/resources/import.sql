@@ -15,7 +15,7 @@ insert into poslovna_godina (godina, zakljucana) values (2020, 0);
 insert into poslovna_godina (godina, zakljucana) values (2019, 1);
 insert into poslovna_godina (godina, zakljucana) values (2018, 1);
 
-insert into mesto (drzava, naziv, obrisano, postanski_broj) values ('Srbija', 'Backa Palanka', 0, 21400);
+insert into mesto (drzava, naziv, obrisano, postanski_broj) values ('Srbija', 'Bačka Palanka', 0, 21400);
 
 insert into pdv (nazivpdv) values ('10% sveze meso');
 insert into pdv (nazivpdv) values ('20% preradjevine');

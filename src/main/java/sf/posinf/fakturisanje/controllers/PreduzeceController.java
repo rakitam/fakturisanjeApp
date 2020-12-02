@@ -118,7 +118,7 @@ public class PreduzeceController {
 		return ResponseEntity.ok(preduzeceMapper.preduzeceToDto(preduzece));
 	}
 
-	// Metoda za izvestaj KIF
+	/*// Metoda za izvestaj KIF
 	@GetMapping("{id}/reports")
 	public ResponseEntity getReportsIzlazne(@RequestParam("godina") int godina, @PathVariable("id") long id) {
 		Preduzece preduzece = preduzeceServiceInterface.findOne(id);
@@ -155,5 +155,5 @@ public class PreduzeceController {
 
 		}
 		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	}*/
 }

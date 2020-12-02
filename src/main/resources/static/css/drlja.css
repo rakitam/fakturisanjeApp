@@ -18,3 +18,9 @@ body {
 .footer-copyright a {
     color: #94b376;
 }
+
+#homepageBody #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

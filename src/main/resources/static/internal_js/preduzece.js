@@ -2,7 +2,6 @@ $(document).ready(function () {
     $('#nav').load('nav.html');
     getPreduzece();
 
-
     function getPreduzece(){
         $.ajax({
             url: '/api/preduzeca/1',
