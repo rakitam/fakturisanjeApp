@@ -82,8 +82,7 @@ $(document).ready(function(){
     $('#modalDodavanje').click(function (e) {
         e.preventDefault();
         $('#dodavanje_robe').modal('show');
-
-        $('#naziv').val('');
+        $('#naziv_modal').val('');
         $('#jedinicaMere').val('');
         $('#grupe>option:eq(0)').prop('selected', true);
     });
@@ -91,8 +90,9 @@ $(document).ready(function(){
 
     $(document).on('click', '#potvrda_dodavanja_robe', function () {
         $('.alert').alert('close')
-        var naziv = $('#naziv').val();
+        var naziv = $('#naziv_modal').val();
         if (naziv.length < 3) {
+            console.log(naziv.length)
             $('#messages').append(
                 `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Naziv mora biti duzi od 3 slova</div>`);
             setTimeout(function () {$('.alert').alert('close')}, 3000);
@@ -100,8 +100,9 @@ $(document).ready(function(){
         }
         var jedinicaMere = $('#jedinicaMere').val();
         if (jedinicaMere.length < 1) {
+            console.log(jedinicaMere.length)
             $('#messages').append(
-                `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Jedinica mora biti duzi od 1 slova</div>`);
+                `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Unesite jedinicu mere</div>`);
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
         }

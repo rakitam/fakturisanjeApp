@@ -44,7 +44,7 @@ $(document).ready(function(){
                             <td>${grupa.nazivGrupe}</td>
                             <td>${grupa.pdv.nazivPDV}</td>
                             <td>
-                                <a class="btn btn-outline-primary pregledRobe" href="robe-usluge.html?grupa=${grupa.id}">GET</a>
+                                <a class="btn btn-outline-primary pregledRobe" href="robe-usluge.html?grupa=${grupa.id}">Vidi robu</a>
                             </td>
                         </tr>`
                     );

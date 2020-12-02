@@ -6,20 +6,25 @@
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/drlja.css">
 </head>
-<body>
+<body id="robeBody">
 <div id="nav"></div>
 <div class="container">
+    <div style="padding: 20px; text-align: center">
+        <h1>Lista dostupne robe</h1>
+    </div>
       <div class="row">
-        <div class="col-3">
+          <div class="col-3"></div>
+        <div class="col-6" style="text-align: center; padding-bottom: 20px">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="naziv">Naziv robe</label>
+                    <label for="naziv">Pretraži po nazivu</label>
                     <input type="text" class="form-control" id="naziv" value="">
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-3">
             <br>
             <button class="float-right btn btn-primary" id="modalDodavanje">Dodaj</button>
         </div>
@@ -40,6 +45,7 @@
     <ul class="pagination pagination-sm float-right" id="pagination"></ul>
 </div>
 <div id="add_roba"></div>
+<div id="footer"></div>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
