@@ -10,9 +10,9 @@ $(document).ready(function(){
             success: function (data) {
                 //$('#brojFaktureId').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('.brojFakture').text(data.brojFakture + '/' + data.poslovnaGodina.godina);
-                $('#datumFakture').val(new Date(data.datumFakture).toLocaleString());
-                $('#datumValute').val(new Date(data.datumValute).toLocaleString());
-                $('#datumStorniranja').val(new Date(data.datumStorniranja).toLocaleString());
+                $('#datumFakture').val(!data.datumFakture? '': new Date(data.datumFakture).toLocaleString());
+                $('#datumValute').val(!data.datumValute? '':  new Date(data.datumValute).toLocaleString());
+                $('#datumStorniranja').val(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
                 //$('#iznosBezRabata').val(data.iznosBezRabata);
                 $('#ukupno').text(data.iznosZaPlacanje);
                 $('#poreskaOsnovica').text(data.osnovica);

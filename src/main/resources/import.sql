@@ -173,7 +173,7 @@ insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('470', 
 insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('250', 1, 66);
 insert into stavka_cenovnika (cena, cenovnik_id, roba_usluga_id) values ('550', 1, 67);
 
-insert into faktura (broj_fakture, datum_fakture, datum_valute, iznos_bez_rabata, iznos_za_placanje, osnovica, rabat, status_fakture, ukupan_pdv, korisnik_id, poslovna_godina_id, preduzece_id) values (1, '2020-11-29', '2020-11-29', 1560, 1716, 1560, 0, 'FORMIRANA', 156, 1, 1, 1);
+insert into faktura (broj_fakture, datum_fakture, datum_valute, datum_storniranja, iznos_bez_rabata, iznos_za_placanje, osnovica, rabat, status_fakture, ukupan_pdv, korisnik_id, poslovna_godina_id, preduzece_id) values (1, '2020-11-29', '2020-11-29', null, 1560, 1716, 1560, 0, 'FORMIRANA', 156, 1, 1, 1);
 
 insert into stavka_fakture(iznos_pdva, iznos_stavke, jedinicna_cena, kolicina, osnovica_za_pdv, procenat_pdva, rabat, faktura_id, roba_usluga_id, obrisana) values (80, 880, 400, 2, 800, 10, 0, 1, 1, 0);
 insert into stavka_fakture(iznos_pdva, iznos_stavke, jedinicna_cena, kolicina, osnovica_za_pdv, procenat_pdva, rabat, faktura_id, roba_usluga_id, obrisana) values (76, 836, 380, 2, 760, 10, 0, 1, 2, 0)

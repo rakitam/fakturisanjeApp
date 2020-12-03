@@ -78,6 +78,7 @@ public class FakturaController {
 		if (faktura == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+		System.out.println(faktura.getDatumStorniranja());
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(faktura));
 	}
 
@@ -109,7 +110,7 @@ public class FakturaController {
 		try {
 
 			/* Read jrxml file and creating JasperDesign object */
-			InputStream is = new FileInputStream(new File("C:\\Users\\Rakitica\\JaspersoftWorkspace\\Fakture\\Faktura.jrxml"));
+			InputStream is = new FileInputStream(new File("C:\\Users\\Celarevo\\Desktop\\fakturisanje\\fakturisanjeApp\\src\\main\\resources\\Faktura.jrxml"));
 
 			JasperDesign jasperDesign = JRXmlLoader.load(is);
 
