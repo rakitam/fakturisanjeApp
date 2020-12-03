@@ -30,7 +30,7 @@ $(document).ready(function () {
 
         preduzece.naziv =  $("#naziv").val();
         preduzece.adresaPreduzeca =  $("#adresaPreduzeca").val();
-        preduzece.mesto.id =  $("#mesto").val();
+        //preduzece.mesto.id =  $("#mesto").val();
         preduzece.telefonPreduzeca =  $("#telefonPreduzeca").val();
         preduzece.tekuciRacun =  $("#tekuciRacun").val();
         preduzece.telefon =  $("#telefon").val();
@@ -45,6 +45,7 @@ $(document).ready(function () {
             url: '/api/preduzeca/1'
         }).done(function(){
             console.log(preduzece)
+            alert("Podaci uspešno izmenjeni.")
             getPreduzece()
         });
     });

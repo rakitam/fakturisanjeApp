@@ -1,9 +1,9 @@
 package sf.posinf.fakturisanje.controllers;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -27,6 +27,8 @@ import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Connection;
@@ -77,45 +79,6 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(faktura));
-	}
-
-	//TODO: Skontati jasper
-	@GetMapping("/{id}/report")
-	public ResponseEntity getReport(@PathVariable("id") long id) {
-		Faktura faktura = fakturaServiceInterface.findOne(id);
-		if (faktura == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("faktura", faktura);
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String connectionURL = "jdbc:mysql://localhost:3306/fakturisanjeBaza";
-
-			Properties appProperties = new Properties();
-			try (InputStream is = this.getClass().getResource("/application.properties").openStream()) {
-				appProperties.load(is);
-			}
-
-			Properties properties = new Properties();
-			properties.setProperty("user", appProperties.getProperty("spring.datasource.username"));
-			properties.setProperty("password", appProperties.getProperty("spring.datasource.password"));
-			properties.setProperty("useSSL", "false");
-			Connection conn = DriverManager.getConnection(connectionURL, properties);
-			params.put("connectionInfo", conn);
-			String type = "izlazna-faktura";
-			JasperPrint jp = JasperFillManager.fillReport(
-					this.getClass().getResource("/" + type + ".jasper").openStream(), params, new JREmptyDataSource());
-			ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + faktura.getBrojFakture() + "-"
-					+ faktura.getPoslovnaGodina().getGodina() + ".pdf");
-			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-					.body(new InputStreamResource(bis));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@GetMapping("/{id}/stavke")

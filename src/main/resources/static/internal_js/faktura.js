@@ -45,9 +45,9 @@ $(document).ready(function(){
                             <td>${stavka.kolicina}</td>
                             <td>${stavka.jedinicnaCena}</td>
                             <td>${stavka.osnovicaZaPdv}</td>
+                            <td>${stavka.rabat}</td>
                             <td>${stavka.procenatPdva}</td>
                             <td>${stavka.iznosPdva}</td>
-                            <td>${stavka.rabat}</td>
                             <td>${stavka.iznosStavke + stavka.iznosPdva}</td>
                         </tr>`
                             )
