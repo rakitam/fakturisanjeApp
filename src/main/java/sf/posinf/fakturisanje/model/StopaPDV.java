@@ -22,50 +22,58 @@ public class StopaPDV {
     @JoinColumn(name = "pdv_id")
     private PDV pdv;
 
+    @NotNull
+    private boolean active;
+
     public StopaPDV() {
     	
     }
 
-    public StopaPDV(float procenat, Date datumVazenja, PDV pdv) {
-		super();
-		this.procenat = procenat;
-		this.datumVazenja = datumVazenja;
-		this.pdv = pdv;
+    public StopaPDV(long id, @NotNull float procenat, @NotNull Date datumVazenja, PDV pdv, boolean active) {
+        this.id = id;
+        this.procenat = procenat;
+        this.datumVazenja = datumVazenja;
+        this.pdv = pdv;
+        this.active = active;
     }
 
-	public long getId() {
+    public long getId() {
         return id;
     }
 
-    public StopaPDV setId(long id) {
+    public void setId(long id) {
         this.id = id;
-        return this;
     }
 
     public float getProcenat() {
         return procenat;
     }
 
-    public StopaPDV setProcenat(float procenat) {
+    public void setProcenat(float procenat) {
         this.procenat = procenat;
-        return this;
     }
 
     public Date getDatumVazenja() {
         return datumVazenja;
     }
 
-    public StopaPDV setDatumVazenja(Date datumVazenja) {
+    public void setDatumVazenja(Date datumVazenja) {
         this.datumVazenja = datumVazenja;
-        return this;
     }
 
-	public PDV getPdv() {
-		return pdv;
-	}
+    public PDV getPdv() {
+        return pdv;
+    }
 
-	public StopaPDV setPdv(PDV pdv) {
-		this.pdv = pdv;
-		return this;
-	}
+    public void setPdv(PDV pdv) {
+        this.pdv = pdv;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

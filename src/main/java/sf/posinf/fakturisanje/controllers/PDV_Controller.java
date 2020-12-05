@@ -13,6 +13,7 @@ import sf.posinf.fakturisanje.mapstruct.StopaPDVMapper;
 import sf.posinf.fakturisanje.model.PDV;
 import sf.posinf.fakturisanje.model.StopaPDV;
 import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,9 @@ public class PDV_Controller {
 
 	@Autowired
 	private PDV_ServiceInterface pdvServiceInterface;
+
+	@Autowired
+	private StopaPDV_ServiceInterface stopaPDVserviceInterface;
 
 	@Autowired
 	private PDVMapper pdvMapper;
@@ -47,9 +51,13 @@ public class PDV_Controller {
 	}
 
 	@GetMapping(value = "/{id}/stopa")
-	public ResponseEntity getStopa(@PathVariable long id) {
-		StopaPDV stopaPdv = pdvServiceInterface.findActiveStopaPdv(id);
-		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(stopaPdv));
+	public ResponseEntity getAllActiveByPdv(@PathVariable("id") long pdvId) {
+		List<StopaPDV> aktivneStope = stopaPDVserviceInterface.findAllByPdv_IdAndActiveIsTrue(pdvId);
+		if (aktivneStope == null) {
+			System.out.println(aktivneStope);
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(stopaPDVMapper.stopaPdvToDto(aktivneStope));
 	}
 
 	@PostMapping()

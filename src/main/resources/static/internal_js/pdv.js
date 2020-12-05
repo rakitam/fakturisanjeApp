@@ -14,7 +14,7 @@ $(document).ready(function(){
                         `<tr>
                             <td>${pdv.id}</td>
                             <td>${pdv.nazivPDV}</td>
-                            <td></td>
+                            <td><a href='stope-pdv.html?id=${pdv.id}' class='btn btn-outline-primary'>Pogledaj aktivnu stopu</a></td>
                         </tr>
                         `
                     )

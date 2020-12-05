@@ -1,6 +1,8 @@
 $(document).ready(function(){
     var stopaPDVTabela = $('#stopaPDVTabela');
     var grupe = [];
+    var urlSearchParams = getParameters();
+
     $("#modal_stopa").load("dialog/dodavanje_stopa_pdv.html", function () {
         $.ajax({
             url: '/api/pdv',
@@ -14,11 +16,12 @@ $(document).ready(function(){
             }
         });
     });
+
     getStopaPDV();
 
     function getStopaPDV() {
         $.ajax({
-            url: '/api/stope-pdv',
+            url: '/api/pdv/' + urlSearchParams['id'] + '/stopa',
             headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 stopaPDVTabela.empty();
@@ -26,7 +29,7 @@ $(document).ready(function(){
                     stopaPDVTabela.append(
                         `<tr>
                             <td>${stopa.id}</td>
-                             <td>${new Date(stopa.datumVazenja).toLocaleString()}</td>
+                            <td>${new Date(stopa.datumVazenja).toLocaleString()}</td>
                             <td>${stopa.procenat}</td>
                             <td>${stopa.pdv.nazivPDV}</td>
                             <td></td>
@@ -84,5 +87,17 @@ $(document).ready(function(){
 
         $('#dodavanje_stope').modal('hide');
     });
+
+    function getParameters(){
+        var param = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            param.push(hash[0]);
+            param[hash[0]] = hash[1];
+        }
+        return param;
+    }
 
 });

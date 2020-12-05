@@ -15,6 +15,8 @@ import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/stope-pdv")
 @PreAuthorize("hasRole('ADMIN')")

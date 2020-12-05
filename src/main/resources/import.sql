@@ -17,11 +17,13 @@ insert into poslovna_godina (godina, zakljucana) values (2018, 1);
 
 insert into mesto (drzava, naziv, obrisano, postanski_broj) values ('Srbija', 'Bačka Palanka', 0, 21400);
 
-insert into pdv (nazivpdv) values ('10% sveze meso');
-insert into pdv (nazivpdv) values ('20% preradjevine');
+insert into pdv (nazivpdv) values ('Sveze meso');
+insert into pdv (nazivpdv) values ('Preradjevine');
 
-insert into stopapdv (datum_vazenja, procenat, pdv_id) values ('2020-11-18', 10, 1);
-insert into stopapdv (datum_vazenja, procenat, pdv_id) values ('2020-11-18', 10, 2);
+insert into stopapdv (datum_vazenja, procenat, pdv_id, active) values ('2020-11-18', 10, 1, true);
+insert into stopapdv (datum_vazenja, procenat, pdv_id, active) values ('2020-11-18', 20, 2, true);
+insert into stopapdv (datum_vazenja, procenat, pdv_id, active) values ('2020-11-16', 10, 1, false);
+insert into stopapdv (datum_vazenja, procenat, pdv_id, active) values ('2020-11-16', 20, 2, false);
 
 insert into preduzece (pib, adresa_preduzeca, email, logo, naziv, tekuci_racun, telefon, mesto_id) values ('100749920', 'Kralja Petra I 36', 'mrakita1993@gmail.com', 'putanja do logoa', 'S.Z.T.R. DRAGSTOR V', '170-50005010000-11','063525441', 1);
 

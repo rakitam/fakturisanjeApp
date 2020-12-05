@@ -12,19 +12,10 @@ import java.util.List;
 @Repository
 public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 
-	List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(StatusFakture statusFakture, String korisnikEmail, long poslovna_godina_id);
-	
 	List<Faktura> findAllByPoslovnaGodina_Godina(int poslovnaGodina);
-	
-	List<Faktura> findAllByPreduzece(String preduzece);
-	
-	//Proveriti da li sam dobro namapirala enum u bazi
+
 	Page<Faktura> findAllByStatusFakture(StatusFakture statusFakture, Pageable pageable);
 	
-	Page<Faktura> findAllByPoslovnaGodina_IdAndPreduzece_Id(long poslovnaGodina, long preduzece, Pageable pageable);
-	
-	Page<Faktura> findAllByPreduzece_Id(long naziv, Pageable pageable);
-
 	Page<Faktura> findAllByKorisnik_IdAndStatusFakture(long korisnikId, StatusFakture sf, Pageable pageable);
 
 	Page<Faktura> findAllByKorisnik_Id(long korisnikId, Pageable pageable);

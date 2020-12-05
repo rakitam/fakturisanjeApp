@@ -11,4 +11,6 @@ public interface StopaPDV_ServiceInterface {
     StopaPDV findOne(Long id);
     
     StopaPDV save(StopaPDV stopaPDV);
+
+    List<StopaPDV> findAllByPdv_IdAndActiveIsTrue(long pdvID);
 }

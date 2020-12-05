@@ -12,51 +12,56 @@ public class StopaPDV_Dto {
 	private Date datumVazenja;
 	@NotNull
 	private PDV_Dto pdv;
+	private boolean active = true;
 
 	public StopaPDV_Dto() {
 	}
 
-	public StopaPDV_Dto(float procenat, Date datumVazenja, PDV_Dto pdv) {
-		super();
+	public StopaPDV_Dto(long id, @NotNull float procenat, @NotNull Date datumVazenja, @NotNull PDV_Dto pdv, boolean active) {
+		this.id = id;
 		this.procenat = procenat;
 		this.datumVazenja = datumVazenja;
 		this.pdv = pdv;
+		this.active = active;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public StopaPDV_Dto setId(long id) {
+	public void setId(long id) {
 		this.id = id;
-		return this;
 	}
 
 	public float getProcenat() {
 		return procenat;
 	}
 
-	public StopaPDV_Dto setProcenat(float procenat) {
+	public void setProcenat(float procenat) {
 		this.procenat = procenat;
-		return this;
 	}
 
 	public Date getDatumVazenja() {
 		return datumVazenja;
 	}
 
-	public StopaPDV_Dto setDatumVazenja(Date datumVazenja) {
+	public void setDatumVazenja(Date datumVazenja) {
 		this.datumVazenja = datumVazenja;
-		return this;
 	}
 
 	public PDV_Dto getPdv() {
 		return pdv;
 	}
 
-	public StopaPDV_Dto setPdv(PDV_Dto pdv) {
+	public void setPdv(PDV_Dto pdv) {
 		this.pdv = pdv;
-		return this;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }

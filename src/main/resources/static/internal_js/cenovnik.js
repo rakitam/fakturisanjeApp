@@ -6,6 +6,7 @@ $(document).ready(function(){
     var urlSearchParams = getParameters();
     var robeUsluge = [];
     var cenovnici = [];
+
     $("#modal_stavka").load("dialog/dodavanje_stavke_cenovnika.html", function () {
         $.ajax({
             url: '/api/robe-usluge?size=999999&page=0',
