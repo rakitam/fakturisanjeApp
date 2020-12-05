@@ -32,7 +32,7 @@ $(document).ready(function () {
                             <td>${!faktura.datumFakture ? '' : new Date(faktura.datumFakture).toLocaleString()}</td>
                             <td>${!faktura.datumValute ? '' : new Date(faktura.datumValute).toLocaleString()}</td>
                             <td>${!faktura.datumStorniranja ? '' : new Date(faktura.datumStorniranja).toLocaleString()}</td>
-                            <td>${faktura.iznosBezRabata}</td>
+                            <td>${faktura.osnovica}</td>
                             <td>${faktura.iznosZaPlacanje}</td>
                             <td>${faktura.statusFakture}</td>
                             <td>

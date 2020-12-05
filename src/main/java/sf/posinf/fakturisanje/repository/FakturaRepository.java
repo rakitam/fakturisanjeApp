@@ -14,7 +14,7 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 
 	List<Faktura> findAllByStatusFaktureAndKorisnik_EmailAndPoslovnaGodina_Id(StatusFakture statusFakture, String korisnikEmail, long poslovna_godina_id);
 	
-	List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodina_id);
+	List<Faktura> findAllByPoslovnaGodina_Godina(int poslovnaGodina);
 	
 	List<Faktura> findAllByPreduzece(String preduzece);
 	
@@ -32,6 +32,8 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 	Faktura findByKorisnik_IdAndStatusFakture(long korisnikId, StatusFakture sf);
 
 	List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Id(long preduzece, long poslovnaGodina);
+
+	List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Godina(long preduzece, int poslovnaGodina);
 
 	List<Faktura> findAllByPreduzece_Id(long preduzece);
 }

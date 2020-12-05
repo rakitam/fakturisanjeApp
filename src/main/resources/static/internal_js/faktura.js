@@ -70,6 +70,21 @@ $(document).ready(function(){
         return param;
     }
 
+    //TODO: NE RADI GOVNO UBICU SE
+    $('#napravi_izvestaj').click(function () {
+        console.log(urlSearchParams['id']);
+        $("#prikazi_pdf").modal('show');
+        $.ajax({
+            method: 'GET',
+            headers: {"Authorization": localStorage.getItem('token')},
+            url: '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj',
+            success: function (data) {
+                $("#prikazi_izvestaj").attr('src', '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj');
+            }
+        });
+    });
+
+
     $('#plati').click(function () {
         $.ajax({
             method: 'PUT',

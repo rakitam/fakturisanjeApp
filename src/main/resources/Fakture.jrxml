@@ -187,8 +187,7 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="120" height="30" uuid="b74f7614-0284-47bc-b29b-abf6bfc78c7f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{robaUsluga}.getNazivRobeUsluge()]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{robaUsluga}.getNaziv()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -204,7 +203,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="50" height="30" uuid="2c64ea49-49af-4f32-837d-e04ce48c9fdd"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{robaUsluga}.getJedinicaMere()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -221,7 +219,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="50" height="30" uuid="a0110bc8-e3e9-48f9-a1b1-1c5c551191bf"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{kolicina}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -238,7 +235,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="80" height="30" uuid="808d6459-f807-4e06-833d-4d824f3cab9a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jedinicnaCena}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -255,7 +251,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="70" height="30" uuid="060ee486-21a0-4c4d-87c9-acbad23a61c2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{osnovicaZaPdv}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -272,7 +267,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="60" height="30" uuid="3cd25f99-c453-4284-9b78-ff3498cf0d6d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{rabat}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -289,7 +283,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="60" height="30" uuid="73b1b2f0-efcb-422d-89c3-d60bc0ffe9c6"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{procenatPdva}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -306,7 +299,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="70" height="30" uuid="8b046ea2-2abb-447d-aece-331f5b4827a2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{iznosPdva}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -323,7 +315,6 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="90" height="30" uuid="33393b2e-b33e-4b93-b841-c450b4bdf4f5"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{iznosStavke}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

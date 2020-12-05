@@ -88,6 +88,11 @@ public class FakturaService implements FakturaServiceInterface {
 		return faktura;
 	}
 
+	@Override
+	public List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Godina(long preduzeceId, int godina) {
+		return fakturaRepository.findAllByPreduzece_IdAndPoslovnaGodina_Godina(preduzeceId, godina);
+	}
+
 	// Faktura ne moze da se brise sem ako nije u fazi formiranja!
 	// Ukoliko menjamo stavke fakture, pravi se nova faktura, a prethodna se
 	// stornira
@@ -109,11 +114,11 @@ public class FakturaService implements FakturaServiceInterface {
 		double osnovica = 0;
 		double ukupanPdv = 0;
 		double iznosZaPlacanje = 0;
-		double iznosBezRabata = 0;
+		//double iznosBezRabata = 0;
 		double ukupanRabat = 0;
 		for (StavkaFakture s : stavkaFaktureServiceInterface.findByFaktura_id(faktura.getId())) {
 			ukupanRabat += s.getRabat();
-			iznosBezRabata += s.getJedinicnaCena();
+			//iznosBezRabata += s.getJedinicnaCena() * s.getKolicina();
 			osnovica += s.getKolicina() * s.getJedinicnaCena();
 			ukupanPdv += s.getIznosPdva();
 			iznosZaPlacanje += s.getIznosStavke() + s.getIznosPdva();
@@ -121,7 +126,7 @@ public class FakturaService implements FakturaServiceInterface {
 		faktura.setIznosZaPlacanje(iznosZaPlacanje);
 		faktura.setOsnovica(osnovica);
 		faktura.setUkupanPdv(ukupanPdv);
-		faktura.setIznosBezRabata(iznosBezRabata);
+		//faktura.setIznosBezRabata(iznosBezRabata);
 		faktura.setRabat(ukupanRabat);
 		save(faktura);
 	}

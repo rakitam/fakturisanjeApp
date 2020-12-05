@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var cenovniciTable = $('#cenovniciTable');
     var preduzeca = [];
+
     $("#modal_cenovnik").load("dialog/dodavanje_cenovnika.html", function () {
         $.ajax({
             url: '/api/preduzeca',

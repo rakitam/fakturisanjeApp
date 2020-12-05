@@ -22,14 +22,13 @@ import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
 import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.services.impl.KorisnikService;
+import sf.posinf.fakturisanje.services.impl.PreduzeceService;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.security.Principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,6 +53,9 @@ public class FakturaController {
 
 	@Autowired
 	private KorisnikService korisnikService;
+
+	@Autowired
+	private PreduzeceServiceInterface preduzeceServiceInterface;
 
 	//U zavisnosti od uloge korisnika, vratice ili sve, ili fakture samo jednog korisnika
 	@GetMapping
@@ -83,7 +85,7 @@ public class FakturaController {
 	}
 
 	//Izvestaj za jednu fakturu po njenom id
-	@GetMapping("/{id}/izvestaj")
+	@GetMapping("/{id}/napravi-izvestaj")
 	public ResponseEntity napraviIzvestaj(@PathVariable("id") long id){
 
 		Faktura faktura = fakturaServiceInterface.findOne(id);
@@ -110,7 +112,7 @@ public class FakturaController {
 		try {
 
 			/* Read jrxml file and creating JasperDesign object */
-			InputStream is = new FileInputStream(new File("C:\\Users\\Celarevo\\Desktop\\fakturisanje\\fakturisanjeApp\\src\\main\\resources\\Faktura.jrxml"));
+			InputStream is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Faktura.jrxml"));
 
 			JasperDesign jasperDesign = JRXmlLoader.load(is);
 
@@ -121,7 +123,7 @@ public class FakturaController {
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename="+faktura.getBrojFakture()+"-"+faktura.getPoslovnaGodina().getGodina()+".pdf");
+			headers.add("Content-Disposition", "inline; filename=" + faktura.getBrojFakture() + "-" + faktura.getPoslovnaGodina().getGodina() + ".pdf");
 			return ResponseEntity
 					.ok()
 					.headers(headers)
@@ -129,6 +131,56 @@ public class FakturaController {
 					.body(new InputStreamResource(bais));
 		}catch (Exception ex) {
 			ex.printStackTrace();
+		}
+		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	//Izvestaj za sve fakture za poslovnu godinu
+	@GetMapping("/{godina}/izvestaj")
+	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@RequestParam("godina") int godina) throws JRException, FileNotFoundException {
+
+		Preduzece preduzece = preduzeceServiceInterface.findOne((long) 1);
+		List<Faktura> faktureZaIzvestaj = new ArrayList<Faktura>();
+		List<Faktura> fakture = fakturaServiceInterface.findAllByPreduzece_IdAndPoslovnaGodina_Godina(preduzece.getId(), godina);
+
+		if(fakture==null){
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+
+		if(fakture.isEmpty()){
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+
+		Map<String, Object> params  = new HashMap<String, Object>();
+
+		for(Faktura i : fakture){
+			if(i.getPoslovnaGodina().getGodina() == godina){
+				faktureZaIzvestaj.add(i);
+			}
+		}
+		params.put("godina", godina);
+		params.put("fakture", faktureZaIzvestaj);
+		params.put("preduzece", preduzece);
+
+		InputStream	is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Fakture.jrxml"));
+
+		JasperDesign jasperDesign = JRXmlLoader.load(is);
+
+		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+		try{
+			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "inline; filename=" + preduzece.getNaziv() + "-" + godina +".pdf");
+			return ResponseEntity
+					.ok()
+					.headers(headers)
+					.contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bais));
+		}catch(Exception ex){
+			ex.printStackTrace();
+
 		}
 		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

@@ -22,6 +22,8 @@ public interface FakturaServiceInterface {
     Boolean storniraj(Faktura faktura);
 
     Faktura getActiveFakturaForKorisnik(Korisnik korisnik);
+
+    List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Godina(long preduzeceId, int godina);
     
     Boolean update(Faktura faktura);
 
