@@ -6,17 +6,20 @@
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/drlja.css">
 </head>
-<body>
+<body class="pageBody">
 <div id="nav"></div>
-<div class="container">
-    <button class="btn btn-primary" id="dodaj_pdv">Dodaj</button>
+<div>
+    <h1 style="text-align: center; padding-top: 20px">PDV</h1>
+</div><br>
+<div class="container" style="margin-left: 500px;">
+    <button class="btn btn-primary" id="dodaj_pdv">Dodaj PDV</button><br><br>
     <table class="table">
         <thead>
         <tr>
-            <th>#</th>
+            <th>R. br.</th>
             <th>Naziv</th>
-            <th></th>
         </tr>
         </thead>
         <tbody id="pdvTabela">
@@ -25,6 +28,7 @@
     </table>
 </div>
 <div id="modal_pdv"></div>
+<div id="footer"></div>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

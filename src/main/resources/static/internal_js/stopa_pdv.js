@@ -19,6 +19,18 @@ $(document).ready(function(){
 
     getStopaPDV();
 
+    //TODO: Ako stignemo ispisati naziv PDV-a u naslov
+    function getNazivPDV() {
+        $.ajax({
+            url: '/api/pdv/' + urlSearchParams['id'],
+            headers: {'Authorization': localStorage.getItem('token')},
+            type: 'GET',
+            success: function(data) {
+                $('.brojFakture').text(data.nazivPDV);
+            }
+        });
+    }
+
     function getStopaPDV() {
         $.ajax({
             url: '/api/pdv/' + urlSearchParams['id'] + '/stopa',
@@ -63,8 +75,8 @@ $(document).ready(function(){
                 `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Datum nije selektovan</div>`);
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
-
         }
+        //TODO: Dodati ogranicenje da datum ne moze biti u proslosti
         var pdv = $('#pdv').val();
 
         var novaStopa = {

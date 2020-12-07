@@ -19,7 +19,7 @@ body {
     color: #94b376;
 }
 
-#homepageBody #footer, #robeBody #footer, #grupeRobeBody #footer {
+.pageBody #footer {
     position: absolute;
     bottom: 0;
     width: 100%;

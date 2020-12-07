@@ -9,12 +9,16 @@ public class StavkaFakture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@ManyToOne
+	@JoinColumn(name = "roba_usluga_id")
+	private RobaUsluga robaUsluga;
+
+	@NotNull
+	private float jedinicnaCena;
 	
 	@NotNull
 	private long kolicina;
-	
-	@NotNull
-	private float jedinicnaCena;
 	
 	@NotNull
 	private double rabat;
@@ -34,10 +38,6 @@ public class StavkaFakture {
 	@ManyToOne
 	@JoinColumn(name = "faktura_id")
 	private Faktura faktura;
-	
-	@ManyToOne
-	@JoinColumn(name = "roba_usluga_id")
-	private RobaUsluga robaUsluga;
 
 	@NotNull
 	private boolean obrisana;
@@ -46,20 +46,18 @@ public class StavkaFakture {
 		
 	}
 
-	public StavkaFakture(long id, @NotNull long kolicina, @NotNull float jedinicnaCena, @NotNull double rabat,
-			@NotNull double osnovicaZaPdv, @NotNull double procenatPdva, @NotNull double iznosPdva,
-			@NotNull double iznosStavke, boolean obrisana, Faktura faktura, RobaUsluga robaUsluga) {
-		super();
+	public StavkaFakture(long id, RobaUsluga robaUsluga, @NotNull float jedinicnaCena, @NotNull long kolicina, @NotNull double rabat, @NotNull double osnovicaZaPdv, @NotNull double procenatPdva, @NotNull double iznosPdva, @NotNull double iznosStavke, Faktura faktura, @NotNull boolean obrisana) {
 		this.id = id;
-		this.kolicina = kolicina;
+		this.robaUsluga = robaUsluga;
 		this.jedinicnaCena = jedinicnaCena;
+		this.kolicina = kolicina;
 		this.rabat = rabat;
 		this.osnovicaZaPdv = osnovicaZaPdv;
 		this.procenatPdva = procenatPdva;
 		this.iznosPdva = iznosPdva;
 		this.iznosStavke = iznosStavke;
 		this.faktura = faktura;
-		this.robaUsluga = robaUsluga;
+		this.obrisana = obrisana;
 	}
 
 	public long getId() {
@@ -70,12 +68,12 @@ public class StavkaFakture {
 		this.id = id;
 	}
 
-	public long getKolicina() {
-		return kolicina;
+	public RobaUsluga getRobaUsluga() {
+		return robaUsluga;
 	}
 
-	public void setKolicina(long kolicina) {
-		this.kolicina = kolicina;
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
+		this.robaUsluga = robaUsluga;
 	}
 
 	public float getJedinicnaCena() {
@@ -84,6 +82,14 @@ public class StavkaFakture {
 
 	public void setJedinicnaCena(float jedinicnaCena) {
 		this.jedinicnaCena = jedinicnaCena;
+	}
+
+	public long getKolicina() {
+		return kolicina;
+	}
+
+	public void setKolicina(long kolicina) {
+		this.kolicina = kolicina;
 	}
 
 	public double getRabat() {
@@ -132,14 +138,6 @@ public class StavkaFakture {
 
 	public void setFaktura(Faktura faktura) {
 		this.faktura = faktura;
-	}
-
-	public RobaUsluga getRobaUsluga() {
-		return robaUsluga;
-	}
-
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
-		this.robaUsluga = robaUsluga;
 	}
 
 	public boolean isObrisana() {

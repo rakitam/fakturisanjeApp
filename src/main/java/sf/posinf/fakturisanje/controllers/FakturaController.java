@@ -96,6 +96,10 @@ public class FakturaController {
 
 		List<StavkaFakture> stavkeFakture = stavkaFaktureServiceInterface.findByFaktura_id(faktura.getId());
 
+		if(stavkeFakture==null || stavkeFakture.isEmpty()){
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+
 		/* Convert the list above to JRBeanCollectionDataSource */
 		JRBeanCollectionDataSource stavkeFaktureJasper = new JRBeanCollectionDataSource(stavkeFakture);
 
@@ -103,15 +107,15 @@ public class FakturaController {
 		Map<String, Object> params  = new HashMap<>();
 
 		params.put("faktura", faktura);
-		params.put("stavkeFakture", stavkeFakture);
+		params.put("stavkeFakture", stavkeFaktureJasper);
 
-		for (StavkaFakture sf : stavkeFakture) {
+		/*for (StavkaFakture sf : stavkeFakture) {
 			System.out.println(sf.getId());
-		}
+		}*/
 
 		try {
 
-			/* Read jrxml file and creating JasperDesign object */
+			/* Reading jrxml file and creating JasperDesign object */
 			InputStream is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Faktura.jrxml"));
 
 			JasperDesign jasperDesign = JRXmlLoader.load(is);
@@ -122,6 +126,7 @@ public class FakturaController {
 			/* Using jasperReport object to generate PDF */
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
+			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\faktura.pdf");
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=" + faktura.getBrojFakture() + "-" + faktura.getPoslovnaGodina().getGodina() + ".pdf");
 			return ResponseEntity
@@ -140,26 +145,25 @@ public class FakturaController {
 	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@RequestParam("godina") int godina) throws JRException, FileNotFoundException {
 
 		Preduzece preduzece = preduzeceServiceInterface.findOne((long) 1);
-		List<Faktura> faktureZaIzvestaj = new ArrayList<Faktura>();
+		//List<Faktura> faktureZaIzvestaj = new ArrayList<Faktura>();
 		List<Faktura> fakture = fakturaServiceInterface.findAllByPreduzece_IdAndPoslovnaGodina_Godina(preduzece.getId(), godina);
 
-		if(fakture==null){
+		if(fakture==null || fakture.isEmpty()){
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
-		if(fakture.isEmpty()){
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
+		/* Convert the list above to JRBeanCollectionDataSource */
+		JRBeanCollectionDataSource faktureJasper = new JRBeanCollectionDataSource(fakture);
 
 		Map<String, Object> params  = new HashMap<String, Object>();
 
-		for(Faktura i : fakture){
+		/*for(Faktura i : fakture){
 			if(i.getPoslovnaGodina().getGodina() == godina){
 				faktureZaIzvestaj.add(i);
 			}
-		}
+		}*/
 		params.put("godina", godina);
-		params.put("fakture", faktureZaIzvestaj);
+		params.put("fakture", faktureJasper);
 		params.put("preduzece", preduzece);
 
 		InputStream	is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Fakture.jrxml"));
@@ -171,6 +175,7 @@ public class FakturaController {
 		try{
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
+			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\nestoFakture.pdf");
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=" + preduzece.getNaziv() + "-" + godina +".pdf");
 			return ResponseEntity

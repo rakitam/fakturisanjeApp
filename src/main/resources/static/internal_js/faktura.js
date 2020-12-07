@@ -78,8 +78,13 @@ $(document).ready(function(){
             headers: {"Authorization": localStorage.getItem('token')},
             url: '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj',
             success: function (data) {
-                $("#prikazi_izvestaj").attr('src', '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj');
-                $("#prikazi_pdf").modal('show');
+                /*console.log(data),
+                //$("#prikazi_izvestaj").attr('src', '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj');
+                $("#prikazi_izvestaj").attr('src', data);
+                $("#prikazi_pdf").modal('show');*/
+                var file = new Blob([data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
             }
         });
     });
