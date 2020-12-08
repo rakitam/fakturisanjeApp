@@ -55,8 +55,8 @@ $(document).ready(function(){
                 `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Datum nije selektovan</div>`);
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
-
         }
+
         var preduzece = $('#preduzeca').val();
 
         var noviCenovnik = {

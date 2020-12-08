@@ -3,7 +3,23 @@ $(document).ready(function () {
     var fakturaTable = $('#fakturaTable');
     var pagination = $('#pagination');
     var statusFaktureSelect = $('#status-fakture');
+    var poslovneGodine = [];
     var page = 0;
+
+    $("#modal_izvestaj_poslovna_godina").load("dialog/faktura_izvestaj_poslovna_godina.html", function () {
+        $.ajax({
+            url: 'api/poslovne-godine',
+            headers: {'Authorization': localStorage.getItem('token')},
+            success: function (data) {
+                var poslovneGodineSelect = $('#poslovneGodine');
+                poslovneGodine = data;
+                for (var i=0; i<data.length; i++) {
+                    poslovneGodineSelect.append(`<option value="${i}">${data[i].godina}</option>`);
+                }
+            }
+        });
+    });
+
     getFakture();
 
     function getFakture() {
@@ -31,12 +47,13 @@ $(document).ready(function () {
                             <td>${faktura.korisnik}</td>
                             <td>${!faktura.datumFakture ? '' : new Date(faktura.datumFakture).toLocaleString()}</td>
                             <td>${!faktura.datumValute ? '' : new Date(faktura.datumValute).toLocaleString()}</td>
-                            <td>${!faktura.datumStorniranja ? '' : new Date(faktura.datumStorniranja).toLocaleString()}</td>
+                            <td>${faktura.rabat}</td>
                             <td>${faktura.osnovica}</td>
+                            <td>${faktura.ukupanPdv}</td>
                             <td>${faktura.iznosZaPlacanje}</td>
                             <td>${faktura.statusFakture}</td>
                             <td>
-                                <a class="btn btn-primary" href="/faktura.html?id=${faktura.id}">GET</a>
+                                <a class="btn btn-primary" href="/faktura.html?id=${faktura.id}">Pogledaj</a>
                             </td>
                         </tr>`
                     )
@@ -44,6 +61,31 @@ $(document).ready(function () {
             }
         });
     }
+
+    $('#izvestaj_za_godinu').click(function (e) {
+        e.preventDefault();
+        $('#faktura_izvestaj_poslovna_godina').modal('show');
+        $('#poslovneGodine>option:eq(0)').prop('selected', true);
+    });
+
+    $(document).on('click', '#potvrda_poslovne_godine', function () {
+        $('.alert').alert('close')
+        var pg = $('#poslovneGodine option:selected').text();
+        var pg_int = parseInt(pg);
+        console.log(pg_int);
+        $.ajax({
+            url: '/api/fakture/' + pg_int + '/izvestaj',
+            headers: {'Authorization': localStorage.getItem('token')},
+            type: 'GET',
+            success: function(data) {
+                var file = new Blob([data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            }
+        });
+
+        $('#faktura_izvestaj_poslovna_godina').modal('hide');
+    });
 
 
     pagination.on("click","li.page-item", function (event) {

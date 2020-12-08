@@ -13,6 +13,7 @@ $(document).ready(function(){
                 $('#datumFakture').val(!data.datumFakture? '': new Date(data.datumFakture).toLocaleString());
                 $('#datumValute').val(!data.datumValute? '':  new Date(data.datumValute).toLocaleString());
                 $('#datumStorniranja').val(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
+                $('#datumPlacanja').val(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
                 $('#iznosBezRabata').val(data.iznosBezRabata);
                 $('#ukupno').text(data.iznosZaPlacanje);
                 $('#poreskaOsnovica').text(data.osnovica);
@@ -38,7 +39,7 @@ $(document).ready(function(){
                     success: function (data) {
                         for (const stavka of data) {
                             stavkeTable.append(
-                                `<tr>
+                        `<tr>
                             <td>${stavka.id}</td>
                             <td>${stavka.robaUsluga.nazivRobeUsluge}</td>
                             <td>${stavka.robaUsluga.jedinicaMere}</td>

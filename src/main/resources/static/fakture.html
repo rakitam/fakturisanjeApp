@@ -9,8 +9,14 @@
     <link rel="stylesheet" href="css/drlja.css">
 
 </head>
-<body>
+<body class="pageBody">
 <div id="nav"></div>
+<div>
+    <h1 style="text-align: center; padding-top: 20px">Fakture</h1>
+</div><br>
+<div style="text-align: center">
+    <button class="btn btn-primary" id="izvestaj_za_godinu">Uzmi izveštaj</button>
+</div>
 <div class="container-fluid" style="text-align: center">
     <div class="row">
         <div class="col-12">
@@ -20,7 +26,6 @@
                 <option value=""></option>
                 <option value="PORUDZBENICA">PORUDZBENICA</option>
                 <option value="FORMIRANA">FORMIRANA</option>
-                <option value="OTKAZANA">OTKAZANA</option>
                 <option value="PLACENA">PLACENA</option>
                 <option value="STORNIRANA">STORNIRANA</option>
             </select>
@@ -36,8 +41,9 @@
             <th>Korisnik</th>
             <th>Datum fakture</th>
             <th>Datum valute</th>
-            <th>Datum storniranja</th>
+            <th>Rabat</th>
             <th>Osnovica</th>
+            <th>PDV</th>
             <th>Iznos za placanje</th>
             <th>Status</th>
             <th></th>
@@ -49,6 +55,8 @@
     </table>
     <ul class="pagination pagination-sm float-right" id="pagination"></ul>
 </div>
+<div id="footer"></div>
+<div id="modal_izvestaj_poslovna_godina"></div>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

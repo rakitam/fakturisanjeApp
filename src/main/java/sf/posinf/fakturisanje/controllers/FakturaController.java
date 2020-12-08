@@ -85,6 +85,7 @@ public class FakturaController {
 	}
 
 	//Izvestaj za jednu fakturu po njenom id
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}/napravi-izvestaj")
 	public ResponseEntity napraviIzvestaj(@PathVariable("id") long id){
 
@@ -108,10 +109,6 @@ public class FakturaController {
 
 		params.put("faktura", faktura);
 		params.put("stavkeFakture", stavkeFaktureJasper);
-
-		/*for (StavkaFakture sf : stavkeFakture) {
-			System.out.println(sf.getId());
-		}*/
 
 		try {
 
@@ -141,12 +138,13 @@ public class FakturaController {
 	}
 
 	//Izvestaj za sve fakture za poslovnu godinu
+	//TODO: Popraviti - trenutno vraca samo jednu fakturu za poslovnu godinu
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{godina}/izvestaj")
-	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@RequestParam("godina") int godina) throws JRException, FileNotFoundException {
+	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@PathVariable("godina") int godina) throws JRException, FileNotFoundException {
 
-		Preduzece preduzece = preduzeceServiceInterface.findOne((long) 1);
-		//List<Faktura> faktureZaIzvestaj = new ArrayList<Faktura>();
-		List<Faktura> fakture = fakturaServiceInterface.findAllByPreduzece_IdAndPoslovnaGodina_Godina(preduzece.getId(), godina);
+		//Imamo samo jedno preduzece pod id-jem 1
+		List<Faktura> fakture = fakturaServiceInterface.findAllByPreduzece_IdAndPoslovnaGodina_Godina(1, godina);
 
 		if(fakture==null || fakture.isEmpty()){
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -155,16 +153,11 @@ public class FakturaController {
 		/* Convert the list above to JRBeanCollectionDataSource */
 		JRBeanCollectionDataSource faktureJasper = new JRBeanCollectionDataSource(fakture);
 
+		/* Map to hold Jasper report Parameters */
 		Map<String, Object> params  = new HashMap<String, Object>();
 
-		/*for(Faktura i : fakture){
-			if(i.getPoslovnaGodina().getGodina() == godina){
-				faktureZaIzvestaj.add(i);
-			}
-		}*/
 		params.put("godina", godina);
 		params.put("fakture", faktureJasper);
-		params.put("preduzece", preduzece);
 
 		InputStream	is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Fakture.jrxml"));
 
@@ -172,18 +165,19 @@ public class FakturaController {
 
 		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-		try{
+		try {
+
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\nestoFakture.pdf");
+			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\fakture.pdf");
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + preduzece.getNaziv() + "-" + godina +".pdf");
+			headers.add("Content-Disposition", "inline; filename=" + "Izvestaj za poslovnu godinu" + "-" + godina +".pdf");
 			return ResponseEntity
 					.ok()
 					.headers(headers)
 					.contentType(MediaType.APPLICATION_PDF)
 					.body(new InputStreamResource(bais));
-		}catch(Exception ex){
+		} catch(Exception ex){
 			ex.printStackTrace();
 
 		}
@@ -225,7 +219,7 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		//TODO: Pogledati ogranicenje - datum valute ne sme biti manji od datuma fakture
+		//Datum fakture nikad nece biti manji od datuma valute, jer se prave u isto vreme
 		Date datumFakture = new Date();
 		Date datumValute = new Date();
 		if(datumValute.before(datumFakture)) {

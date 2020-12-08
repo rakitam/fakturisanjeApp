@@ -22,6 +22,8 @@ public class Faktura {
 
 	private Date datumStorniranja;
 
+	private Date datumPlacanja;
+
 	@Enumerated(EnumType.STRING)
 	private StatusFakture statusFakture;
 	
@@ -59,15 +61,15 @@ public class Faktura {
 		
 	}
 
-	public Faktura(long id, long brojFakture, Date datumFakture, Date datumValute, StatusFakture statusFakture,
-			@NotNull double osnovica, @NotNull double rabat, @NotNull double ukupanPdv, @NotNull double iznosBezRabata,
-			@NotNull double iznosZaPlacanje, boolean obrisana, Preduzece preduzece, PoslovnaGodina poslovnaGodina,
-			Set<StavkaFakture> stavkeFakture, Korisnik korisnik) {
-		super();
+	public Faktura(long id, long brojFakture, Date datumFakture, Date datumValute, Date datumStorniranja, Date datumPlacanja, StatusFakture statusFakture,
+				   @NotNull double osnovica, @NotNull double rabat, @NotNull double ukupanPdv, @NotNull double iznosBezRabata,
+				   @NotNull double iznosZaPlacanje, Preduzece preduzece, PoslovnaGodina poslovnaGodina, Set<StavkaFakture> stavkeFakture, Korisnik korisnik) {
 		this.id = id;
 		this.brojFakture = brojFakture;
 		this.datumFakture = datumFakture;
 		this.datumValute = datumValute;
+		this.datumStorniranja = datumStorniranja;
+		this.datumPlacanja = datumPlacanja;
 		this.statusFakture = statusFakture;
 		this.osnovica = osnovica;
 		this.rabat = rabat;
@@ -110,6 +112,22 @@ public class Faktura {
 
 	public void setDatumValute(Date datumValute) {
 		this.datumValute = datumValute;
+	}
+
+	public Date getDatumStorniranja() {
+		return datumStorniranja;
+	}
+
+	public void setDatumStorniranja(Date datumStorniranja) {
+		this.datumStorniranja = datumStorniranja;
+	}
+
+	public Date getDatumPlacanja() {
+		return datumPlacanja;
+	}
+
+	public void setDatumPlacanja(Date datumPlacanja) {
+		this.datumPlacanja = datumPlacanja;
 	}
 
 	public StatusFakture getStatusFakture() {
@@ -190,13 +208,5 @@ public class Faktura {
 
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
-	}
-
-	public Date getDatumStorniranja() {
-		return datumStorniranja;
-	}
-
-	public void setDatumStorniranja(Date datumStorniranja) {
-		this.datumStorniranja = datumStorniranja;
 	}
 }
