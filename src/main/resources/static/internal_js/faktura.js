@@ -71,21 +71,18 @@ $(document).ready(function(){
         return param;
     }
 
-    //TODO: NE RADI GOVNO UBICU SE
+    //https://stackoverflow.com/questions/34586671/download-pdf-file-using-jquery-ajax/34587987?fbclid=IwAR3jIB53FgLggv7sLx6n2s_wEZm90oZn_LTpXjMFm0uTulHblhj6bwkm6NM
     $('#napravi_izvestaj').click(function () {
-        console.log(urlSearchParams['id']);
         $.ajax({
             method: 'GET',
             headers: {"Authorization": localStorage.getItem('token')},
             url: '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj',
-            success: function (data) {
-                /*console.log(data),
-                //$("#prikazi_izvestaj").attr('src', '/api/fakture/' + urlSearchParams['id'] + '/napravi-izvestaj');
-                $("#prikazi_izvestaj").attr('src', data);
-                $("#prikazi_pdf").modal('show');*/
-                var file = new Blob([data], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (blob) {
+                var url = URL.createObjectURL(blob);
+                window.open(url)
             }
         });
     });

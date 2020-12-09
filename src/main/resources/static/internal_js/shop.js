@@ -30,6 +30,7 @@ $(document).ready(function () {
                             <td>${roba.id}</td>
                             <td>${roba.robaUsluga.nazivRobeUsluge}</td>
                             <td>${roba.cena}</td>
+                            <td>${roba.cenaSaPdv}</td>
                             <td>${roba.robaUsluga.grupaRobe.nazivGrupe}</td>
                             <td>
                                 <button roba_id="${roba.id}" type="button" class="btn btn-primary addToKorpa">Dodaj</button>

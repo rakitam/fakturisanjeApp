@@ -33,6 +33,7 @@ import java.security.Principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -113,7 +114,7 @@ public class FakturaController {
 		try {
 
 			/* Reading jrxml file and creating JasperDesign object */
-			InputStream is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Faktura.jrxml"));
+			InputStream is = this.getClass().getResource("/Faktura.jrxml").openStream();
 
 			JasperDesign jasperDesign = JRXmlLoader.load(is);
 
@@ -123,9 +124,8 @@ public class FakturaController {
 			/* Using jasperReport object to generate PDF */
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\faktura.pdf");
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + faktura.getBrojFakture() + "-" + faktura.getPoslovnaGodina().getGodina() + ".pdf");
+			headers.add("Content-Disposition", "attachment; filename=" + faktura.getBrojFakture() + "-" + faktura.getPoslovnaGodina().getGodina() + ".pdf");
 			return ResponseEntity
 					.ok()
 					.headers(headers)
@@ -140,15 +140,20 @@ public class FakturaController {
 	//Izvestaj za sve fakture za poslovnu godinu
 	//TODO: Popraviti - trenutno vraca samo jednu fakturu za poslovnu godinu
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/{godina}/izvestaj")
-	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@PathVariable("godina") int godina) throws JRException, FileNotFoundException {
+	@GetMapping("/izvestaj")
+	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@RequestParam(name = "godina", defaultValue = "0") int godina) throws JRException, IOException {
 
+		if(godina == 0) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
 		//Imamo samo jedno preduzece pod id-jem 1
 		List<Faktura> fakture = fakturaServiceInterface.findAllByPreduzece_IdAndPoslovnaGodina_Godina(1, godina);
 
 		if(fakture==null || fakture.isEmpty()){
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+
+		fakture = fakture.stream().filter(faktura -> faktura.getStatusFakture()!=StatusFakture.PORUDZBENICA).collect(Collectors.toList());
 
 		/* Convert the list above to JRBeanCollectionDataSource */
 		JRBeanCollectionDataSource faktureJasper = new JRBeanCollectionDataSource(fakture);
@@ -159,7 +164,7 @@ public class FakturaController {
 		params.put("godina", godina);
 		params.put("fakture", faktureJasper);
 
-		InputStream	is = new FileInputStream(new File("C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\Fakture.jrxml"));
+		InputStream	is = this.getClass().getResource("/Fakture.jrxml").openStream();
 
 		JasperDesign jasperDesign = JRXmlLoader.load(is);
 
@@ -169,7 +174,6 @@ public class FakturaController {
 
 			JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 			ByteArrayInputStream bais = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-			JasperExportManager.exportReportToPdfFile(jp, "C:\\Users\\Rakitica\\Documents\\FTN\\Poslovna Informatika\\fakturisanje\\src\\main\\resources\\fakture.pdf");
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=" + "Izvestaj za poslovnu godinu" + "-" + godina +".pdf");
 			return ResponseEntity
@@ -208,6 +212,7 @@ public class FakturaController {
 		else if (faktura.getStatusFakture() != StatusFakture.FORMIRANA)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		faktura.setStatusFakture(StatusFakture.PLACENA);
+		faktura.setDatumPlacanja(new Date());
 		faktura = fakturaServiceInterface.save(faktura);
 		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.OK);
 	}

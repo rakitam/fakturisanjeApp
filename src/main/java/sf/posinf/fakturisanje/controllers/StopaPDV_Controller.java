@@ -15,6 +15,7 @@ import sf.posinf.fakturisanje.services.interfaces.PDV_ServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.RobaUslugaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StopaPDV_ServiceInterface;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,9 @@ public class StopaPDV_Controller {
 	public ResponseEntity postStopaPDV(@Validated @RequestBody StopaPDV_Dto dto, Errors errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getDatumVazenja().before(new Date())) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		StopaPDV stopa = stopaPDVMapper.stopaPdvDtoToEntity(dto);
 		stopa.setPdv(pdvServiceInterface.findOne(stopa.getPdv().getId()));

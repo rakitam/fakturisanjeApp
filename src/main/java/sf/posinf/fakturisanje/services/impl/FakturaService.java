@@ -10,6 +10,7 @@ import sf.posinf.fakturisanje.repository.FakturaRepository;
 import sf.posinf.fakturisanje.repository.PoslovnaGodinaRepository;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
+import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.util.Date;
@@ -26,6 +27,9 @@ public class FakturaService implements FakturaServiceInterface {
 
 	@Autowired
 	StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
+
+	@Autowired
+	PreduzeceServiceInterface preduzeceServiceInterface;
 
 	@Override
 	public Page<Faktura> findAll(String statusFakture, Pageable pageable) {
@@ -52,6 +56,7 @@ public class FakturaService implements FakturaServiceInterface {
 
 	@Override
 	public Faktura save(Faktura faktura) {
+		faktura.setPreduzece(preduzeceServiceInterface.findOne(1L));
 		fakturaRepository.save(faktura);
 		return faktura;
 	}
@@ -94,8 +99,7 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	// Faktura ne moze da se brise sem ako nije u fazi formiranja!
-	// Ukoliko menjamo stavke fakture, pravi se nova faktura, a prethodna se
-	// stornira
+	// Ukoliko menjamo stavke fakture, pravi se nova faktura, a prethodna se stornira
 	@Override
 	public Boolean update(Faktura faktura) {
 		Faktura fakturaDB = fakturaRepository.getOne(faktura.getId());

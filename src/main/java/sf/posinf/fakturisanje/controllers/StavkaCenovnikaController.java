@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.StavkaCenovnikaDTO;
 import sf.posinf.fakturisanje.mapstruct.StavkaCenovnikaMapper;
 import sf.posinf.fakturisanje.model.Cenovnik;
+import sf.posinf.fakturisanje.model.RobaUsluga;
 import sf.posinf.fakturisanje.model.StavkaCenovnika;
 import sf.posinf.fakturisanje.services.impl.StavkaFaktureService;
 import sf.posinf.fakturisanje.services.interfaces.*;
@@ -30,7 +31,7 @@ public class StavkaCenovnikaController {
 	private StavkaCenovnikaMapper stavkaCenovnikaMapper;
 
 	@Autowired
-	private CenovnikServiceInterface cenovnikService;
+	private PDV_ServiceInterface pdv_serviceInterface;
 
 	@Autowired
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
@@ -63,6 +64,8 @@ public class StavkaCenovnikaController {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		StavkaCenovnika stavka = stavkaCenovnikaMapper.stavkaCenovnikaDtoToEntity(dto);
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(stavka.getRobaUsluga().getId());
+		stavka.setCenaSaPdv(stavka.getCena() + (stavka.getCena() * pdv_serviceInterface.findActiveStopaPdv(robaUsluga.getGrupaRobe().getPdv().getId()).getProcenat()/100));
 		stavka = stavkaCenovnikaService.save(stavka);
 		if (stavka == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

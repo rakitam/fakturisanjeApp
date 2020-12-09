@@ -23,7 +23,6 @@ $(document).ready(function () {
     getFakture();
 
     function getFakture() {
-
         var statusFakture = statusFaktureSelect.val();
         $.ajax({
             url: '/api/fakture?size=10&page='+page+'&status='+statusFakture,
@@ -74,13 +73,15 @@ $(document).ready(function () {
         var pg_int = parseInt(pg);
         console.log(pg_int);
         $.ajax({
-            url: '/api/fakture/' + pg_int + '/izvestaj',
-            headers: {'Authorization': localStorage.getItem('token')},
-            type: 'GET',
-            success: function(data) {
-                var file = new Blob([data], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
+            method: 'GET',
+            headers: {"Authorization": localStorage.getItem('token')},
+            url: '/api/fakture/izvestaj?godina=' + pg_int,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (blob) {
+                var url = URL.createObjectURL(blob);
+                window.open(url)
             }
         });
 

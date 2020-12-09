@@ -76,7 +76,6 @@ $(document).ready(function(){
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
         }
-        //TODO: Dodati ogranicenje da datum ne moze biti u proslosti
         var pdv = $('#pdv').val();
 
         var novaStopa = {
@@ -93,11 +92,15 @@ $(document).ready(function(){
             contentType:"application/json",
             success: function(data) {
                 console.log('uspesno dodata stopa');
+                $('#dodavanje_stope').modal('hide');
                 getStopaPDV();
+            },
+            error: function () {
+                $('#messages').append(
+                    `<div class=" alert alert-danger alert-dismissible fade show" role="alert">Datum ne moze biti u proslosti</div>`);
+                setTimeout(function () {$('.alert').alert('close')}, 3000);
             }
         });
-
-        $('#dodavanje_stope').modal('hide');
     });
 
     function getParameters(){

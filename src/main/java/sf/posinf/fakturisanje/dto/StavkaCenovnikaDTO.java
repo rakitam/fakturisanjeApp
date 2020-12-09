@@ -12,50 +12,56 @@ public class StavkaCenovnikaDTO {
 	@NotNull
 	private RobaUslugaDto robaUsluga;
 
+	private float cenaSaPdv;
+
 	public StavkaCenovnikaDTO() {
 	}
 
-	public StavkaCenovnikaDTO(float cena, CenovnikDTO cenovnik, RobaUslugaDto robaUsluga) {
-		super();
+	public StavkaCenovnikaDTO(long id, float cena, CenovnikDTO cenovnik, RobaUslugaDto robaUsluga, float cenaSaPdv) {
+		this.id = id;
 		this.cena = cena;
 		this.cenovnik = cenovnik;
 		this.robaUsluga = robaUsluga;
+		this.cenaSaPdv = cenaSaPdv;
 	}
 
 	public long getId() {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public float getCena() {
 		return cena;
 	}
 
-	public StavkaCenovnikaDTO setCena(float cena) {
+	public void setCena(float cena) {
 		this.cena = cena;
-		return this;
 	}
 
 	public CenovnikDTO getCenovnik() {
 		return cenovnik;
 	}
 
-	public StavkaCenovnikaDTO setCenovnik(CenovnikDTO cenovnik) {
+	public void setCenovnik(CenovnikDTO cenovnik) {
 		this.cenovnik = cenovnik;
-		return this;
 	}
 
 	public RobaUslugaDto getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public StavkaCenovnikaDTO setRobaUsluga(RobaUslugaDto robaUsluga) {
+	public void setRobaUsluga(RobaUslugaDto robaUsluga) {
 		this.robaUsluga = robaUsluga;
-		return this;
 	}
 
-	public StavkaCenovnikaDTO setId(long id) {
-		this.id = id;
-		return this;
+	public float getCenaSaPdv() {
+		return cenaSaPdv;
 	}
 
+	public void setCenaSaPdv(float cenaSaPdv) {
+		this.cenaSaPdv = cenaSaPdv;
+	}
 }

@@ -11,6 +11,8 @@ public class StavkaCenovnika {
     
     @NotNull
     private float cena;
+
+    private float cenaSaPdv;
     
 	@ManyToOne
 	@JoinColumn(name = "cenovnik_id")
@@ -21,50 +23,52 @@ public class StavkaCenovnika {
     private RobaUsluga robaUsluga;
 
     public StavkaCenovnika(){ }
-    
 
-    public StavkaCenovnika(float cena, Cenovnik cenovnik, RobaUsluga robaUsluga) {
-		super();
+	public StavkaCenovnika(long id, @NotNull float cena, float cenaSaPdv, Cenovnik cenovnik, RobaUsluga robaUsluga) {
+		this.id = id;
 		this.cena = cena;
+		this.cenaSaPdv = cenaSaPdv;
 		this.cenovnik = cenovnik;
 		this.robaUsluga = robaUsluga;
 	}
 
-
 	public long getId() {
-        return id;
-    }
+		return id;
+	}
 
-	public StavkaCenovnika setId(long id) {
-        this.id = id;
-        return this;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public float getCena() {
-        return cena;
-    }
+	public float getCena() {
+		return cena;
+	}
 
-    public StavkaCenovnika setCena(float cena) {
-        this.cena = cena;
-        return this;
-    }
+	public void setCena(float cena) {
+		this.cena = cena;
+	}
+
+	public float getCenaSaPdv() {
+		return cenaSaPdv;
+	}
+
+	public void setCenaSaPdv(float cenaSaPdv) {
+		this.cenaSaPdv = cenaSaPdv;
+	}
 
 	public Cenovnik getCenovnik() {
 		return cenovnik;
 	}
 
+	public void setCenovnik(Cenovnik cenovnik) {
+		this.cenovnik = cenovnik;
+	}
 
 	public RobaUsluga getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public StavkaCenovnika setCenovnik(Cenovnik cenovnik) {
-		this.cenovnik = cenovnik;
-		return this;
-	}
-
-	public StavkaCenovnika setRobaUsluga(RobaUsluga robaUsluga) {
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
-		return this;
 	}
 }
