@@ -14,7 +14,7 @@
     <h1 style="text-align: center; padding-top: 20px">Faktura br. <span class="brojFakture"></span></h1>
 </div><br>
 <div style="text-align: center">
-    <button class="btn btn-primary" id="napravi_izvestaj">Uzmi izveštaj</button>
+    <button class="btn btn-primary" id="napravi_izvestaj">Uzmi izvestaj</button>
 </div>
 <div class="container" style="padding-top: 50px;">
     <div class="container faktura_info" style="display: inline-block; max-width: 46%">
@@ -64,12 +64,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Red. br.</th>
                 <th>Naziv</th>
                 <th>J.M.</th>
                 <th>Jedinicna cena</th>
                 <th>Kolicina</th>
-                <th>Rabat</th>
+                <th>Popust</th>
                 <th>Osnovica za PDV</th>
                 <th>PDV %</th>
                 <th>PDV iznos</th>
@@ -83,7 +82,7 @@
 
         <div class="card-body" style="float:right; text-align: right">
             <div class="col-md my-3">
-                <p class="card-text">Ukupan rabat: <span id="ukupanRabat"></span></p>
+                <p class="card-text">Ukupan popust: <span id="ukupanRabat"></span></p>
                 <p class="card-text">Poreska osnovica: <span id="poreskaOsnovica"></span></p>
                 <p class="card-text">Ukupan PDV: <span id="ukupanPDV"></span></p>
                 <p style="font-weight: bold" class="card-text p-y-1">UKUPNO: <span id="ukupno"></span></p>

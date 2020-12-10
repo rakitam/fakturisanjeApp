@@ -19,7 +19,7 @@ $(document).ready(function () {
                                 <td><button godina_id="${godina.id}" type=button id='zakljucaj' class='btn btn-outline-primary'>Zakljucaj</button></td>
                             </td>
                             <td>
-                                <td><button godina_kif="${godina.id}" type=button id='kif' class='btn btn-primary'>Fakture</button></td>
+                                <td style="display: none"><button godina_kif="${godina.id}" type=button id='kif' class='btn btn-primary'>Fakture</button></td>
                             </td>
                         </tr>`
                     )
@@ -45,7 +45,7 @@ $(document).ready(function () {
         });
     });
 
-    //TODO: Dovrsiti dobavljanje faktura za poslovnu godinu
+    /*//TODO: Dovrsiti dobavljanje faktura za poslovnu godinu
     $(document).on('click', '#kif', function (event) {
         event.preventDefault();
         var godinaKifId = $(this).attr("godina_kif");
@@ -56,5 +56,5 @@ $(document).ready(function () {
                 window.location.replace();
             },
         });
-    });
+    });*/
 });

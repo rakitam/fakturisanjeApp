@@ -44,7 +44,6 @@ $(document).ready(function(){
                         for (const stavka of data) {
                             stavkeTable.append(
                         `<tr>
-                            <td>${stavka.id}</td>
                             <td>${stavka.robaUsluga.nazivRobeUsluge}</td>
                             <td>${stavka.robaUsluga.jedinicaMere}</td>
                             <td>${stavka.jedinicnaCena}</td>
@@ -53,7 +52,7 @@ $(document).ready(function(){
                             <td>${stavka.osnovicaZaPdv}</td>
                             <td>${stavka.procenatPdva}</td>
                             <td>${stavka.iznosPdva}</td>
-                            <td>${stavka.iznosStavke + stavka.iznosPdva}</td>
+                            <td>${stavka.osnovicaZaPdv + stavka.iznosPdva}</td>
                         </tr>`
                             )
                         };

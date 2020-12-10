@@ -19,6 +19,7 @@ $(document).ready(function () {
                                     <td>${stavke.jedinicnaCena}</td>
                                     <td>${stavke.kolicina}</td>
                                     <td>${stavke.iznosStavke}</td>
+                                    <td>${stavke.rabat}</td>
                                     <td>${stavke.iznosPdva}</td>
                                     <td>
                                         <button class="btn btn-danger brisanjeStavke" stavke_id="${stavke.id}">Obrisi</button>

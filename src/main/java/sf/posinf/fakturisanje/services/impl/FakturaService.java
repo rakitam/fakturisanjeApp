@@ -128,9 +128,9 @@ public class FakturaService implements FakturaServiceInterface {
 		for (StavkaFakture s : stavkaFaktureServiceInterface.findByFaktura_id(faktura.getId())) {
 			ukupanRabat += s.getRabat();
 			iznosBezRabata += s.getJedinicnaCena() * s.getKolicina();
-			osnovica += s.getKolicina() * s.getJedinicnaCena();
+			osnovica += (s.getKolicina() * s.getJedinicnaCena()) - s.getRabat();
 			ukupanPdv += s.getIznosPdva();
-			iznosZaPlacanje += s.getIznosStavke() + s.getIznosPdva();
+			iznosZaPlacanje += s.getOsnovicaZaPdv() + s.getIznosPdva();
 		}
 		faktura.setIznosZaPlacanje(iznosZaPlacanje);
 		faktura.setOsnovica(osnovica);
