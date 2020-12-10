@@ -22,15 +22,15 @@ public class FakturaDto {
 	@NotNull
 	private long preduzece;
 	private PoslovnaGodinaDto poslovnaGodina;
-	private String korisnik;
+	private KorisnikDto korisnik;
 	
 	public FakturaDto() {
 		
 	}
 
 	public FakturaDto(long id, long brojFakture, Date datumFakture, Date datumValute, Date datumStorniranja, Date datumPlacanja, double iznosBezRabata,
-					  double rabat, double osnovica, double ukupanPdv, double iznosZaPlacanje, String statusFakture,
-					  @NotNull long preduzece, PoslovnaGodinaDto poslovnaGodina, String korisnik) {
+					  double rabat, double osnovica, double ukupanPdv, double iznosZaPlacanje, String statusFakture, @NotNull long preduzece,
+					  PoslovnaGodinaDto poslovnaGodina, KorisnikDto korisnik) {
 		this.id = id;
 		this.brojFakture = brojFakture;
 		this.datumFakture = datumFakture;
@@ -160,11 +160,11 @@ public class FakturaDto {
 		this.poslovnaGodina = poslovnaGodina;
 	}
 
-	public String getKorisnik() {
+	public KorisnikDto getKorisnik() {
 		return korisnik;
 	}
 
-	public void setKorisnik(String korisnik) {
+	public void setKorisnik(KorisnikDto korisnik) {
 		this.korisnik = korisnik;
 	}
 }

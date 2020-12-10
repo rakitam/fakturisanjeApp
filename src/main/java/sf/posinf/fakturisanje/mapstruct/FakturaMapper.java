@@ -13,11 +13,9 @@ import java.util.List;
 public interface FakturaMapper {
 
 	@Mapping(source = "preduzece.id", target = "preduzece")
-	@Mapping(source = "korisnik.email", target = "korisnik")
 	FakturaDto fakturaToDto(Faktura faktura);
 	
 	@Mapping(source = "preduzece", target = "preduzece.id")
-	@Mapping(source = "korisnik", target = "korisnik.email")
 	Faktura fakturaDtoToEntity(FakturaDto fakturaDto);
 	
 	List<Faktura> fakturaDtoToEntity(List<FakturaDto> fakture);

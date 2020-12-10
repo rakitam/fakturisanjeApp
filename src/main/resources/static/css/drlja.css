@@ -19,8 +19,12 @@ body {
     color: #94b376;
 }
 
-.pageBody #footer {
-    position: absolute;
+.page-footer {
+    position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.details {
+    padding: 5px 0;
 }

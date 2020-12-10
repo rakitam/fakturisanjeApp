@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 
-	List<Faktura> findAllByPoslovnaGodina_Godina(int poslovnaGodina);
+	List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodinaId);
 
 	Page<Faktura> findAllByStatusFakture(StatusFakture statusFakture, Pageable pageable);
 	

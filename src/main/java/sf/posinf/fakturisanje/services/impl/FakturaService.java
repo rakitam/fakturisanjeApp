@@ -98,6 +98,11 @@ public class FakturaService implements FakturaServiceInterface {
 		return fakturaRepository.findAllByPreduzece_IdAndPoslovnaGodina_Godina(preduzeceId, godina);
 	}
 
+	@Override
+	public List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodinaId) {
+		return fakturaRepository.findAllByPoslovnaGodina_Id(poslovnaGodinaId);
+	}
+
 	// Faktura ne moze da se brise sem ako nije u fazi formiranja!
 	// Ukoliko menjamo stavke fakture, pravi se nova faktura, a prethodna se stornira
 	@Override

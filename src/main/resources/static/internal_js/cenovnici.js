@@ -71,6 +71,7 @@ $(document).ready(function(){
             data: JSON.stringify(noviCenovnik),
             contentType:"application/json",
             success: function(data) {
+                alert("Cenovnik uspesno dodat.")
                 console.log('uspesno dodat cenovnik');
                 getCenovnici();
             }

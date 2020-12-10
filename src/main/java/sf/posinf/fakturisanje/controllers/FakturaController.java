@@ -18,20 +18,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sf.posinf.fakturisanje.dto.FakturaDto;
 import sf.posinf.fakturisanje.mapstruct.FakturaMapper;
-import sf.posinf.fakturisanje.mapstruct.RobaUslugaMapper;
 import sf.posinf.fakturisanje.mapstruct.StavkaFaktureMapper;
 import sf.posinf.fakturisanje.model.*;
 import sf.posinf.fakturisanje.services.impl.KorisnikService;
-import sf.posinf.fakturisanje.services.impl.PreduzeceService;
 import sf.posinf.fakturisanje.services.interfaces.FakturaServiceInterface;
-import sf.posinf.fakturisanje.services.interfaces.PoslovnaGodinaServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.PreduzeceServiceInterface;
 import sf.posinf.fakturisanje.services.interfaces.StavkaFaktureServiceInterface;
 
 import java.io.*;
 import java.security.Principal;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -86,7 +81,6 @@ public class FakturaController {
 	}
 
 	//Izvestaj za jednu fakturu po njenom id
-	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}/napravi-izvestaj")
 	public ResponseEntity napraviIzvestaj(@PathVariable("id") long id){
 
@@ -138,7 +132,6 @@ public class FakturaController {
 	}
 
 	//Izvestaj za sve fakture za poslovnu godinu
-	//TODO: Popraviti - trenutno vraca samo jednu fakturu za poslovnu godinu
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/izvestaj")
 	public ResponseEntity napraviIzvestajZaPoslovnuGodinu(@RequestParam(name = "godina", defaultValue = "0") int godina) throws JRException, IOException {
@@ -267,5 +260,19 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(fakturaMapper.fakturaToDto(faktura));
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/godina")
+	public ResponseEntity findByPoslovnaGodinaId(@RequestParam(name = "id", defaultValue = "0") int godinaId) {
+		List<Faktura> fakture = fakturaServiceInterface.findAllByPoslovnaGodina_Id(godinaId);
+		if(godinaId == 0) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		if (fakture == null || fakture.isEmpty()) {
+			System.out.println("PRAZNO");
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(fakturaMapper.fakturaToDto(fakture), HttpStatus.CREATED);
 	}
 }

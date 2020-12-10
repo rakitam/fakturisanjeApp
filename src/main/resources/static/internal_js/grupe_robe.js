@@ -99,6 +99,7 @@ $(document).ready(function(){
             data: JSON.stringify(novaGrupa),
             contentType:"application/json",
             success: function(data) {
+                alert("Grupa uspesno dodata.")
                 getGrupaRobe();
                 console.log('uspesno dodata grupa');
             }

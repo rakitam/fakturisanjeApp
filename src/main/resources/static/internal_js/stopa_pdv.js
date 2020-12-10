@@ -19,18 +19,6 @@ $(document).ready(function(){
 
     getStopaPDV();
 
-    //TODO: Ako stignemo ispisati naziv PDV-a u naslov
-    function getNazivPDV() {
-        $.ajax({
-            url: '/api/pdv/' + urlSearchParams['id'],
-            headers: {'Authorization': localStorage.getItem('token')},
-            type: 'GET',
-            success: function(data) {
-                $('.brojFakture').text(data.nazivPDV);
-            }
-        });
-    }
-
     function getStopaPDV() {
         $.ajax({
             url: '/api/pdv/' + urlSearchParams['id'] + '/stopa',
@@ -91,6 +79,7 @@ $(document).ready(function(){
             data: JSON.stringify(novaStopa),
             contentType:"application/json",
             success: function(data) {
+                alert("Stopa uspesno dodata.")
                 console.log('uspesno dodata stopa');
                 $('#dodavanje_stope').modal('hide');
                 getStopaPDV();

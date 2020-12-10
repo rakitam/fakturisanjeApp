@@ -24,6 +24,8 @@ public interface FakturaServiceInterface {
     Faktura getActiveFakturaForKorisnik(Korisnik korisnik);
 
     List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Godina(long preduzeceId, int godina);
+
+    List<Faktura> findAllByPoslovnaGodina_Id(long poslovnaGodinaId);
     
     Boolean update(Faktura faktura);
 

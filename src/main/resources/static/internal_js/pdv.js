@@ -50,6 +50,7 @@ $(document).ready(function(){
             data: JSON.stringify(noviPDV),
             contentType:"application/json",
             success: function(data) {
+                alert("PDV uspesno dodat.")
                 getPDV();
                 console.log('uspesno dodat pdv');
             }

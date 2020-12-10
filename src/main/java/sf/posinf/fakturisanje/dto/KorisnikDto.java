@@ -5,20 +5,21 @@ public class KorisnikDto {
 	private Long id;
 	private String email;
 	private String imePrezime;
-	private int brojTelefona;
-	//private Authority authority;
-	
+	private String brojTelefona;
+	private String adresaKorisnika;
+	private String tekuciRacun;
+
 	public KorisnikDto() {
 
 	}
 
-	public KorisnikDto(Long id, String email, String imeIPrezime, int brojTelefona) {
-		super();
+	public KorisnikDto(Long id, String email, String imePrezime, String brojTelefona, String adresaKorisnika, String tekuciRacun) {
 		this.id = id;
 		this.email = email;
-		this.imePrezime = imeIPrezime;
+		this.imePrezime = imePrezime;
 		this.brojTelefona = brojTelefona;
-		//this.authority = authority;
+		this.adresaKorisnika = adresaKorisnika;
+		this.tekuciRacun = tekuciRacun;
 	}
 
 	public Long getId() {
@@ -41,23 +42,31 @@ public class KorisnikDto {
 		return imePrezime;
 	}
 
-	public void setImePrezime(String imeIPrezime) {
-		this.imePrezime = imeIPrezime;
+	public void setImePrezime(String imePrezime) {
+		this.imePrezime = imePrezime;
 	}
 
-	public int getBrojTelefona() {
+	public String getBrojTelefona() {
 		return brojTelefona;
 	}
 
-	public void setBrojTelefona(int brojTelefona) {
+	public void setBrojTelefona(String brojTelefona) {
 		this.brojTelefona = brojTelefona;
 	}
 
-	/*public Authority getAuthority() {
-		return authority;
+	public String getAdresaKorisnika() {
+		return adresaKorisnika;
 	}
 
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}*/
+	public void setAdresaKorisnika(String adresaKorisnika) {
+		this.adresaKorisnika = adresaKorisnika;
+	}
+
+	public String getTekuciRacun() {
+		return tekuciRacun;
+	}
+
+	public void setTekuciRacun(String tekuciRacun) {
+		this.tekuciRacun = tekuciRacun;
+	}
 }

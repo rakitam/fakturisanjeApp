@@ -127,6 +127,7 @@ $(document).ready(function(){
             data: JSON.stringify(novaRoba),
             contentType:"application/json",
             success: function(data) {
+                alert("Roba uspesno dodata.")
                 getRoba();
                 console.log('uspesno dodata roba');
             }

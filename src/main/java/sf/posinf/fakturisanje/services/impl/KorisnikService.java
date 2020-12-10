@@ -14,8 +14,6 @@ public class KorisnikService implements KorisnikServiceInterface {
 
 	@Autowired
 	private KorisnikRepository korisnikRepository;
-	
-
 
 	@Override
 	public List<Korisnik> findAll() {

@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -22,8 +23,15 @@ public class Korisnik implements UserDetails {
 	
 	@NotNull
 	private String imePrezime;
-	
+
 	private String brojTelefona;
+
+	@Size(max = 100)
+	private String adresaKorisnika;
+
+	@NotNull
+	@Size(max = 18)
+	private String tekuciRacun;
 	
 	@OneToMany(mappedBy = "korisnik")
     private Set<Faktura> faktureKorisnika = new HashSet<>();
@@ -131,5 +139,21 @@ public class Korisnik implements UserDetails {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public String getAdresaKorisnika() {
+		return adresaKorisnika;
+	}
+
+	public void setAdresaKorisnika(String adresaKorisnika) {
+		this.adresaKorisnika = adresaKorisnika;
+	}
+
+	public String getTekuciRacun() {
+		return tekuciRacun;
+	}
+
+	public void setTekuciRacun(String tekuciRacun) {
+		this.tekuciRacun = tekuciRacun;
 	}
 }

@@ -19,6 +19,7 @@ $(document).ready(function () {
                                     <td>${stavke.jedinicnaCena}</td>
                                     <td>${stavke.kolicina}</td>
                                     <td>${stavke.iznosStavke}</td>
+                                    <td>${stavke.iznosPdva}</td>
                                     <td>
                                         <button class="btn btn-danger brisanjeStavke" stavke_id="${stavke.id}">Obrisi</button>
                                     </td>
@@ -26,17 +27,17 @@ $(document).ready(function () {
                         }
                         if (data.length == 0) {
                             korpaTable.append(
-                                `<tr>
-                                <td colspan="4"><span class="float-right">Ukupna Cena:</span></td>
-                                <td><b>${faktura.iznosZaPlacanje}</b></td>
-                                <td></td>
+                                `<tr style="border-top: 2px solid black">
+                                <td style="padding-top: 30px" colspan="4"><span class="float-right">Ukupna Cena:</span></td>
+                                <td style="padding-top: 30px"><b>${faktura.iznosZaPlacanje}</b></td>
+                                <td style="padding-top: 30px"></td>
                             </tr>`);
                         } else {
                             korpaTable.append(
-                                `<tr>
-                                    <td colspan="4"><span class="float-right">Ukupna cena (bez PDV):</span></td>
-                                    <td><b>${faktura.iznosZaPlacanje}</b></td>
-                                    <td>
+                                `<tr style="border-top: 2px solid black">
+                                    <td style="padding-top: 30px" colspan="4"><span class="float-right">Ukupna cena:</span></td>
+                                    <td style="padding-top: 30px"><b>${faktura.iznosZaPlacanje}</b></td>
+                                    <td style="padding-top: 30px">
                                         <button class="btn btn-primary" id="kreiraj" faktura_id="${faktura.id}">Kreiraj fakturu</button>
                                     </td>
                                 </tr>`);

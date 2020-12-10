@@ -63,7 +63,7 @@
 		</band>
 	</background>
 	<title>
-		<band height="138" splitType="Stretch">
+		<band height="154" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement style="Title" x="450" y="0" width="200" height="57" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25">
@@ -75,65 +75,45 @@
 				<text><![CDATA[Faktura br.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="0" width="120" height="30" uuid="7e759f02-d034-4e2e-97de-22419c0d05d2"/>
+				<reportElement x="100" y="27" width="120" height="30" uuid="7e759f02-d034-4e2e-97de-22419c0d05d2"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Racun izdao:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="30" width="120" height="30" uuid="749dc3f1-99a2-4864-90b9-8e3244a24f41"/>
+				<reportElement x="100" y="60" width="120" height="30" uuid="749dc3f1-99a2-4864-90b9-8e3244a24f41"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Mesto i adresa izdavanja:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="60" width="120" height="30" uuid="08653a19-bef8-40fe-91c4-7813a1d39b3b"/>
+				<reportElement x="100" y="92" width="120" height="30" uuid="08653a19-bef8-40fe-91c4-7813a1d39b3b"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[PIB:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="90" width="120" height="30" uuid="3c49a498-3e99-4f7a-8dde-02bb7ebb30fc"/>
+				<reportElement x="100" y="122" width="120" height="30" uuid="3c49a498-3e99-4f7a-8dde-02bb7ebb30fc"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Tekuci racun:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="0" width="100" height="30" uuid="7fa0ae63-b8a9-45e7-8b84-78ebcd07c96f"/>
+				<reportElement x="230" y="27" width="100" height="30" uuid="7fa0ae63-b8a9-45e7-8b84-78ebcd07c96f"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[S.Z.T.R. Dragstor V]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="30" width="160" height="30" uuid="7b77efdf-108d-4b30-8647-5d0df2c86cfb"/>
+				<reportElement x="230" y="60" width="160" height="30" uuid="7b77efdf-108d-4b30-8647-5d0df2c86cfb"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Backa Palanka, Kralja Petra I 36]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="60" width="100" height="30" uuid="5efa8ca6-bdb8-494c-9226-5b625736dfaf"/>
+				<reportElement x="230" y="90" width="100" height="30" uuid="5efa8ca6-bdb8-494c-9226-5b625736dfaf"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[100749920]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="90" width="100" height="30" uuid="5d226cf9-6650-4fcc-b066-ae2e321db16b"/>
+				<reportElement x="230" y="122" width="100" height="30" uuid="5d226cf9-6650-4fcc-b066-ae2e321db16b"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[170-50005010000-11]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="450" y="60" width="100" height="30" uuid="b6091ece-def8-4d04-87df-d514971f916b"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<text><![CDATA[Datum fakture:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="450" y="90" width="100" height="30" uuid="a33cf725-703d-45e2-9ee7-5af9f6061a7b"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Datum valute:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="550" y="60" width="100" height="30" uuid="28ac5c45-12a1-48e0-99a3-d1cc43a12dde"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{faktura}.getDatumFakture()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="550" y="90" width="100" height="30" uuid="18849468-d109-45ba-8e10-ae3c4027d649"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{faktura}.getDatumValute()]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="650" y="13" width="30" height="30" uuid="e3203ba9-cb74-4693-a143-5103f518e518"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -154,6 +134,36 @@
 					<font size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{faktura}.getPoslovnaGodina().getGodina()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="450" y="60" width="120" height="30" uuid="87825b71-d8bb-4589-b971-b8fdcd18c9d7"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kupac:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="92" width="120" height="30" uuid="dca01965-824a-4ec1-a608-53339627d9cf"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Broj tekuceg racuna:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="120" width="120" height="30" uuid="d281d8a1-f942-4a73-9759-837aa59d590c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Mesto i adresa stanovanja:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="590" y="60" width="130" height="30" uuid="47d970bd-9b81-403e-85fe-27438732351c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{faktura}.getKorisnik().getImePrezime()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="90" width="130" height="30" uuid="5c19ba4d-4825-4542-ab98-5c8e3c3d061a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{faktura}.getKorisnik().getTekuciRacun()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="120" width="130" height="30" uuid="6489c4c6-86e4-4996-ae1c-25d50bcf95c3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{faktura}.getKorisnik().getAdresaKorisnika()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -403,6 +413,26 @@
 				<reportElement x="197" y="230" width="100" height="30" uuid="c5796f67-d088-46ca-b224-7447b19229bc"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{faktura}.getIznosZaPlacanje()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="450" y="140" width="100" height="30" uuid="b6091ece-def8-4d04-87df-d514971f916b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Datum fakture:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="170" width="100" height="30" uuid="a33cf725-703d-45e2-9ee7-5af9f6061a7b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Datum valute:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="560" y="140" width="100" height="30" uuid="28ac5c45-12a1-48e0-99a3-d1cc43a12dde"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{faktura}.getDatumFakture()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="170" width="100" height="30" uuid="18849468-d109-45ba-8e10-ae3c4027d649"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{faktura}.getDatumValute()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

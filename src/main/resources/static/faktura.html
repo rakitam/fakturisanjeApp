@@ -17,50 +17,46 @@
     <button class="btn btn-primary" id="napravi_izvestaj">Uzmi izveštaj</button>
 </div>
 <div class="container" style="padding-top: 50px;">
-    <div class="row">
+    <div class="container faktura_info" style="display: inline-block; max-width: 46%">
+        <h3 style="text-align: center">Detalji fakture</h3><br>
         <div class="row">
-            <div class="col-4">
-                <label class="float-right" for="datumFakture">Datum fakture</label>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <input type="text"class="form-control" readonly id="datumFakture">
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="float-right" for="datumValute">Datum valute</label>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <input type="text"class="form-control" readonly id="datumValute">
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="float-right" for="datumStorniranja">Datum storniranja</label>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <input type="text"class="form-control" readonly id="datumStorniranja">
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="float-right" for="datumPlacanja">Datum placanja</label>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <input type="text"class="form-control" readonly id="datumPlacanja">
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="float-right" for="statusFakture">Status fakture</label>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <input type="text"class="form-control" readonly id="statusFakture">
-                </div>
-            </div>
+            <div class="col details d-label">Datum fakture</div>
+            <div class="col details" id="datumFakture"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Datum valute</div>
+            <div class="col details" id="datumValute"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Datum placanja</div>
+            <div class="col details" id="datumPlacanja"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Datum storniranja</div>
+            <div class="col details" id="datumStorniranja"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Status fakture</div>
+            <div class="col details" id="statusFakture"></div>
         </div>
-
+    </div>
+    <div class="container kupac_info" style="display: inline-block; max-width: 46%; margin-left: 7%; padding-bottom: 25px;">
+        <h3 style="text-align: center">Podaci o kupcu</h3><br>
+        <div class="row">
+            <div class="col details d-label">Ime i prezime</div>
+            <div class="col details" id="imePrezime"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Broj telefona</div>
+            <div class="col details" id="brojTelefona"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Email</div>
+            <div class="col details" id="email"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Broj tekuceg racuna</div>
+            <div class="col details" id="brojTekucegRacuna"></div>
+            <div class="w-100"></div>
+            <div class="col details d-label">Adresa i mesto stanovanja</div>
+            <div class="col details" id="adresaKorisnika"></div>
+        </div>
+    </div>
+    <div col="12" style="border-top: 2px solid black"></div>
+    <br>
         <div class="col-12">
             <h2 style="text-align: center; padding: 20px 0">Stavke fakture</h2>
         </div>
@@ -87,17 +83,16 @@
 
         <div class="card-body" style="float:right; text-align: right">
             <div class="col-md my-3">
-                <p class="card-text p-y-1">Ukupan rabat: <span id="ukupanRabat"></span></p>
-                <p class="card-text p-y-1">Poreska osnovica: <span id="poreskaOsnovica"></span></p>
-                <p class="card-text p-y-1">Ukupan PDV: <span id="ukupanPDV"></span></p>
+                <p class="card-text">Ukupan rabat: <span id="ukupanRabat"></span></p>
+                <p class="card-text">Poreska osnovica: <span id="poreskaOsnovica"></span></p>
+                <p class="card-text">Ukupan PDV: <span id="ukupanPDV"></span></p>
                 <p style="font-weight: bold" class="card-text p-y-1">UKUPNO: <span id="ukupno"></span></p>
-            </div>
-        </div>
-
-        <div style="padding-bottom: 50px;" class="col-12">
-            <div class="float-right">
-                <button class="btn btn-success" id="plati">Plati</button>
-                <button class="btn btn-danger" id="storniraj">Storniraj</button>
+                <div style="padding-bottom: 50px; margin-bottom: 50px; margin-top: 25px;">
+                    <div class="float-right">
+                        <button class="btn btn-success" id="plati">Plati</button>
+                        <button class="btn btn-danger" id="storniraj">Storniraj</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

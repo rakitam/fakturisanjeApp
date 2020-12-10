@@ -18,10 +18,12 @@ $(document).ready(function () {
                             <td>
                                 <td><button godina_id="${godina.id}" type=button id='zakljucaj' class='btn btn-outline-primary'>Zakljucaj</button></td>
                             </td>
+                            <td>
+                                <td><button godina_kif="${godina.id}" type=button id='kif' class='btn btn-primary'>Fakture</button></td>
+                            </td>
                         </tr>`
                     )
                 }
-
             }
         });
     }
@@ -36,7 +38,23 @@ $(document).ready(function () {
             success: function (data) {
                 alert("Poslovna godina uspesno zakljucana")
                 window.location.reload();
+            },
+            error: function () {
+                alert("Poslovna godina je vec zakljucana.")
             }
+        });
+    });
+
+    //TODO: Dovrsiti dobavljanje faktura za poslovnu godinu
+    $(document).on('click', '#kif', function (event) {
+        event.preventDefault();
+        var godinaKifId = $(this).attr("godina_kif");
+        $.ajax({
+            headers: {"Authorization": localStorage.getItem('token')},
+            url: '/api/fakture/godina?id='+ godinaKifId,
+            success: function (data) {
+                window.location.replace();
+            },
         });
     });
 });

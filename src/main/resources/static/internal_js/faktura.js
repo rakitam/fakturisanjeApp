@@ -8,18 +8,22 @@ $(document).ready(function(){
             url: '/api/fakture/'+ urlSearchParams['id'],
             headers: {"Authorization": localStorage.getItem('token')},
             success: function (data) {
-                //$('#brojFaktureId').val(data.brojFakture + '/' + data.poslovnaGodina.godina);
                 $('.brojFakture').text(data.brojFakture + '/' + data.poslovnaGodina.godina);
-                $('#datumFakture').val(!data.datumFakture? '': new Date(data.datumFakture).toLocaleString());
-                $('#datumValute').val(!data.datumValute? '':  new Date(data.datumValute).toLocaleString());
-                $('#datumStorniranja').val(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
-                $('#datumPlacanja').val(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
+                $('#datumFakture').text(!data.datumFakture? '': new Date(data.datumFakture).toLocaleString());
+                $('#datumValute').text(!data.datumValute? '':  new Date(data.datumValute).toLocaleString());
+                $('#datumStorniranja').text(!data.datumStorniranja?'':  new Date(data.datumStorniranja).toLocaleString());
+                $('#datumPlacanja').text(!data.datumPlacanja?'':  new Date(data.datumPlacanja).toLocaleString());
                 $('#iznosBezRabata').val(data.iznosBezRabata);
                 $('#ukupno').text(data.iznosZaPlacanje);
                 $('#poreskaOsnovica').text(data.osnovica);
                 $('#ukupanRabat').text(data.rabat);
                 $('#ukupanPDV').text(data.ukupanPdv);
-                $('#statusFakture').val(data.statusFakture);
+                $('#statusFakture').text(data.statusFakture);
+                $('#imePrezime').text(data.korisnik.imePrezime);
+                $('#brojTelefona').text(data.korisnik.brojTelefona);
+                $('#email').text(data.korisnik.email);
+                $('#brojTekucegRacuna').text(data.korisnik.tekuciRacun);
+                $('#adresaKorisnika').text(data.korisnik.adresaKorisnika);
                 if (data.statusFakture != 'FORMIRANA') {
                     $('#plati').hide();
                     $('#storniraj').hide();

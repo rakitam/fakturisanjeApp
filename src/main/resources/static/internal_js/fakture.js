@@ -43,7 +43,7 @@ $(document).ready(function () {
                         `<tr>
                             <td>${faktura.id}</td>                   
                             <td>${faktura.brojFakture}/${faktura.poslovnaGodina.godina}</td>
-                            <td>${faktura.korisnik}</td>
+                            <td>${faktura.korisnik.email}</td>
                             <td>${!faktura.datumFakture ? '' : new Date(faktura.datumFakture).toLocaleString()}</td>
                             <td>${!faktura.datumValute ? '' : new Date(faktura.datumValute).toLocaleString()}</td>
                             <td>${faktura.rabat}</td>
