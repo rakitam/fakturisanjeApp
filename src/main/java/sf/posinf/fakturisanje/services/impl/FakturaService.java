@@ -108,7 +108,7 @@ public class FakturaService implements FakturaServiceInterface {
 	@Override
 	public Boolean update(Faktura faktura) {
 		Faktura fakturaDB = fakturaRepository.getOne(faktura.getId());
-		if (fakturaDB.getStatusFakture() == StatusFakture.FORMIRANA || faktura.getStatusFakture() != StatusFakture.FORMIRANA) {
+		if (fakturaDB.getStatusFakture() == StatusFakture.FORMIRANA && faktura.getStatusFakture() != StatusFakture.STORNIRANA) {
 			fakturaDB.setStatusFakture(faktura.getStatusFakture());
 			save(fakturaDB);
 			return true;
