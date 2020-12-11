@@ -20,7 +20,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="naziv">
+                <input type="text" min="1" class="form-control" readonly id="naziv">
             </div>
         </div>
         <div class="col-4">
@@ -28,7 +28,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="adresaPreduzeca">
+                <input type="text" min="1" class="form-control" readonly id="adresaPreduzeca">
             </div>
         </div>
         <div class="col-4">
@@ -44,7 +44,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="PIB">
+                <input type="text" min="1" class="form-control" readonly id="PIB">
             </div>
         </div>
         <div class="col-4">
@@ -52,7 +52,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="telefon">
+                <input type="text" min="1" class="form-control" readonly id="telefon">
             </div>
         </div>
         <div class="col-4">
@@ -60,7 +60,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="email">
+                <input type="text" min="1" class="form-control" readonly id="email">
             </div>
         </div>
         <div class="col-4">
@@ -68,16 +68,18 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" min="1" class="form-control"  id="tekuciRacun">
+                <input type="text" min="1" class="form-control" readonly id="tekuciRacun">
             </div>
         </div>
         <div class="col-4">
         </div>
         <div class="col-6">
-            <button class="btn btn-primary" id="izmeniPodatke">Izmeni</button>
+            <button class="btn btn-primary" readonly id="modalIzmena">Izmeni</button>
         </div>
     </div>
 </div>
+<div id="modal_preduzeca"></div>
+<div id="izmena-preduzeca"></div>
 <div id="footer"></div>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>

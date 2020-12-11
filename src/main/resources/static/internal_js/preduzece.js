@@ -4,20 +4,23 @@ $(document).ready(function () {
 
      var preduzece = {}
 
-    // $("#update_preduzece").load("dialog/update_preduzece.html", function () {
-    //     $.ajax({
-    //         url: '/api/preduzeca/1',
-    //         headers: {'Authorization': localStorage.getItem('token')},
-    //         success: function (data) {
-    //             var preduzeceNaziv = $('#naziv');
-    //             preduzece = data;
-    //             for (var i=0; i<data.length; i++) {
-    //                 preduzeceNaziv.append(`<option value="${i}">${data[i].nazivPDV}</option>`);
-    //             }
-    //         }
-    //     });
-    // });
+    $("#modal_preduzeca").load("dialog/update_preduzece.html", function () {
 
+        $.ajax({
+            url: '/api/preduzeca/1',
+            headers: {'Authorization': localStorage.getItem('token')},
+            success: function (data) {
+                $("#nazivIzmena").val(data.naziv);
+                $("#adresaIzmena").val(data.adresaPreduzeca);
+                $("#telefonIzmena").val(data.telefon);
+                $("#tekuciRacunIzmena").val(data.tekuciRacun);
+                $("#telefonIzmena").val(data.telefon);
+                $("#emailIzmena").val(data.email);
+                $("#pibIzmena").val(data.pib);
+            }
+
+        });
+    });
     function getPreduzece(){
         $.ajax({
             url: '/api/preduzeca/1',
@@ -33,23 +36,31 @@ $(document).ready(function () {
                 $("#PIB").val(data.pib);
 
                 preduzece = data;
+
+
             }
+
         });
 
     }
+    if(localStorage.getItem('role')=="ROLE_KORISNIK") {
+        $('#modalIzmena').hide();
+    }
 
+    $('#modalIzmena').click(function (e) {
+        e.preventDefault();
+        $('#update_preduzece').modal('show');
+    });
+    $(document).on('click', '#potvrda_izmene_preduzeca', function () {
+        $('.alert').alert('close')
 
-
-    $('#izmeniPodatke').on("click", function(){
-
-        preduzece.naziv =  $("#naziv").val();
-        preduzece.adresaPreduzeca =  $("#adresaPreduzeca").val();
-        //preduzece.mesto.id =  $("#mesto").val();
-        preduzece.telefonPreduzeca =  $("#telefonPreduzeca").val();
+        preduzece.naziv =  $("#nazivIzmena").val();
+        preduzece.adresaPreduzeca =  $("#adresaIzmena").val();
+        preduzece.telefonPreduzeca =  $("#telefonIzmena").val();
         preduzece.tekuciRacun =  $("#tekuciRacun").val();
-        preduzece.telefon =  $("#telefon").val();
-        preduzece.email =  $("#email").val();
-        preduzece.PIB =  $("#PIB").val();
+        preduzece.telefon =  $("#telefonIzmena").val();
+        preduzece.email =  $("#emailIzmena").val();
+        preduzece.PIB =  $("#pibIzmena").val();
 
         $.ajax({
             method: 'PUT',
@@ -62,5 +73,7 @@ $(document).ready(function () {
             alert("Podaci uspešno izmenjeni.")
             getPreduzece()
         });
+
+        $('#update_preduzece').modal('hide');
     });
 });

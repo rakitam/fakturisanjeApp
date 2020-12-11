@@ -14,7 +14,7 @@ $(document).ready(function () {
                         `<tr>
                             <td>${godina.id}</td>
                             <td>${godina.godina}</td>
-                            <td>${godina.zakljucana}</td>
+                            <td>${godina.zakljucana ? "Otkljucana" : "Zakljucana"}</td>
                             <td>
                                 <td><button godina_id="${godina.id}" type=button id='zakljucaj' class='btn btn-outline-primary'>Zakljucaj</button></td>
                             </td>

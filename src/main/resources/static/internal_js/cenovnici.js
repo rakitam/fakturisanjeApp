@@ -15,6 +15,7 @@ $(document).ready(function(){
             }
         });
     });
+
     getCenovnici();
 
     function getCenovnici() {
@@ -30,7 +31,7 @@ $(document).ready(function(){
                             <td>${cenovnik.id}</td>
                             <td>${cenovnik.preduzece.naziv}</td>
                             <td>${cenovnik.datumVazenja}</td>
-                            <td>${cenovnik.aktivan}</td>
+                            <td>${cenovnik.aktivan ? "Aktivan" : "Neaktivan"}</td>
                             <td><a href='cenovnik.html?id=${cenovnik.id}' class='btn btn-outline-primary'>Pogledaj</a></td>
                         </tr>
                         `

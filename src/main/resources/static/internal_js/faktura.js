@@ -24,10 +24,6 @@ $(document).ready(function(){
                 $('#email').text(data.korisnik.email);
                 $('#brojTekucegRacuna').text(data.korisnik.tekuciRacun);
                 $('#adresaKorisnika').text(data.korisnik.adresaKorisnika);
-                if (data.statusFakture != 'FORMIRANA') {
-                    $('#plati').hide();
-                    $('#storniraj').hide();
-                }
                 if(localStorage.getItem('role')=="ROLE_KORISNIK") {
                     $('#storniraj').hide();
                 }
@@ -36,7 +32,9 @@ $(document).ready(function(){
                 }
                 if(data.statusFakture == 'STORNIRANA') {
                     $('#storniraj').hide();
+                    $('#plati').hide();
                 }
+
                 $.ajax({
                     url: '/api/fakture/'+ urlSearchParams['id']+'/stavke',
                     headers: {"Authorization": localStorage.getItem('token')},
