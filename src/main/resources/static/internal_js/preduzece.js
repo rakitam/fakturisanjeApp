@@ -4,19 +4,19 @@ $(document).ready(function () {
 
      var preduzece = {}
 
-    $("#update_preduzece").load("dialog/update_preduzece.html", function () {
-        $.ajax({
-            url: '/api/preduzeca/1',
-            headers: {'Authorization': localStorage.getItem('token')},
-            success: function (data) {
-                var preduzeceNaziv = $('#naziv');
-                preduzece = data;
-                for (var i=0; i<data.length; i++) {
-                    preduzeceNaziv.append(`<option value="${i}">${data[i].nazivPDV}</option>`);
-                }
-            }
-        });
-    });
+    // $("#update_preduzece").load("dialog/update_preduzece.html", function () {
+    //     $.ajax({
+    //         url: '/api/preduzeca/1',
+    //         headers: {'Authorization': localStorage.getItem('token')},
+    //         success: function (data) {
+    //             var preduzeceNaziv = $('#naziv');
+    //             preduzece = data;
+    //             for (var i=0; i<data.length; i++) {
+    //                 preduzeceNaziv.append(`<option value="${i}">${data[i].nazivPDV}</option>`);
+    //             }
+    //         }
+    //     });
+    // });
 
     function getPreduzece(){
         $.ajax({
