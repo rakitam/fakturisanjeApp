@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -102,6 +103,7 @@ public class PreduzeceController {
 	}
 
 	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity putPreduzece(@PathVariable long id, @Validated @RequestBody PreduzeceDto dto, Errors errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -117,43 +119,4 @@ public class PreduzeceController {
 		}
 		return ResponseEntity.ok(preduzeceMapper.preduzeceToDto(preduzece));
 	}
-
-	/*// Metoda za izvestaj KIF
-	@GetMapping("{id}/reports")
-	public ResponseEntity getReportsIzlazne(@RequestParam("godina") int godina, @PathVariable("id") long id) {
-		Preduzece preduzece = preduzeceServiceInterface.findOne(id);
-		List<Faktura> fakture = preduzeceServiceInterface.findAllByPreduzeceAndStatusFaktureAndPlaceno(id, "formirana",
-				true);
-		List<Faktura> faktureFinal = new ArrayList<Faktura>();
-		if (fakture == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		if (fakture.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		for (Faktura i : fakture) {
-			if (i.getPoslovnaGodina().getGodina() == godina) {
-				faktureFinal.add(i);
-			}
-		}
-		params.put("fakture", faktureFinal);
-		try {
-
-			String type = "izlazne-fakture";
-			JasperPrint jp = JasperFillManager.fillReport(
-					this.getClass().getResource("/" + type + ".jasper").openStream(), params, new JREmptyDataSource());
-			ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition",
-					"inline; filename=" + preduzece.getNaziv() + "-" + "izlazne-fakture" + ".pdf");
-			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-					.body(new InputStreamResource(bis));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-
-		}
-		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-	}*/
 }

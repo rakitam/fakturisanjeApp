@@ -49,7 +49,7 @@ $(document).ready(function () {
         if(localStorage.getItem('role')=="ROLE_ADMIN") {
             $('#rabat').prop('readonly', false);
         } else {
-            $('#inputId').prop('readonly', true);
+            $('#rabat').prop('readonly', true);
         }
         $('#kolicina').val(1);
         $('#rabat').val(0);
