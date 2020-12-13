@@ -17,6 +17,6 @@ public interface StavkaFaktureServiceInterface {
 
     Boolean delete(Long id);
 
-    void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat, String email);
+    void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat, String email, boolean admin);
 
 }

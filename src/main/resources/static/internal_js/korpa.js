@@ -1,16 +1,43 @@
 $(document).ready(function () {
+
+    if (localStorage.getItem("role") === 'ROLE_ADMIN') {
+        $.ajax({
+            url: '/api/korisnici',
+            headers: {'Authorization': localStorage.getItem('token')},
+            success: function (data) {
+                var korisnikSelect = $('#korisnik');
+                korisnikSelect.append(`<option value=""></option>`);
+                for (var i=0; i<data.length; i++) {
+                    if (localStorage.getItem('email') == data[i].email) {
+                        continue;
+                    }
+                    korisnikSelect.append(`<option value="${data[i].email}">${data[i].email}</option>`);
+                }
+            }
+        });
+    } else {
+        $('.admin-only').remove();
+    }
+
     var korpaTable = $('#korpa');
     getKorpa();
 
     function getKorpa() {
+
+        var korisnik = '';
+        var korisnikVal = $('#korisnik').val();
+        if (localStorage.getItem("role") === 'ROLE_ADMIN' && korisnikVal) {
+            korisnik = '/'+korisnikVal;
+        }
         $.ajax({
-            url: '/api/fakture/active',
+            url: '/api/fakture/active'+korisnik,
             headers: {'Authorization': localStorage.getItem('token')},
             success: function (faktura) {
                 $.ajax({
                     url: '/api/fakture/'+faktura.id+'/stavke',
                     headers: {'Authorization': localStorage.getItem('token')},
                     success: function (data) {
+                        korpaTable.empty();
                         for (const stavke of data) {
                             korpaTable.append(
                                 `<tr>
@@ -75,6 +102,11 @@ $(document).ready(function () {
                 window.location.reload();
             }
         });
+    });
+
+    $(document).on('change', '#korisnik', function (e) {
+        e.preventDefault();
+        getKorpa();
     });
 
 });

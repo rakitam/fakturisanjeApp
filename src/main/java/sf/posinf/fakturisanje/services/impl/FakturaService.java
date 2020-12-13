@@ -74,14 +74,23 @@ public class FakturaService implements FakturaServiceInterface {
 	}
 
 	@Override
-	public Faktura getActiveFakturaForKorisnik(Korisnik korisnik) {
-		Faktura faktura = fakturaRepository.findByKorisnik_IdAndStatusFakture(korisnik.getId(), StatusFakture.PORUDZBENICA);
+	public Faktura getActiveFakturaForKorisnik(Korisnik korisnik, boolean admin) {
+		Faktura faktura;
+		if(admin) {
+			faktura = fakturaRepository.findByKorisnik_IdAndStatusFakture(korisnik.getId(), StatusFakture.PORUDZBENICA_ADMIN);
+		} else {
+			faktura = fakturaRepository.findByKorisnik_IdAndStatusFakture(korisnik.getId(), StatusFakture.PORUDZBENICA);
+		}
 		if(faktura == null) {
 			PoslovnaGodina poslednjaPoslovnaGodina = poslovnaGodinaServiceInterface.findByZakljucanaIsFalse();
 			faktura = new Faktura();
 			faktura.setKorisnik(korisnik);
 			faktura.setBrojFakture(poslednjaPoslovnaGodina.getFakture().size() + 1);
-			faktura.setStatusFakture(StatusFakture.PORUDZBENICA);
+			if(admin) {
+				faktura.setStatusFakture(StatusFakture.PORUDZBENICA_ADMIN);
+			} else {
+				faktura.setStatusFakture(StatusFakture.PORUDZBENICA);
+			}
 			faktura.setIznosZaPlacanje(0);
 			faktura.setOsnovica(0);
 			faktura.setUkupanPdv(0);

@@ -1,6 +1,21 @@
 $(document).ready(function () {
 
-    $("#add-to-korpa").load("dialog/stavka.html");
+    $("#add-to-korpa").load("dialog/stavka.html", function () {
+        if(localStorage.getItem('role')=="ROLE_ADMIN") {
+            $.ajax({
+                url: '/api/korisnici',
+                headers: {'Authorization': localStorage.getItem('token')},
+                success: function (data) {
+                    var korisnikSelect = $('#korisnik');
+                    for (var i=0; i<data.length; i++) {
+                        korisnikSelect.append(`<option value="${data[i].email}">${data[i].email}</option>`);
+                    }
+                }
+            });
+        } else {
+            $('.admin-only').remove();
+        }
+    });
 
     var robaTable = $('#robaTable');
     var pagination = $('#pagination');
@@ -46,12 +61,8 @@ $(document).ready(function () {
     $(document).on('click', '.addToKorpa', function (e) {
         selectedRobaId = $(this).attr('roba_id')
         $('#stavka').modal('show')
-        if(localStorage.getItem('role')=="ROLE_ADMIN") {
-            $('#rabat').prop('readonly', false);
-        } else {
-            $('#rabat').prop('readonly', true);
-        }
         $('#kolicina').val(1);
+        $('#korisnik>option:eq(0)').prop('selected', true);
         $('#rabat').val(0);
         $('.alert').alert('close')
 
@@ -60,6 +71,10 @@ $(document).ready(function () {
     $(document).on('click', '#potvrda', function () {
         var kolicina = $('#kolicina').val();
         var rabat = $('#rabat').val();
+        var korisnik = $('#korisnik').val();
+        if (!rabat) {
+            rabat = 0;
+        }
         if (kolicina < 1) {
             $('#messages').append(
                 `<div class="alert alert-danger fade show" role="alert">Kolicina ne sme biti manja od 1</div>`);
@@ -72,9 +87,11 @@ $(document).ready(function () {
             setTimeout(function () {$('.alert').alert('close')}, 3000);
             return;
         }
-        dodavanjeUKorpu(kolicina, rabat);
-        console.log(rabat);
-        console.log(rabat.type);
+        if(localStorage.getItem('role') === 'ROLE_ADMIN') {
+            dodavanjeUKorpuAdmin(kolicina, rabat,korisnik)
+        } else {
+            dodavanjeUKorpu(kolicina, rabat);
+        }
         $('#stavka').modal('hide');
     });
 
@@ -89,6 +106,20 @@ $(document).ready(function () {
         $.ajax({
             method: 'POST',
             url: '/api/stavke-cenovnika/' + selectedRobaId + '/add-to-korpa?kolicina=' + kolicina + '&rabat=' + rabat,
+            headers: {'Authorization': localStorage.getItem('token')},
+            success: function (data) {
+                console.log('uspesno dodato u korpu');
+            }
+        });
+    }
+    function dodavanjeUKorpuAdmin(kolicina, rabat, korisnik) {
+        if (korisnik == localStorage.getItem('email')) {
+            dodavanjeUKorpu(kolicina, rabat);
+            return;
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/api/stavke-cenovnika/' + selectedRobaId + '/add-to-korpa/'+korisnik+'?kolicina=' + kolicina + '&rabat=' + rabat,
             headers: {'Authorization': localStorage.getItem('token')},
             success: function (data) {
                 console.log('uspesno dodato u korpu');

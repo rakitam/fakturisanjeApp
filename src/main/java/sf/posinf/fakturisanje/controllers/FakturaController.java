@@ -146,7 +146,7 @@ public class FakturaController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
-		fakture = fakture.stream().filter(faktura -> faktura.getStatusFakture()!=StatusFakture.PORUDZBENICA).collect(Collectors.toList());
+		fakture = fakture.stream().filter(faktura -> faktura.getStatusFakture()!=StatusFakture.PORUDZBENICA && faktura.getStatusFakture()!=StatusFakture.PORUDZBENICA_ADMIN).collect(Collectors.toList());
 
 		/* Convert the list above to JRBeanCollectionDataSource */
 		JRBeanCollectionDataSource faktureJasper = new JRBeanCollectionDataSource(fakture);
@@ -190,7 +190,18 @@ public class FakturaController {
 	@GetMapping("/active")
 	public ResponseEntity getActiveKorpa(Principal principal) {
 		Korisnik k = korisnikService.findByEmail(principal.getName());
-		Faktura faktura = fakturaServiceInterface.getActiveFakturaForKorisnik(k);
+		Faktura faktura = fakturaServiceInterface.getActiveFakturaForKorisnik(k, false);
+		if (faktura == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(fakturaMapper.fakturaToDto(faktura), HttpStatus.CREATED);
+	}
+
+	@GetMapping("/active/{korisnikEmail}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity getActiveKorpaByKorisnik(@PathVariable("korisnikEmail") String korisnikEmail) {
+		Korisnik k = korisnikService.findByEmail(korisnikEmail);
+		Faktura faktura = fakturaServiceInterface.getActiveFakturaForKorisnik(k, true);
 		if (faktura == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -215,7 +226,7 @@ public class FakturaController {
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		if (faktura == null)
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA)
+		else if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA && faktura.getStatusFakture() != StatusFakture.PORUDZBENICA_ADMIN)
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		//Datum fakture nikad nece biti manji od datuma valute, jer se prave u isto vreme
 		Date datumFakture = new Date();

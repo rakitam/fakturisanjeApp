@@ -99,7 +99,19 @@ public class StavkaCenovnikaController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		//Principal name = username
-		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat, principal.getName());
+		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat, principal.getName(), false);
+		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
+	}
+
+	@PostMapping(value = "/{id}/add-to-korpa/{korisnikEmail}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity addToKorpaByKorisnik(@PathVariable long id, @PathVariable("korisnikEmail") String korisnikEmail, @RequestParam(defaultValue = "1") int kolicina, @RequestParam(defaultValue = "0") int rabat) {
+		StavkaCenovnika stavka = stavkaCenovnikaService.findOne(id);
+		if (stavka == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		//Principal name = username
+		stavkaFaktureServiceInterface.createSfFromSc(stavka, kolicina, rabat, korisnikEmail, true);
 		return ResponseEntity.ok(stavkaCenovnikaMapper.stavkaCenovnikaToDto(stavka));
 	}
 }

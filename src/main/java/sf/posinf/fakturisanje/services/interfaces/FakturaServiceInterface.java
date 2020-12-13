@@ -21,7 +21,7 @@ public interface FakturaServiceInterface {
     //Faktura moze biti obrisana samo u fazi formiranja!!!
     Boolean storniraj(Faktura faktura);
 
-    Faktura getActiveFakturaForKorisnik(Korisnik korisnik);
+    Faktura getActiveFakturaForKorisnik(Korisnik korisnik, boolean admin);
 
     List<Faktura> findAllByPreduzece_IdAndPoslovnaGodina_Godina(long preduzeceId, int godina);
 

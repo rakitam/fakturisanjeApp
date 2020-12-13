@@ -45,7 +45,7 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	@Override
 	public StavkaFakture save(StavkaFakture stavkaFakture) {
 		Faktura faktura = stavkaFakture.getFaktura();
-		if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA) {
+		if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA && faktura.getStatusFakture() != StatusFakture.PORUDZBENICA_ADMIN) {
 			return null;
 		}
 		stavkaFaktureRepository.save(stavkaFakture);
@@ -60,7 +60,7 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 			return false;
 		}
 		Faktura faktura = sf.getFaktura();
-		if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA) {
+		if (faktura.getStatusFakture() != StatusFakture.PORUDZBENICA && faktura.getStatusFakture() != StatusFakture.PORUDZBENICA_ADMIN) {
 			return false;
 		}
 		sf.setObrisana(true);
@@ -70,11 +70,11 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	}
 
 	@Override
-	public void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat, String email) {
+	public void createSfFromSc(StavkaCenovnika stavka, int kolicina, int rabat, String email, boolean admin) {
 		StavkaFakture sf = new StavkaFakture();
 		PDV pdv = stavka.getRobaUsluga().getGrupaRobe().getPdv();
 		StopaPDV stopa = pdv_serviceInterface.findActiveStopaPdv(pdv.getId());
-		Faktura korpa = fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail(email));
+		Faktura korpa = fakturaServiceInterface.getActiveFakturaForKorisnik(korisnikServiceInterface.findByEmail(email), admin);
 		sf.setRobaUsluga(stavka.getRobaUsluga());
 		sf.setFaktura(korpa);
 		sf.setKolicina(kolicina);
