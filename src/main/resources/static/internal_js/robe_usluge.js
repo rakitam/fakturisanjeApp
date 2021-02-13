@@ -56,7 +56,6 @@ $(document).ready(function(){
         e.preventDefault();
         getRoba();
     });
-
      
     
     pagination.on("click","li.page-item", function (event) {

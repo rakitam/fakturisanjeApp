@@ -113,7 +113,6 @@ public class RobaUslugaController {
 	@PutMapping("/{id}")
 	public ResponseEntity putOne(@PathVariable("id") long id, @Validated @RequestBody RobaUslugaDto dto,
 			Errors errors) {
-
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
